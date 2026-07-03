@@ -152,6 +152,15 @@
                 <!-- interior trail lines -->
                 <g stroke="rgba(122,74,30,.22)" stroke-width="1" stroke-dasharray="3 7"><line x1="200" y1="300" x2="720" y2="360"/><line x1="300" y1="180" x2="560" y2="470"/><line x1="451" y1="120" x2="451" y2="490"/></g>
 
+                <!-- no-go roads for trucks & trailers -->
+                <sc-for list="{{ roads }}" as="rd" hint-placeholder-count="0">
+                  <g onClick="{{ rd.pick }}" style="cursor:pointer">
+                    <polyline points="{{ rd.pts }}" fill="none" stroke="#A83E23" stroke-width="{{ rd.w }}" stroke-dasharray="7 5" stroke-linecap="round" opacity=".8"/>
+                    <circle cx="{{ rd.mx }}" cy="{{ rd.my }}" r="{{ rd.r }}" fill="#A83E23" stroke="#F4EBD9" stroke-width="2" filter="url(#pinsh)"/>
+                    <text x="{{ rd.mx }}" y="{{ rd.myt }}" text-anchor="middle" fill="#FBF3E4" style="font:700 12px 'Archivo';pointer-events:none">!</text>
+                  </g>
+                </sc-for>
+
                 <!-- pins -->
                 <sc-for list="{{ pins }}" as="p" hint-placeholder-count="10">
                   <g onClick="{{ p.onSelect }}" style="cursor:pointer">
@@ -169,6 +178,10 @@
               <div onClick="{{ zoomOut }}" style="width:38px;height:38px;background:#FFFBF1;display:flex;align-items:center;justify-content:center;color:#B4472A;font:400 24px 'Bebas Neue';cursor:pointer;border-top:1px solid rgba(74,48,22,.12)">–</div>
             </div>
             <div style="position:absolute;left:16px;bottom:214px;font:600 8px 'Oswald';letter-spacing:1.5px;color:#a1774a;text-transform:uppercase;pointer-events:none">✦ Continental US · Trail Map</div>
+            <div onClick="{{ toggleNoGo }}" style="position:absolute;left:16px;bottom:238px;display:flex;align-items:center;gap:6px;background:{{ ngBg }};border:1px solid {{ ngBd }};border-radius:11px;padding:7px 11px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.12)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ ngFg }}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 21h20L12 3z"/><path d="M12 10v5M12 18.2v.1"/></svg>
+              <span style="font:600 9px 'Oswald';letter-spacing:1px;color:{{ ngFg }};text-transform:uppercase">No-go roads · {{ ngTxt }}</span>
+            </div>
           </div>
 
           <!-- LIST VIEW (per layer) -->
@@ -231,6 +244,42 @@
             </sc-for>
             </sc-if>
 
+            <!-- parking list -->
+            <sc-if value="{{ showParkList }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ parkListItems }}" as="it" hint-placeholder-count="6">
+              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+                <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#a8c4d4,#5b8aa4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e3d4f" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="13" height="10" rx="1.5"/><path d="M16 9h3.5l1.5 3v4h-5M6.5 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg></div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                    <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ it.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.fitFg }};background:{{ it.fitBg }};border:1px solid {{ it.fitBd }};border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ it.fitLabel }}</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.type }}</div>
+                  <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ it.spots }} rig spots · {{ it.fee }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.onFg }};margin-top:5px">{{ it.onTxt }}</div>
+                </div>
+              </div>
+            </sc-for>
+            </sc-if>
+
+            <!-- farriers list -->
+            <sc-if value="{{ showFarList }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ farListItems }}" as="it" hint-placeholder-count="6">
+              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+                <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#8a7a6a,#5E5248)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f0e2cc" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c4 0 7 3.2 7 7.5 0 3-1.4 5.3-2.6 6.8l-2.2-1.6c1-1.3 1.8-2.9 1.8-5.2 0-2.7-1.7-4.5-4-4.5s-4 1.8-4 4.5c0 2.3.8 3.9 1.8 5.2l-2.2 1.6C6.4 16.8 5 14.5 5 11.5 5 7.2 8 4 12 4z"/></svg></div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                    <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ it.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.emFg }};background:rgba(94,82,72,.1);border:1px solid rgba(94,82,72,.3);border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ it.emTxt }}</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.radius }}</div>
+                  <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ it.spec }}</div>
+                  <div style="font:600 10px 'Oswald';letter-spacing:.5px;color:#5E5248;margin-top:5px">{{ it.price }}</div>
+                </div>
+              </div>
+            </sc-for>
+            </sc-if>
+
           </div>
           </sc-if>
 
@@ -253,9 +302,9 @@
                 </div>
               </div>
             </div>
-            <div style="display:flex;gap:4px;margin-top:12px;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px">
-              <sc-for list="{{ layers }}" as="ly" hint-placeholder-count="3">
-                <div onClick="{{ ly.pick }}" style="flex:1;text-align:center;padding:8px 0;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1.2px;text-transform:uppercase;background:{{ ly.bg }};color:{{ ly.fg }};box-shadow:{{ ly.sh }}">{{ ly.label }}</div>
+            <div style="display:flex;gap:4px;margin-top:12px;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px;overflow-x:auto">
+              <sc-for list="{{ layers }}" as="ly" hint-placeholder-count="5">
+                <div onClick="{{ ly.pick }}" style="flex:1 0 auto;text-align:center;padding:8px 12px;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;background:{{ ly.bg }};color:{{ ly.fg }};box-shadow:{{ ly.sh }}">{{ ly.label }}</div>
               </sc-for>
             </div>
             <div style="display:flex;gap:6px;margin-top:11px;overflow:hidden">
@@ -327,6 +376,62 @@
                 <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ fSel.carries }} · {{ fSel.hours }}</div>
                 <div onClick="{{ openFeedSel }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:linear-gradient(180deg,#c39433,#a6771f);border-radius:10px;padding:8px 0;cursor:pointer">View store →</div>
               </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- selected parking card -->
+          <sc-if value="{{ hasParkSel }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
+            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+              <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#a8c4d4,#5b8aa4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e3d4f" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="13" height="10" rx="1.5"/><path d="M16 9h3.5l1.5 3v4h-5M6.5 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg></div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                  <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ pSel.name }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ pSel.fitFg }};background:{{ pSel.fitBg }};border:1px solid {{ pSel.fitBd }};border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ pSel.fitLabel }}</div>
+                </div>
+                <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ pSel.city }}, {{ pSel.state }} · {{ pSel.type }}</div>
+                <div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ pSel.onFg }};margin-top:6px">{{ pSel.onTxt }} · {{ pSel.spots }} rig spots</div>
+                <div onClick="{{ openParkSel }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:linear-gradient(180deg,#4a7f9d,#2F6F8F);border-radius:10px;padding:8px 0;cursor:pointer">View lot →</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- selected farrier card -->
+          <sc-if value="{{ hasFarSel }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
+            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+              <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#8a7a6a,#5E5248)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f0e2cc" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c4 0 7 3.2 7 7.5 0 3-1.4 5.3-2.6 6.8l-2.2-1.6c1-1.3 1.8-2.9 1.8-5.2 0-2.7-1.7-4.5-4-4.5s-4 1.8-4 4.5c0 2.3.8 3.9 1.8 5.2l-2.2 1.6C6.4 16.8 5 14.5 5 11.5 5 7.2 8 4 12 4z"/></svg></div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                  <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ farSel.name }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:#5E5248;background:rgba(94,82,72,.12);border:1px solid rgba(94,82,72,.35);border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">Farrier</div>
+                </div>
+                <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ farSel.city }}, {{ farSel.state }} · {{ farSel.radius }}</div>
+                <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ farSel.spec }} · {{ farSel.price }}</div>
+                <div onClick="{{ openFarSel }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:linear-gradient(180deg,#7a6a58,#5E5248);border-radius:10px;padding:8px 0;cursor:pointer">View farrier →</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- selected no-go road card -->
+          <sc-if value="{{ hasRoadSel }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
+            <div style="background:#FFFBF1;border:1.5px solid rgba(168,62,35,.45);border-radius:20px;padding:14px;box-shadow:0 18px 40px rgba(90,58,18,.24)">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+                <div style="display:flex;align-items:center;gap:9px">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#A83E23" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 21h20L12 3z"/><path d="M12 10v5M12 18.2v.1"/></svg>
+                  <div>
+                    <div style="font:400 20px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ rSel.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:1px;color:#A83E23;text-transform:uppercase;margin-top:2px">No-go · {{ rSel.reason }}</div>
+                  </div>
+                </div>
+                <div onClick="{{ dismissRoad }}" style="font:600 10px 'Oswald';letter-spacing:1px;color:#8A7458;cursor:pointer;text-transform:uppercase;padding:2px 4px">✕</div>
+              </div>
+              <div style="font:400 11px/1.5 'Archivo';color:#6b543a;margin-top:8px">{{ rSel.detail }}</div>
+              <div style="font:600 10px 'Oswald';letter-spacing:.5px;color:#3F6B32;text-transform:uppercase;margin-top:8px">↳ {{ rSel.detour }}</div>
             </div>
           </div>
           </sc-if>
@@ -558,6 +663,94 @@
         </div>
         </sc-if>
 
+        <!-- ============ PARKING DETAIL ============ -->
+        <sc-if value="{{ isParking }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+          <div style="position:relative;height:150px;background:linear-gradient(160deg,#a8c4d4,#4a7f9d)">
+            <div style="position:absolute;inset:0;opacity:.4;background-image:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,251,241,.35) 42px 45px)"></div>
+            <div onClick="{{ backFromPark }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+            <div onClick="{{ toggleSavePark }}" style="position:absolute;top:56px;right:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ pdvSaveFill }}" stroke="#B4472A" stroke-width="2"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></div>
+            <div style="position:absolute;left:18px;bottom:14px;display:flex;align-items:center;gap:11px">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1e3d4f" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="6" width="13" height="10" rx="1.5"/><path d="M16 9h3.5l1.5 3v4h-5M6.5 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg>
+              <div style="font:600 9px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#1e3d4f;background:rgba(255,251,241,.7);border-radius:20px;padding:4px 9px">{{ pdv.type }}</div>
+            </div>
+          </div>
+          <div style="padding:14px 18px 120px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+              <div style="font:400 34px/.9 'Bebas Neue';color:#2C2118;letter-spacing:.6px">{{ pdv.name }}</div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ pdv.fitFg }};background:{{ pdv.fitBg }};border:1px solid {{ pdv.fitBd }};border-radius:20px;padding:4px 9px;white-space:nowrap;flex:none;margin-top:6px">{{ pdv.fitLabel }}</div>
+            </div>
+            <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ pdv.city }}, {{ pdv.state }} · {{ pdv.hours }}</div>
+
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <div style="flex:1;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#B4472A">{{ pdv.spots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Rig spots</div></div>
+              <div style="flex:1;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#B4472A">{{ pdv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Max ft</div></div>
+              <div style="flex:1.4;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 15px/1.5 'Bebas Neue';color:#B4472A">{{ pdv.fee }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Cost</div></div>
+            </div>
+
+            <div style="margin-top:12px;background:{{ pdv.fitPanelBg }};border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
+              <div style="font:600 12px 'Oswald';letter-spacing:.8px;text-transform:uppercase;color:{{ pdv.fitFg }}">{{ pdv.fitHead }}</div>
+              <div style="font:400 11px/1.5 'Archivo';color:#6b543a;margin-top:3px">{{ pdv.fitDetail }}</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Overnight</div><div style="font:600 11px 'Archivo';color:{{ pdv.onFg }};margin-top:2px">{{ pdv.onTxt }}</div></div>
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Parking</div><div style="font:600 11px 'Archivo';color:{{ pdv.pullFg }};margin-top:2px">{{ pdv.pullTxt }}</div></div>
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Lighting</div><div style="font:600 11px 'Archivo';color:{{ pdv.litFg }};margin-top:2px">{{ pdv.litTxt }}</div></div>
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Grub</div><div style="font:600 11px 'Archivo';color:#2C2118;margin-top:2px">{{ pdv.food }}</div></div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #2F6F8F;border-radius:12px;padding:12px 14px">
+              <div style="font:400 16px 'Bebas Neue';color:#2F6F8F">✦</div>
+              <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ pdv.note }}</div>
+            </div>
+
+            <div onClick="{{ toggleSavePark }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#4a7f9d,#2F6F8F);cursor:pointer">♥ SAVE THIS LOT</div>
+            <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Lot rules change with new managers — a quick call saves a knock on the door at 2 AM.</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ FARRIER DETAIL ============ -->
+        <sc-if value="{{ isFarrier }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+          <div style="position:relative;height:150px;background:linear-gradient(160deg,#8a7a6a,#4e443c)">
+            <div style="position:absolute;inset:0;opacity:.35;background-image:repeating-linear-gradient(45deg,transparent 0 26px,rgba(240,226,204,.18) 26px 28px)"></div>
+            <div onClick="{{ backFromFar }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+            <div onClick="{{ toggleSaveFar }}" style="position:absolute;top:56px;right:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ fardvSaveFill }}" stroke="#B4472A" stroke-width="2"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></div>
+            <div style="position:absolute;left:18px;bottom:14px;display:flex;align-items:center;gap:11px">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f0e2cc" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c4 0 7 3.2 7 7.5 0 3-1.4 5.3-2.6 6.8l-2.2-1.6c1-1.3 1.8-2.9 1.8-5.2 0-2.7-1.7-4.5-4-4.5s-4 1.8-4 4.5c0 2.3.8 3.9 1.8 5.2l-2.2 1.6C6.4 16.8 5 14.5 5 11.5 5 7.2 8 4 12 4z"/></svg>
+              <div style="font:600 9px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#f0e2cc;background:rgba(46,38,32,.55);border-radius:20px;padding:4px 9px">{{ fardv.yrs }} yrs under horses</div>
+            </div>
+          </div>
+          <div style="padding:14px 18px 120px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+              <div style="font:400 34px/.9 'Bebas Neue';color:#2C2118;letter-spacing:.6px">{{ fardv.name }}</div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ fardv.emFg }};background:{{ fardv.emBg }};border:1px solid {{ fardv.emBd }};border-radius:20px;padding:4px 9px;white-space:nowrap;flex:none;margin-top:6px">{{ fardv.emTxt }}</div>
+            </div>
+            <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ Based {{ fardv.city }}, {{ fardv.state }} · {{ fardv.radius }}</div>
+
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.phone }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rates</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.price }}</div></div></div>
+            </div>
+
+            <div style="margin-top:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
+              <div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Specialty</div>
+              <div style="font:600 13px 'Archivo';color:#2C2118;margin-top:3px">{{ fardv.spec }}</div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #5E5248;border-radius:12px;padding:12px 14px">
+              <div style="font:400 16px 'Bebas Neue';color:#5E5248">✦</div>
+              <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ fardv.note }}</div>
+            </div>
+
+            <div onClick="{{ toggleSaveFar }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#7a6a58,#5E5248);cursor:pointer">♥ SAVE THIS FARRIER</div>
+            <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">A thrown shoe two days before a jackpot is an emergency — save a name in every town you haul through.</div>
+          </div>
+        </div>
+        </sc-if>
+
         <!-- ============ SAVED ============ -->
         <sc-if value="{{ isSaved }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
@@ -581,7 +774,13 @@
         <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:60px 20px 10px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">TRAIL RUN</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">{{ tripStops }} stops · {{ tripMiles }} mi loop</div></div>
 
-          <div style="margin:8px 16px 0;position:relative;height:180px;border-radius:18px;overflow:hidden;border:1px solid rgba(74,48,22,.14);background:#e6d3ab">
+          <div onClick="{{ startQuiz }}" style="margin:4px 16px 0;display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,#C25232,#A83E23);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:0 10px 24px rgba(168,62,35,.32)">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FBF3E4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2zM5 16l.6 1.5 1.5.6-1.5.6L5 20.2l-.6-1.5-1.5-.6 1.5-.6L5 16z"/></svg>
+            <div style="flex:1"><div style="font:400 21px/.95 'Bebas Neue';color:#FBF3E4;letter-spacing:1px">PLAN MY TRAIL RUN</div><div style="font:500 10px 'Archivo';color:rgba(251,243,228,.85);margin-top:2px">Quick quiz → the best schedule for your rig &amp; budget</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBF3E4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          </div>
+
+          <div style="margin:12px 16px 0;position:relative;height:180px;border-radius:18px;overflow:hidden;border:1px solid rgba(74,48,22,.14);background:#e6d3ab">
             <svg viewBox="0 0 400 180" style="width:100%;height:100%">
               <rect width="400" height="180" fill="#e6d3ab"/>
               <g stroke="rgba(122,74,30,.12)"><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="100" y1="0" x2="100" y2="180"/><line x1="200" y1="0" x2="200" y2="180"/><line x1="300" y1="0" x2="300" y2="180"/></g>
@@ -609,7 +808,12 @@
         <sc-if value="{{ isEvents }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:60px 20px 10px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">SEASON FEED</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">Summer 2026 · sorted by date</div></div>
-          <div onClick="{{ toggleEventFit }}" style="margin:6px 20px 0;display:inline-flex;align-items:center;gap:8px;cursor:pointer">
+          <div style="display:flex;gap:4px;margin:10px 20px 0;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px">
+            <sc-for list="{{ eventKinds }}" as="ek" hint-placeholder-count="3">
+              <div onClick="{{ ek.pick }}" style="flex:1;text-align:center;padding:8px 0;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1.2px;text-transform:uppercase;background:{{ ek.bg }};color:{{ ek.fg }};box-shadow:{{ ek.sh }}">{{ ek.label }}</div>
+            </sc-for>
+          </div>
+          <div onClick="{{ toggleEventFit }}" style="margin:10px 20px 0;display:inline-flex;align-items:center;gap:8px;cursor:pointer">
             <div style="width:42px;height:24px;border-radius:13px;background:{{ efTrack }};position:relative;flex:none"><div style="position:absolute;top:3px;left:{{ efDot }};width:18px;height:18px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 1px 4px rgba(60,35,12,.3)"></div></div>
             <span style="font:500 11px 'Archivo';color:#6b543a">Only venues that fit my rig</span>
           </div>
@@ -617,7 +821,7 @@
             <sc-for list="{{ eventFeed }}" as="e" hint-placeholder-count="6">
               <div onClick="{{ e.open }}" style="display:flex;gap:13px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:15px;padding:12px;cursor:pointer;box-shadow:0 4px 12px rgba(120,80,30,.07)">
                 <div style="text-align:center;flex:none;width:48px;border-right:1px solid rgba(74,48,22,.12);padding-right:11px"><div style="font:400 26px/.85 'Bebas Neue';color:#B4472A">{{ e.day }}</div><div style="font:600 8px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">{{ e.mon }}</div></div>
-                <div style="flex:1;min-width:0"><div style="font:400 19px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.3px">{{ e.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">{{ e.venue }} · ◈ {{ e.city }}, {{ e.state }}</div></div>
+                <div style="flex:1;min-width:0"><div style="font:400 19px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.3px">{{ e.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">{{ e.venue }} · ◈ {{ e.city }}, {{ e.state }}</div><div style="font:600 10px 'Oswald';letter-spacing:.5px;color:#986412">{{ e.moneyTxt }}</div></div>
                 <div style="align-self:center;font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ e.fitFg }};background:{{ e.fitBg }};border:1px solid {{ e.fitBd }};border-radius:20px;padding:3px 8px;flex:none">{{ e.fitLabel }}</div>
               </div>
             </sc-for>
@@ -702,6 +906,114 @@
 
       </div>
 
+      <!-- ============ PLAN QUIZ ============ -->
+      <sc-if value="{{ isQuiz }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 78% at 50% -6%,#f6ecd6,#eaddc2 62%);animation:screenIn .35s ease both;display:flex;flex-direction:column">
+        <div style="padding:56px 20px 0;flex:none">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div onClick="{{ backFromQuiz }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ qStepDots }}" as="d" hint-placeholder-count="4"><div style="width:26px;height:5px;border-radius:3px;background:{{ d.bg }}"></div></sc-for>
+            </div>
+            <div style="width:38px"></div>
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:7px;font:600 10px 'Oswald';letter-spacing:3px;color:#B4472A;text-transform:uppercase;margin-top:22px"><span style="width:22px;height:2px;background:#B4472A;display:inline-block"></span>Plan my trail run</div>
+          <div style="font:400 40px/.9 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">{{ qTitle }}</div>
+          <div style="font:400 12px/1.5 'Archivo';color:#7A6247;margin-top:7px">{{ qSub }}</div>
+        </div>
+
+        <div style="flex:1;overflow-y:auto;padding:18px 20px 10px">
+          <sc-if value="{{ qStep0 }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ qBudgetOpts }}" as="o" hint-placeholder-count="4">
+                <div onClick="{{ o.pick }}" style="display:flex;justify-content:space-between;align-items:center;background:{{ o.bg }};border:1px solid {{ o.bd }};border-radius:14px;padding:14px 16px;cursor:pointer"><span style="font:400 24px 'Bebas Neue';letter-spacing:.5px;color:{{ o.fg }}">{{ o.t }}</span><span style="font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ o.fg }};opacity:.85">{{ o.s }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ qStep1 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ qCountOpts }}" as="o" hint-placeholder-count="4">
+                <div onClick="{{ o.pick }}" style="display:flex;justify-content:space-between;align-items:center;background:{{ o.bg }};border:1px solid {{ o.bd }};border-radius:14px;padding:14px 16px;cursor:pointer"><span style="font:400 24px 'Bebas Neue';letter-spacing:.5px;color:{{ o.fg }}">{{ o.t }}</span><span style="font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ o.fg }};opacity:.85">{{ o.s }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ qStep2 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-wrap:wrap;gap:9px">
+              <sc-for list="{{ qPriOpts }}" as="o" hint-placeholder-count="5">
+                <div onClick="{{ o.pick }}" style="background:{{ o.bg }};border:1px solid {{ o.bd }};border-radius:22px;padding:12px 18px;cursor:pointer;font:600 12px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ o.fg }}">{{ o.t }}</div>
+              </sc-for>
+            </div>
+            <div style="font:400 10px 'Archivo';color:#9c855f;margin-top:12px">Tap all that apply — picks with more checked boxes float to the top of your run.</div>
+          </sc-if>
+          <sc-if value="{{ qStep3 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ qLegOpts }}" as="o" hint-placeholder-count="3">
+                <div onClick="{{ o.pick }}" style="display:flex;justify-content:space-between;align-items:center;background:{{ o.bg }};border:1px solid {{ o.bd }};border-radius:14px;padding:14px 16px;cursor:pointer"><span style="font:400 24px 'Bebas Neue';letter-spacing:.5px;color:{{ o.fg }}">{{ o.t }}</span><span style="font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ o.fg }};opacity:.85">{{ o.s }}</span></div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="flex:none;padding:0 20px 30px">
+          <div style="font:600 9px 'Oswald';letter-spacing:1.2px;color:#9c855f;text-transform:uppercase;text-align:center;margin-bottom:10px">{{ qRigNote }}</div>
+          <div style="display:flex;gap:10px">
+            <sc-if value="{{ qShowBack }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ quizBack }}" style="flex:1;text-align:center;padding:14px 0;border-radius:14px;cursor:pointer;font:400 19px 'Bebas Neue';letter-spacing:1.5px;color:#8A7458;background:#F0E6D2;border:1px solid rgba(74,48,22,.16)">← BACK</div>
+            </sc-if>
+            <div onClick="{{ quizNext }}" style="flex:2;text-align:center;padding:14px 0;border-radius:14px;cursor:pointer;font:400 19px 'Bebas Neue';letter-spacing:1.5px;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23);box-shadow:0 8px 20px rgba(168,62,35,.3)">{{ qNextTxt }}</div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ============ PLAN RESULT ============ -->
+      <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="padding:56px 20px 0">
+          <div onClick="{{ backFromPlan }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+          <div style="display:inline-flex;align-items:center;gap:7px;font:600 10px 'Oswald';letter-spacing:3px;color:#B4472A;text-transform:uppercase;margin-top:18px"><span style="width:22px;height:2px;background:#B4472A;display:inline-block"></span>Built for your rig</div>
+          <div style="font:400 44px/.88 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">YOUR<br><span style="color:#B4472A">TRAIL RUN</span></div>
+          <div style="font:600 11px 'Oswald';letter-spacing:1.5px;color:#7A6247;text-transform:uppercase;margin-top:8px">{{ planSummary }}</div>
+          <div style="display:inline-block;font:600 10px 'Oswald';letter-spacing:.8px;color:#3F6B32;background:rgba(94,122,78,.14);border:1px solid rgba(94,122,78,.35);border-radius:20px;padding:5px 11px;margin-top:9px;text-transform:uppercase">{{ planBudgetLeft }}</div>
+        </div>
+
+        <sc-if value="{{ planEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="margin:24px 20px;text-align:center;padding:36px 20px;border:1.5px dashed rgba(168,62,35,.3);border-radius:18px;background:#FCF5E6">
+            <div style="font:400 12px 'Archivo';color:#7A6247">Nothing fits those answers — the budget or haul limit is too tight for events that take your rig.</div>
+            <div style="font:400 11px 'Archivo';color:#9c855f;margin-top:3px">Loosen the reins and run the quiz again.</div>
+          </div>
+        </sc-if>
+
+        <div style="padding:20px 16px 8px;display:flex;flex-direction:column;gap:0">
+          <sc-for list="{{ planStops }}" as="s" hint-placeholder-count="4">
+            <div style="display:flex;gap:13px">
+              <div style="display:flex;flex-direction:column;align-items:center;flex:none;width:26px"><div style="width:26px;height:26px;border-radius:50%;background:#B4472A;color:#FBF3E4;font:400 16px 'Bebas Neue';display:flex;align-items:center;justify-content:center">{{ s.num }}</div><div style="flex:1;width:2px;background:{{ s.line }};margin:2px 0"></div></div>
+              <div style="flex:1;padding-bottom:14px">
+                <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:14px;padding:12px 14px;box-shadow:0 3px 9px rgba(120,80,30,.06)">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+                    <div style="font:400 19px/.95 'Bebas Neue';color:#2C2118">{{ s.name }}</div>
+                    <div style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ s.kindFg }};background:{{ s.kindBg }};border:1px solid {{ s.kindBd }};border-radius:20px;padding:3px 8px;flex:none">{{ s.kindTxt }}</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">{{ s.day }} {{ s.mon }} · {{ s.venue }} · ◈ {{ s.city }}, {{ s.state }}</div>
+                  <div style="display:flex;gap:5px;margin-top:8px;flex-wrap:wrap">
+                    <div style="font:400 14px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">⇢ {{ s.legTxt }}</div>
+                    <div style="font:400 14px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">{{ s.costTxt }} est.</div>
+                  </div>
+                  <div style="font:600 9.5px 'Oswald';letter-spacing:.5px;color:#986412;margin-top:6px">{{ s.moneyTxt }} · {{ s.nightsTxt }}</div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="padding:0 20px 40px">
+          <div onClick="{{ savePlan }}" style="text-align:center;padding:15px 0;border-radius:14px;cursor:pointer;font:400 21px 'Bebas Neue';letter-spacing:2px;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23);box-shadow:0 8px 20px rgba(168,62,35,.32)">SAVE TO TRIP PLANNER →</div>
+          <div onClick="{{ retakeQuiz }}" style="text-align:center;padding:13px 0;border-radius:14px;cursor:pointer;font:400 17px 'Bebas Neue';letter-spacing:1.5px;color:#8A7458;background:#F0E6D2;border:1px solid rgba(74,48,22,.16);margin-top:9px">RETAKE THE QUIZ</div>
+          <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:10px;text-align:center">Estimates figure diesel at $0.85/mi, $45 rodeo entries, and a $52 layover night on hauls past 250 mi.</div>
+        </div>
+      </div>
+      </sc-if>
+
       <!-- BOTTOM NAV -->
       <sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
       <div style="position:absolute;left:0;right:0;bottom:0;z-index:50;height:88px;background:linear-gradient(0deg,#FCF5E6 66%,rgba(252,245,230,.82) 100%);border-top:1px solid rgba(74,48,22,.12);display:flex;align-items:flex-start;padding:10px 6px 0;backdrop-filter:blur(8px);box-shadow:0 -6px 18px rgba(120,80,30,.08)">
@@ -751,9 +1063,18 @@ class Component extends DCLogic {
     lodgeDetailId: null,
     selFeedId: null,
     feedDetailId: null,
+    selParkId: null,
+    parkDetailId: null,
+    selFarId: null,
+    farDetailId: null,
+    noGoOn: true,
+    selRoadId: null,
     saved: {},
     trip: [],
     eventFitOnly: false,
+    eventKind: 'all',
+    quiz: { step: 0, budget: 1500, count: 4, priorities: { payouts: true, short: true }, maxLeg: 600 },
+    plan: null,
     checkedAt: null,
     nudged: {},
     sosOn: false,
@@ -794,6 +1115,46 @@ class Component extends DCLogic {
     { id:'f_oca', name:'Ocala Breeders Feed', city:'Ocala', state:'FL', x:750, y:460, chain:'Local', hay:true, shavings:true, feed:true, tack:true, propane:false, vet:true, hours:'Daily 7a–7p', pull:true, phone:'(352) 555-0154', dist:3 }
   ];
 
+  parkingSpots = [
+    { id:'p_ftw', name:"Buc-ee's Fort Worth", city:'Fort Worth', state:'TX', x:530, y:462, type:'Travel stop', spots:15, maxLengthFt:70, pullThrough:true, overnight:false, lit:true, food:'Brisket sandwiches & 40 fuel pumps', fee:'Free · day only', hours:'24/7', note:'Massive pull-through rows on the east side. No overnight — they enforce it.' },
+    { id:'p_ama', name:"Love's Travel Stop #288", city:'Amarillo', state:'TX', x:446, y:396, type:'Travel stop', spots:22, maxLengthFt:75, pullThrough:true, overnight:true, lit:true, food:"Subway & Godfather's inside", fee:'Free', hours:'24/7', note:'RV lanes behind the truck lot. Diesel + DEF at every lane, dump station on site.' },
+    { id:'p_gut', name:'Walmart Supercenter lot', city:'Guthrie', state:'OK', x:552, y:388, type:'Big-box lot', spots:8, maxLengthFt:60, pullThrough:false, overnight:true, lit:true, food:'McDonald’s in the lot corner', fee:'Free · ask manager', hours:'6a–11p store', note:'Park the far west rows. Managers are horse-friendly during Lazy E weeks.' },
+    { id:'p_chy', name:'Sagebrush Plaza (McD + strip)', city:'Cheyenne', state:'WY', x:462, y:248, type:'Fast food lot', spots:6, maxLengthFt:45, pullThrough:true, overnight:false, lit:true, food:'McDonald’s, Taco John’s, coffee hut', fee:'Free · 4 hr max', hours:'5a–12a', note:'Oversized angle spots behind the McDonald’s. Easy on/off I-25 during Frontier Days.' },
+    { id:'p_wck', name:'Cactus Wren Casino lot', city:'Wickenburg', state:'AZ', x:243, y:420, type:'Casino lot', spots:30, maxLengthFt:80, pullThrough:true, overnight:true, lit:true, food:'24hr diner comps with players card', fee:'Free with check-in', hours:'24/7', note:'Security patrols all night. Quietest far corner faces the wash.' },
+    { id:'p_slc', name:'Pilot Flying J #467', city:'Salt Lake City', state:'UT', x:306, y:286, type:'Travel stop', spots:12, maxLengthFt:75, pullThrough:true, overnight:true, lit:true, food:'Denny’s attached', hours:'24/7', fee:'Free · reserve $18', note:'Reserve a spot on rodeo weekends — lot fills by 8 PM.' },
+    { id:'p_rap', name:'Fairgrounds overflow lot', city:'Rapid City', state:'SD', x:476, y:230, type:'Overflow lot', spots:40, maxLengthFt:90, pullThrough:true, overnight:true, lit:false, food:'Food trucks during Roundup week', fee:'$10/night', hours:'Gate 6a–10p', note:'Water spigots on the north fence. Honor-box after hours.' },
+    { id:'p_rno', name:'Sierra Sizzler big-rig lot', city:'Reno', state:'NV', x:170, y:322, type:'Fast food lot', spots:5, maxLengthFt:50, pullThrough:false, overnight:false, lit:true, food:'Burgers till 2a', fee:'Free with purchase', hours:'10a–2a', note:'Back-in only along the fence. Tight if the lot is busy — scout it first.' }
+  ];
+
+  farriers = [
+    { id:'fr_wea', name:'Colt Herrera Farrier Co.', city:'Weatherford', state:'TX', x:504, y:466, phone:'(817) 555-0177', radius:'Travels 60 mi', spec:'Rope & barrel horses', price:'$50 trim · $150 shoes', emergency:true, yrs:18, note:'Books up during Stockyards weeks — text a video of the hoof for triage.' },
+    { id:'fr_gut', name:'Red Dirt Hoof Care', city:'Guthrie', state:'OK', x:540, y:402, phone:'(405) 555-0139', radius:'Travels 45 mi', spec:'Performance shoeing, corrective', price:'$45 trim · $140 shoes', emergency:true, yrs:12, note:'Stationed at Lazy E during big weekends. Finds you in the barn aisles.' },
+    { id:'fr_chy', name:'High Plains Forge', city:'Cheyenne', state:'WY', x:450, y:260, phone:'(307) 555-0164', radius:'Travels 80 mi', spec:'Ranch & rodeo stock', price:'$40 trim · $130 shoes', emergency:false, yrs:25, note:'Cash or check. Leave a voicemail — he returns calls at lunch and 6 PM.' },
+    { id:'fr_slc', name:'Wasatch Hoofworks', city:'Salt Lake City', state:'UT', x:294, y:296, phone:'(801) 555-0112', radius:'Travels 35 mi', spec:'Sport horses, glue-ons', price:'$55 trim · $165 shoes', emergency:true, yrs:9, note:'Only glue-on specialist within 200 mi. Book 3 days out minimum.' },
+    { id:'fr_wck', name:'Sonoran Anvil', city:'Wickenburg', state:'AZ', x:256, y:410, phone:'(928) 555-0186', radius:'Travels 50 mi', spec:'Team roping horses', price:'$45 trim · $135 shoes', emergency:true, yrs:15, note:'Lives at Rancho Rio all jackpot season. Ask for Manny at the office.' },
+    { id:'fr_oca', name:'Cypress Forge & Farrier', city:'Ocala', state:'FL', x:744, y:460, phone:'(352) 555-0129', radius:'Travels 40 mi', spec:'All-around, hot shoeing', price:'$50 trim · $145 shoes', emergency:false, yrs:20, note:'Runs a Saturday walk-in clinic at the feed store, first-come.' },
+    { id:'fr_rno', name:'Silver State Shoeing', city:'Reno', state:'NV', x:182, y:312, phone:'(775) 555-0153', radius:'Travels 70 mi', spec:'Rodeo stock, pads & rim shoes', price:'$48 trim · $150 shoes', emergency:true, yrs:14, note:'Emergency line answered during Reno Rodeo week, day or night.' }
+  ];
+
+  noGoRoads = [
+    { id:'rd_raton', name:'US-64 Cimarron Canyon', reason:'9% grade · hairpins', detail:'Runaway-truck territory. Combos over 30ft lose brakes here every season — stay on I-25 over Raton.', detour:'Detour: I-25 → US-87, adds 22 mi', pts:'420,320 432,340 424,362' },
+    { id:'rd_ftw', name:'FM-2871 River Bridge', reason:'12′6″ low bridge', detail:'Historic truss bridge west of the Stockyards. A 13ft LQ will not clear — two rigs peeled their ACs open last year.', detour:'Detour: Loop 820 → White Settlement Rd', pts:'498,458 512,470' },
+    { id:'rd_rno', name:'NV-341 Geiger Grade', reason:'Hairpins · no trailers over 24ft', detail:'Posted trailer restriction. Switchbacks with no shoulder and a 600ft drop — do not trust GPS shortcuts to Virginia City.', detour:'Detour: US-395 → USA Pkwy, adds 18 mi', pts:'172,306 184,318 178,332' },
+    { id:'rd_slc', name:'UT-92 Alpine Loop', reason:'20ft length limit', detail:'Seasonal scenic loop with a hard 20ft limit. Rangers turn rigs around at the fee station — no place to flip a gooseneck.', detour:'Detour: US-189 through Provo Canyon', pts:'300,278 312,290 322,286' },
+    { id:'rd_ok', name:'US-77 Turner Falls hill', reason:'8% grade · brake burnout', detail:'Long descent into the Arbuckles. Loaded 6-horse rigs cook their brakes — use I-35 exit 51 instead.', detour:'Detour: I-35 south, adds 6 mi', pts:'548,406 556,424' }
+  ];
+
+  jackpots = [
+    { vid:'ftw', d:'2026-06-19', name:'Thursday Night Jackpot Roping', kind:'jackpot', fee:50, payout:2800 },
+    { vid:'rio', d:'2026-07-08', name:'#10.5 Roping Jackpot', kind:'jackpot', fee:80, payout:4200 },
+    { vid:'laz', d:'2026-07-15', name:'Open 4D Barrel Jackpot', kind:'jackpot', fee:60, payout:3500 },
+    { vid:'chy', d:'2026-07-22', name:'Cheyenne #9 Slide Jackpot', kind:'jackpot', fee:75, payout:5000 },
+    { vid:'bhs', d:'2026-07-12', name:'Hills Breakaway Jackpot', kind:'jackpot', fee:40, payout:1800 },
+    { vid:'ssp', d:'2026-06-07', name:'Sunday Muley Roping', kind:'jackpot', fee:55, payout:2400 }
+  ];
+
+  allEvents(v) { return v.events.concat(this.jackpots.filter(j => j.vid === v.id)); }
+
   MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 
   buddies = [
@@ -831,12 +1192,80 @@ class Component extends DCLogic {
   setRig(k, v) { this.setState(st => ({ rig: { ...st.rig, [k]: v } }), () => this.updateRig()); }
   selectVenue(id) { this.setState({ selectedId: id }); }
   openVenue(id) { this.setState({ detailId: id, screen: 'venue' }); }
-  setLayer(l) { this.setState({ layer: l, selectedId: null, selLodgeId: null, selFeedId: null }); }
-  setMapView(v) { this.setState({ mapView: v, selectedId: null, selLodgeId: null, selFeedId: null }); }
+  setLayer(l) { this.setState({ layer: l, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selRoadId: null }); }
+  setMapView(v) { this.setState({ mapView: v, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selRoadId: null }); }
   selectLodge(id) { this.setState({ selLodgeId: id }); }
   openLodge(id) { this.setState({ lodgeDetailId: id, screen: 'lodge' }); }
   selectFeed(id) { this.setState({ selFeedId: id }); }
   openFeed(id) { this.setState({ feedDetailId: id, screen: 'feed' }); }
+  selectPark(id) { this.setState({ selParkId: id }); }
+  openPark(id) { this.setState({ parkDetailId: id, screen: 'parking' }); }
+  selectFar(id) { this.setState({ selFarId: id }); }
+  openFar(id) { this.setState({ farDetailId: id, screen: 'farrier' }); }
+  selectRoad(id) { this.setState({ selRoadId: id, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null }); }
+
+  parkFits(p) { const r = this.state.rig; return p.maxLengthFt >= r.lengthFt && (!this.state.filters.requirePull || p.pullThrough); }
+  parkCardVals(p) { const ok = this.parkFits(p);
+    return { id:p.id, name:p.name, city:p.city, state:p.state, type:p.type, spots:p.spots, fee:p.fee,
+      onTxt: p.overnight ? 'Overnight OK' : 'Day parking only', onFg: p.overnight ? '#3F6B32' : '#986412',
+      fitLabel: ok ? 'Fits rig ✓' : 'Too tight', fitFg: ok ? '#3F6B32' : '#A83E23',
+      fitBg: ok ? 'rgba(94,122,78,.15)' : 'rgba(168,62,35,.12)', fitBd: ok ? 'rgba(94,122,78,.42)' : 'rgba(168,62,35,.38)' }; }
+  parkDetailVals(p) { const ok = this.parkFits(p);
+    return { ...this.parkCardVals(p), maxLengthFt:p.maxLengthFt, hours:p.hours, food:p.food, note:p.note,
+      pullTxt: p.pullThrough ? 'Pull-through' : 'Back-in only', pullFg: p.pullThrough ? '#3F6B32' : '#986412',
+      litTxt: p.lit ? 'Lit at night' : 'Unlit lot', litFg: p.lit ? '#3F6B32' : '#986412',
+      fitHead: ok ? 'Room for your rig' : 'Scout before you commit',
+      fitDetail: ok ? ('Takes rigs to ' + p.maxLengthFt + 'ft — your ' + this.state.rig.lengthFt + 'ft clears easy.') : ('Rated to ' + p.maxLengthFt + 'ft — tight for your ' + this.state.rig.lengthFt + 'ft rig.'),
+      fitPanelBg: ok ? 'rgba(94,122,78,.1)' : 'rgba(168,62,35,.09)' }; }
+  farCardVals(f) { return { id:f.id, name:f.name, city:f.city, state:f.state, spec:f.spec, radius:f.radius, price:f.price, phone:f.phone,
+    emTxt: f.emergency ? 'Emergency calls' : 'By appointment', emFg: f.emergency ? '#3F6B32' : '#986412' }; }
+  farDetailVals(f) { return { ...this.farCardVals(f), yrs:f.yrs, note:f.note,
+    emBg: f.emergency ? 'rgba(94,122,78,.15)' : 'rgba(198,150,40,.16)', emBd: f.emergency ? 'rgba(94,122,78,.42)' : 'rgba(198,150,40,.45)' }; }
+
+  // ---------- Plan my trail run ----------
+  setQuiz(k, v) { this.setState(st => ({ quiz: { ...st.quiz, [k]: v } })); }
+  toggleQuizPri(k) { this.setState(st => { const p = { ...st.quiz.priorities }; if (p[k]) delete p[k]; else p[k] = true; return { quiz: { ...st.quiz, priorities: p } }; }); }
+  startQuiz() { this.setState(st => ({ screen: 'quiz', quiz: { ...st.quiz, step: 0 } })); }
+  quizStep(d) { this.setState(st => ({ quiz: { ...st.quiz, step: Math.max(0, st.quiz.step + d) } })); }
+  buildPlan() {
+    const q = this.state.quiz, r = this.state.rig, pri = q.priorities;
+    const cands = [];
+    this.venues.forEach(v => { const c = this.compat(v); if (!c.ok) return;
+      this.allEvents(v).forEach(e => { const isJack = e.kind === 'jackpot';
+        let score = 50;
+        if (pri.payouts) score += isJack ? Math.min(30, (e.payout || 0) / 200) : 8;
+        if (pri.jackpots && isJack) score += 25;
+        if (pri.covered && v.covered) score += 15;
+        if (pri.hookups && v.water && v.power) score += 15;
+        if (pri.short) score += Math.max(0, 20 - v.dist / 80);
+        if (c.tight) score -= 8;
+        cands.push({ v, e, isJack, score, ts: this.fmtEvent(e.d).ts }); }); });
+    cands.sort((a, b) => b.score - a.score);
+    const pool = cands.slice(0, Math.max(q.count * 3, 10)).sort((a, b) => a.ts - b.ts);
+    const FUEL = 0.85, RODEO_ENTRY = 45, LODGE = 52;
+    let miles = 0, cost = 0, cur = 0, lastTs = -1;
+    const stops = [];
+    for (const cd of pool) {
+      if (stops.length >= q.count) break;
+      const leg = stops.length === 0 ? cd.v.dist : Math.abs(cd.v.dist - cur);
+      if (leg > q.maxLeg) continue;
+      if (cd.ts === lastTs) continue;
+      const fee = cd.isJack ? (cd.e.fee || 60) : RODEO_ENTRY;
+      const nights = leg > 250 ? 1 : 0;
+      const stopCost = Math.round(fee + leg * FUEL + nights * LODGE);
+      if (cost + stopCost > q.budget) continue;
+      cost += stopCost; miles += leg; cur = cd.v.dist; lastTs = cd.ts;
+      const fe = this.fmtEvent(cd.e.d);
+      stops.push({ id: cd.v.id, day: fe.day, mon: fe.mon, name: cd.e.name, venue: cd.v.name, city: cd.v.city, state: cd.v.state,
+        legTxt: leg === 0 ? 'Same grounds' : leg + ' mi haul', costTxt: '$' + stopCost, nightsTxt: nights ? '+1 layover night' : 'Day trip from last stop',
+        kindTxt: cd.isJack ? 'Jackpot' : 'Rodeo', kindFg: cd.isJack ? '#7a5f28' : '#A83E23',
+        kindBg: cd.isJack ? 'rgba(184,134,47,.15)' : 'rgba(168,62,35,.1)', kindBd: cd.isJack ? 'rgba(184,134,47,.42)' : 'rgba(168,62,35,.35)',
+        moneyTxt: cd.isJack ? ('$' + cd.e.fee + ' entry · $' + cd.e.payout.toLocaleString() + ' pot') : '$' + RODEO_ENTRY + ' entry est.' });
+    }
+    this.setState({ plan: { stops, miles, cost, budget: q.budget }, screen: 'plan' });
+  }
+  savePlanToTrip() { const p = this.state.plan; if (!p) return;
+    this.setState(st => { const trip = st.trip.slice(); p.stops.forEach(s => { if (!trip.includes(s.id)) trip.push(s.id); }); return { trip, screen: 'planner' }; }); }
   lodgeCardVals(l) { const c = this.compat(l); const fs = this.fitStyle(c); return { id:l.id, name:l.name, city:l.city, state:l.state, dist:l.dist, price:l.price, stalls:l.maxSlots, type:l.type, fitLabel:fs.label, fitFg:fs.fg, fitBg:fs.bg, fitBd:fs.bd }; }
   lodgeDetailVals(l) { const c = this.compat(l); const fs = this.fitStyle(c); const r = this.state.rig; let fitHead, fitDetail;
     if (!c.ok) { fitHead = "Won't take your rig"; fitDetail = 'Your ' + r.lengthFt + 'ft / ' + r.heightFt + 'ft rig — ' + c.fails.join(', ') + '.'; }
@@ -1102,6 +1531,14 @@ class Component extends DCLogic {
       pins = this.feedStores.map(fs2 => { const sel = fs2.id === st.selFeedId;
         return { x:fs2.x, y:fs2.y, core: sel?9:6, color:'#B8862F', origin: fs2.x+'px '+fs2.y+'px', ty: fs2.y-13, short: fs2.state,
           labelColor: sel ? '#2C2118' : '#7a5f28', labelOp: sel ? 1 : 0.9, onSelect: () => this.selectFeed(fs2.id) }; });
+    } else if (st.layer === 'parking') {
+      pins = this.parkingSpots.map(p => { const sel = p.id === st.selParkId; const ok = this.parkFits(p);
+        return { x:p.x, y:p.y, core: sel?9:6, color: ok ? '#2F6F8F' : '#ad9a78', origin: p.x+'px '+p.y+'px', ty: p.y-13, short: p.state,
+          labelColor: sel ? '#2C2118' : (ok ? '#3F5E78' : '#a1896a'), labelOp: sel ? 1 : (ok ? 0.9 : 0.5), onSelect: () => this.selectPark(p.id) }; });
+    } else if (st.layer === 'farriers') {
+      pins = this.farriers.map(fr => { const sel = fr.id === st.selFarId;
+        return { x:fr.x, y:fr.y, core: sel?9:6, color:'#5E5248', origin: fr.x+'px '+fr.y+'px', ty: fr.y-13, short: fr.state,
+          labelColor: sel ? '#2C2118' : '#5E5248', labelOp: sel ? 1 : 0.85, onSelect: () => this.selectFar(fr.id) }; });
     } else {
       pins = withC.map(({ v, c }) => {
         const selected = v.id === st.selectedId;
@@ -1114,7 +1551,15 @@ class Component extends DCLogic {
       });
     }
     const lodgeFitCount = this.lodging.filter(l => this.compat(l).ok).length;
-    const layers = ['venues','lodging','feed'].map(k => { const on = st.layer === k; return { label: k === 'venues' ? 'Venues' : (k === 'lodging' ? 'Lodging' : 'Feed'), pick: () => this.setLayer(k), bg: on ? '#FFFBF1' : 'transparent', fg: on ? '#B4472A' : '#8A7458', sh: on ? '0 2px 6px rgba(120,60,20,.16)' : 'none' }; });
+    const LAYER_LABELS = { venues:'Venues', lodging:'Lodging', feed:'Feed', parking:'Parking', farriers:'Farriers' };
+    const layers = ['venues','lodging','feed','parking','farriers'].map(k => { const on = st.layer === k; return { label: LAYER_LABELS[k], pick: () => this.setLayer(k), bg: on ? '#FFFBF1' : 'transparent', fg: on ? '#B4472A' : '#8A7458', sh: on ? '0 2px 6px rgba(120,60,20,.16)' : 'none' }; });
+
+    // no-go roads overlay (map only, honors toggle)
+    const roads = st.noGoOn ? this.noGoRoads.map(rd => { const sel = rd.id === st.selRoadId;
+      const p = rd.pts.split(' ').map(s => s.split(',').map(Number)); const mid = p[Math.floor(p.length / 2)];
+      return { id: rd.id, pts: rd.pts, w: sel ? 4.5 : 3, mx: mid[0], my: mid[1], myt: mid[1] + 4, r: sel ? 10 : 8, pick: () => this.selectRoad(rd.id) }; }) : [];
+    const rSelRaw = this.noGoRoads.find(rd => rd.id === st.selRoadId);
+    const rSel = rSelRaw ? { name: rSelRaw.name, reason: rSelRaw.reason, detail: rSelRaw.detail, detour: rSelRaw.detour } : {};
 
     // map / list view toggle
     const isListView = st.mapView === 'list';
@@ -1126,10 +1571,39 @@ class Component extends DCLogic {
       .map(({ l }) => ({ ...this.lodgeCardVals(l), open: () => this.openLodge(l.id) }));
     const feedListItems = this.feedStores.slice().sort((a,b) => a.dist - b.dist)
       .map(fs2 => ({ ...this.feedCardVals(fs2), pullNote: fs2.pull ? 'Pull-through parking' : 'Standard lot', pullFg: fs2.pull ? '#3F6B32' : '#986412', open: () => this.openFeed(fs2.id) }));
+    const parkListItems = this.parkingSpots.map(p => ({ p, ok: this.parkFits(p) })).sort((a,b) => (a.ok === b.ok ? 0 : a.ok ? -1 : 1))
+      .map(({ p }) => ({ ...this.parkCardVals(p), open: () => this.openPark(p.id) }));
+    const farListItems = this.farriers.map(f => ({ ...this.farCardVals(f), open: () => this.openFar(f.id) }));
     const showVenueList = isListView && st.layer === 'venues';
     const showLodgeList = isListView && st.layer === 'lodging';
     const showFeedList = isListView && st.layer === 'feed';
-    const layerSub = st.layer === 'lodging' ? (lodgeFitCount + ' stays fit your rig') : (st.layer === 'feed' ? (this.feedStores.length + ' feed stops on route') : (resultCount + ' venues fit your rig'));
+    const showParkList = isListView && st.layer === 'parking';
+    const showFarList = isListView && st.layer === 'farriers';
+
+    // quiz + plan
+    const q = st.quiz;
+    const optStyle = on => ({ bg: on ? 'linear-gradient(180deg,#C25232,#A83E23)' : '#FFFBF1', fg: on ? '#FBF3E4' : '#6b543a', bd: on ? 'rgba(168,62,35,.5)' : 'rgba(74,48,22,.16)' });
+    const qBudgetOpts = [{ v:800, t:'$800', s:'Shoestring' }, { v:1500, t:'$1,500', s:'Weekend warrior' }, { v:3000, t:'$3,000', s:'Full send' }, { v:6000, t:'$6,000', s:'Pro circuit' }]
+      .map(o => ({ ...o, ...optStyle(q.budget === o.v), pick: () => this.setQuiz('budget', o.v) }));
+    const qCountOpts = [{ v:2, t:'2–3', s:'A couple weekends' }, { v:4, t:'4–5', s:'A solid handful' }, { v:6, t:'6–7', s:'Busy summer' }, { v:10, t:'All I can', s:'Send it' }]
+      .map(o => ({ ...o, ...optStyle(q.count === o.v), pick: () => this.setQuiz('count', o.v) }));
+    const qPriOpts = [{ k:'payouts', t:'Big payouts' }, { k:'jackpots', t:'Jackpots over rodeos' }, { k:'covered', t:'Covered arenas' }, { k:'hookups', t:'LQ hookups' }, { k:'short', t:'Short drives' }]
+      .map(o => ({ ...o, ...optStyle(!!q.priorities[o.k]), pick: () => this.toggleQuizPri(o.k) }));
+    const qLegOpts = [{ v:300, t:'≤ 300 mi', s:'Easy hauls' }, { v:600, t:'≤ 600 mi', s:'Half-day pulls' }, { v:3000, t:'Anywhere', s:'Diesel is a lifestyle' }]
+      .map(o => ({ ...o, ...optStyle(q.maxLeg === o.v), pick: () => this.setQuiz('maxLeg', o.v) }));
+    const qStepDots = [0,1,2,3].map(i => ({ bg: i === q.step ? '#B4472A' : (i < q.step ? '#C89A4A' : '#D9C8AC') }));
+    const qTitles = ['WHAT’S THE WAR CHEST?','HOW MANY EVENTS?','WHAT MATTERS MOST?','LONGEST HAUL BETWEEN STOPS?'];
+    const qSubs = ['Fuel, entries and layover nights for the season', 'How much rodeo can your summer take', 'Pick as many as you like — we’ll weigh the schedule', 'Legs longer than this get cut from your run'];
+    const plan = st.plan || { stops: [], miles: 0, cost: 0, budget: q.budget };
+    const planSummary = plan.stops.length + (plan.stops.length === 1 ? ' event · ' : ' events · ') + plan.miles.toLocaleString() + ' mi · est. $' + plan.cost.toLocaleString() + ' of $' + plan.budget.toLocaleString();
+    const planStops = plan.stops.map((s, i) => ({ ...s, num: i + 1, line: i === plan.stops.length - 1 ? 'transparent' : 'rgba(168,62,35,.3)' }));
+    const planBudgetLeft = '$' + Math.max(0, plan.budget - plan.cost).toLocaleString() + ' left in the kitty';
+    const parkFitCount = this.parkingSpots.filter(p => this.parkFits(p)).length;
+    const layerSub = st.layer === 'lodging' ? (lodgeFitCount + ' stays fit your rig')
+      : st.layer === 'feed' ? (this.feedStores.length + ' feed stops on route')
+      : st.layer === 'parking' ? (parkFitCount + ' lots take your rig')
+      : st.layer === 'farriers' ? (this.farriers.length + ' farriers on route')
+      : (resultCount + ' venues fit your rig');
     const lSelRaw = this.lodging.find(l => l.id === st.selLodgeId);
     const lSel = lSelRaw ? this.lodgeCardVals(lSelRaw) : {};
     const ldvRaw = this.lodging.find(l => l.id === st.lodgeDetailId) || this.lodging[0];
@@ -1138,6 +1612,14 @@ class Component extends DCLogic {
     const fSel = fSelRaw ? this.feedCardVals(fSelRaw) : {};
     const fdvRaw = this.feedStores.find(f => f.id === st.feedDetailId) || this.feedStores[0];
     const fdv = this.feedDetailVals(fdvRaw);
+    const pSelRaw = this.parkingSpots.find(p => p.id === st.selParkId);
+    const pSel = pSelRaw ? this.parkCardVals(pSelRaw) : {};
+    const pdvRaw = this.parkingSpots.find(p => p.id === st.parkDetailId) || this.parkingSpots[0];
+    const pdv = this.parkDetailVals(pdvRaw);
+    const farSelRaw = this.farriers.find(f => f.id === st.selFarId);
+    const farSel = farSelRaw ? this.farCardVals(farSelRaw) : {};
+    const fardvRaw = this.farriers.find(f => f.id === st.farDetailId) || this.farriers[0];
+    const fardv = this.farDetailVals(fardvRaw);
 
     const svRaw = this.venues.find(v => v.id === (st.detailId || st.selectedId)) || this.venues[0];
     const svc = this.compat(svRaw); const svfs = this.fitStyle(svc);
@@ -1147,7 +1629,7 @@ class Component extends DCLogic {
     if (!svc.ok) { fitHead = "Won't take your rig"; fitDetail = 'Your ' + r.lengthFt + 'ft / ' + r.heightFt + 'ft rig — ' + svc.fails.join(', ') + '.'; }
     else if (svc.tight) { fitHead = 'Fits — but snug'; fitDetail = 'You clear it, but with little room to spare. Arrive early for the good spots.'; }
     else { fitHead = 'Clears your rig easy'; fitDetail = 'Plenty of room for a ' + r.lengthFt + 'ft ' + (r.type==='gooseneck'?'gooseneck':'bumper-pull') + ', ' + r.heightFt + 'ft tall, ' + r.slots + '-horse.'; }
-    const eventList = svRaw.events.map(e => { const fe = this.fmtEvent(e.d); return { day: fe.day, mon: fe.mon, name: e.name, sub: svRaw.city + ', ' + svRaw.state }; });
+    const eventList = this.allEvents(svRaw).map(e => { const fe = this.fmtEvent(e.d); return { ts: fe.ts, day: fe.day, mon: fe.mon, name: e.name, sub: e.kind === 'jackpot' ? ('Jackpot · $' + e.fee + ' entry · $' + e.payout.toLocaleString() + ' pot') : (svRaw.city + ', ' + svRaw.state) }; }).sort((a, b) => a.ts - b.ts);
     const adaShuttle = svRaw.parking >= 250;
     const ada = {
       seatsTxt: svRaw.covered ? 'Companion + chair seating' : 'Wheelchair viewing areas',
@@ -1185,9 +1667,12 @@ class Component extends DCLogic {
     const tripPins = tripVenues.map((v, i) => ({ x: tp[i].x, y: tp[i].y, ty: tp[i].y-11, short: v.state }));
 
     let feed = [];
-    this.venues.forEach(v => { const c = this.compat(v); const fs = this.fitStyle(c); v.events.forEach(e => { const fe = this.fmtEvent(e.d); feed.push({ ts:fe.ts, day:fe.day, mon:fe.mon, name:e.name, venue:v.name, city:v.city, state:v.state, ok:c.ok, fitLabel:fs.label, fitFg:fs.fg, fitBg:fs.bg, fitBd:fs.bd, open: () => this.openVenue(v.id) }); }); });
+    this.venues.forEach(v => { const c = this.compat(v); const fs = this.fitStyle(c); this.allEvents(v).forEach(e => { const fe = this.fmtEvent(e.d); const isJack = e.kind === 'jackpot'; feed.push({ ts:fe.ts, day:fe.day, mon:fe.mon, name:e.name, venue:v.name, city:v.city, state:v.state, ok:c.ok, isJack, moneyTxt: isJack ? ('$' + e.fee + ' entry · $' + e.payout.toLocaleString() + ' pot') : '', fitLabel:fs.label, fitFg:fs.fg, fitBg:fs.bg, fitBd:fs.bd, open: () => this.openVenue(v.id) }); }); });
     feed.sort((a,b) => a.ts - b.ts);
     if (st.eventFitOnly) feed = feed.filter(e => e.ok);
+    if (st.eventKind === 'rodeos') feed = feed.filter(e => !e.isJack);
+    if (st.eventKind === 'jackpots') feed = feed.filter(e => e.isJack);
+    const eventKinds = [{ k:'all', t:'All' }, { k:'rodeos', t:'Rodeos' }, { k:'jackpots', t:'Jackpots' }].map(o => { const on = st.eventKind === o.k; return { label:o.t, pick: () => this.setState({ eventKind: o.k }), bg: on ? '#FFFBF1' : 'transparent', fg: on ? '#B4472A' : '#8A7458', sh: on ? '0 2px 6px rgba(120,60,20,.16)' : 'none' }; });
 
     const lqOn = r.lq, pullOn = f.requirePull, efOn = st.eventFitOnly;
     const TON = '#B4472A', TOFF = '#D9C8AC';
@@ -1243,16 +1728,33 @@ class Component extends DCLogic {
 
     return {
       isOnboard: screen === 'onboard', isMap: screen === 'map', isVenue: screen === 'venue', isSaved: screen === 'saved', isPlanner: screen === 'planner', isEvents: screen === 'events', isBuddies: screen === 'buddies', isWeather: screen === 'weather',
-      showNav: screen !== 'onboard' && screen !== 'venue' && screen !== 'weather' && screen !== 'lodge' && screen !== 'feed',
-      isLodge: screen === 'lodge', isFeed: screen === 'feed',
+      showNav: ['map','saved','planner','events','buddies'].includes(screen),
+      isLodge: screen === 'lodge', isFeed: screen === 'feed', isParking: screen === 'parking', isFarrier: screen === 'farrier', isQuiz: screen === 'quiz', isPlan: screen === 'plan',
       layers, layerSub,
-      viewModes, isListView, showVenueList, showLodgeList, showFeedList, venueListItems, lodgeListItems, feedListItems,
+      viewModes, isListView, showVenueList, showLodgeList, showFeedList, showParkList, showFarList,
+      venueListItems, lodgeListItems, feedListItems, parkListItems, farListItems,
       hasLodgeSel: !!st.selLodgeId, lSel, openLodgeSel: () => this.openLodge(st.selLodgeId),
       hasFeedSel: !!st.selFeedId, fSel, openFeedSel: () => this.openFeed(st.selFeedId),
-      ldv, backFromLodge: () => this.setState({ screen:'map', lodgeDetailId:null }),
-      ldvSaveFill: st.saved[ldv.id] ? '#B4472A' : 'none', toggleSaveLodge: () => this.toggleSave(ldv.id),
-      fdv, backFromFeed: () => this.setState({ screen:'map', feedDetailId:null }),
-      fdvSaveFill: st.saved[fdv.id] ? '#B4472A' : 'none', toggleSaveFeed: () => this.toggleSave(fdv.id),
+      hasParkSel: !!st.selParkId, pSel, openParkSel: () => this.openPark(st.selParkId),
+      hasFarSel: !!st.selFarId, farSel, openFarSel: () => this.openFar(st.selFarId),
+      roads, hasRoadSel: !!rSelRaw, rSel, dismissRoad: () => this.setState({ selRoadId: null }),
+      toggleNoGo: () => this.setState({ noGoOn: !st.noGoOn, selRoadId: null }),
+      ngBg: st.noGoOn ? 'rgba(168,62,35,.12)' : '#FFFBF1', ngBd: st.noGoOn ? 'rgba(168,62,35,.45)' : 'rgba(74,48,22,.18)',
+      ngFg: st.noGoOn ? '#A83E23' : '#8A7458', ngTxt: st.noGoOn ? 'ON' : 'OFF',
+      pdv, backFromPark: () => this.setState({ screen:'map', parkDetailId:null }),
+      pdvSaveFill: st.saved[pdv.id] ? '#B4472A' : 'none', toggleSavePark: () => this.toggleSave(pdv.id),
+      fardv, backFromFar: () => this.setState({ screen:'map', farDetailId:null }),
+      fardvSaveFill: st.saved[fardv.id] ? '#B4472A' : 'none', toggleSaveFar: () => this.toggleSave(fardv.id),
+      eventKinds,
+      startQuiz: () => this.startQuiz(), backFromQuiz: () => this.setScreen('planner'),
+      qStep0: q.step === 0, qStep1: q.step === 1, qStep2: q.step === 2, qStep3: q.step === 3,
+      qTitle: qTitles[q.step], qSub: qSubs[q.step], qStepDots, qBudgetOpts, qCountOpts, qPriOpts, qLegOpts,
+      qShowBack: q.step > 0, qNextTxt: q.step === 3 ? 'BUILD MY RUN →' : 'NEXT →',
+      quizBack: () => this.quizStep(-1), quizNext: () => { if (q.step === 3) this.buildPlan(); else this.quizStep(1); },
+      qRigNote: 'Planning around your ' + r.lengthFt + 'ft ' + (r.type === 'gooseneck' ? 'gooseneck' : 'bumper-pull') + ' · ' + r.heightFt + 'ft · ' + r.slots + '-horse',
+      planStops, planSummary, planBudgetLeft, planEmpty: plan.stops.length === 0,
+      backFromPlan: () => this.setScreen('planner'), retakeQuiz: () => this.startQuiz(),
+      savePlan: () => this.savePlanToTrip(),
       goWeather: () => this.setScreen('weather'), backFromWeather: () => this.setScreen('map'),
       wxBannerFg: wxTop.fg, wxBannerBg: wxTop.bg, wxBannerBd: wxTop.bd, wxAlertTitle: wxTop.title, wxAlertSub: 'Gusts to 45 mph on I-40 — mind your rig',
       wxAlerts, wxRoute, windRiskFg, windRiskPct, windRiskLabel,
