@@ -159,6 +159,69 @@
             <div style="position:absolute;left:16px;bottom:214px;font:600 8px 'Oswald';letter-spacing:1.5px;color:#a1774a;text-transform:uppercase;pointer-events:none">✦ Continental US · Trail Map</div>
           </div>
 
+          <!-- LIST VIEW (per layer) -->
+          <sc-if value="{{ isListView }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;inset:0;z-index:15;background:radial-gradient(130% 80% at 50% 30%,#f2e7cb 0%,#ead9b4 60%,#e2cfa4 100%);overflow-y:auto;padding:252px 14px 116px;animation:screenIn .3s ease both">
+
+            <!-- venues list -->
+            <sc-if value="{{ showVenueList }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ venueListItems }}" as="it" hint-placeholder-count="6">
+              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+                <image-slot id="thumb-{{ it.id }}" style="width:78px;height:78px;flex:none" shape="rounded" radius="14" placeholder="＋"></image-slot>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                    <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ it.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.fitFg }};background:{{ it.fitBg }};border:1px solid {{ it.fitBd }};border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ it.fitLabel }}</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.dist }} mi</div>
+                  <div style="display:flex;gap:5px;margin-top:8px">
+                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">↔ {{ it.maxLengthFt }}ft</div>
+                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">⇅ {{ it.maxHeightFt }}ft</div>
+                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">P {{ it.parking }}</div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+            </sc-if>
+
+            <!-- lodging list -->
+            <sc-if value="{{ showLodgeList }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ lodgeListItems }}" as="it" hint-placeholder-count="6">
+              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+                <image-slot id="lthumb-{{ it.id }}" style="width:78px;height:78px;flex:none" shape="rounded" radius="14" placeholder="＋"></image-slot>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                    <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ it.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.fitFg }};background:{{ it.fitBg }};border:1px solid {{ it.fitBd }};border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ it.fitLabel }}</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.type }}</div>
+                  <div style="margin-top:8px"><span style="font:700 15px 'Archivo';color:#2C2118">${{ it.price }}</span><span style="font:500 11px 'Archivo';color:#7A6247"> night · {{ it.stalls }} stalls</span></div>
+                </div>
+              </div>
+            </sc-for>
+            </sc-if>
+
+            <!-- feed list -->
+            <sc-if value="{{ showFeedList }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ feedListItems }}" as="it" hint-placeholder-count="6">
+              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+                <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#e7cf9b,#c9a24e)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#6b4c14" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8l1.5-3h7L17 8M6 8h12l-1 12H7L6 8z"/><path d="M9.5 12h5"/></svg></div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                    <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ it.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:#7a5f28;background:rgba(184,134,47,.15);border:1px solid rgba(184,134,47,.42);border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">Feed</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.dist }} mi · {{ it.chain }}</div>
+                  <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ it.carries }} · {{ it.hours }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.pullFg }};margin-top:5px">{{ it.pullNote }}</div>
+                </div>
+              </div>
+            </sc-for>
+            </sc-if>
+
+          </div>
+          </sc-if>
+
           <!-- header (over map) -->
           <div style="position:absolute;top:0;left:0;right:0;z-index:20;padding:56px 18px 16px;background:linear-gradient(180deg,#f4ebd9 52%,rgba(244,235,217,.86) 78%,transparent)">
             <div style="display:flex;justify-content:space-between;align-items:flex-start">
@@ -166,9 +229,16 @@
                 <div style="font:400 30px/.85 'Bebas Neue';color:#2C2118;letter-spacing:1px">TRAIL MAP</div>
                 <div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase;margin-top:4px">{{ layerSub }}</div>
               </div>
-              <div onClick="{{ openFilters }}" style="display:flex;align-items:center;gap:7px;background:#FFFBF1;border:1px solid rgba(168,62,35,.3);border-radius:12px;padding:8px 12px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.1)">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B4472A" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
-                <span style="font:600 11px 'Oswald';letter-spacing:1px;color:#B4472A;text-transform:uppercase">Filter</span>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="display:flex;gap:3px;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:12px;padding:3px">
+                  <sc-for list="{{ viewModes }}" as="vm" hint-placeholder-count="2">
+                    <div onClick="{{ vm.pick }}" style="padding:6px 10px;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;background:{{ vm.bg }};color:{{ vm.fg }};box-shadow:{{ vm.sh }}">{{ vm.label }}</div>
+                  </sc-for>
+                </div>
+                <div onClick="{{ openFilters }}" style="display:flex;align-items:center;gap:7px;background:#FFFBF1;border:1px solid rgba(168,62,35,.3);border-radius:12px;padding:8px 12px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.1)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B4472A" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+                  <span style="font:600 11px 'Oswald';letter-spacing:1px;color:#B4472A;text-transform:uppercase">Filter</span>
+                </div>
               </div>
             </div>
             <div style="display:flex;gap:4px;margin-top:12px;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px">
@@ -662,6 +732,7 @@ class Component extends DCLogic {
     filters: { requirePull: false },
     filtersOpen: false,
     layer: 'venues',
+    mapView: 'map',
     selectedId: null,
     detailId: null,
     selLodgeId: null,
@@ -749,6 +820,7 @@ class Component extends DCLogic {
   selectVenue(id) { this.setState({ selectedId: id }); }
   openVenue(id) { this.setState({ detailId: id, screen: 'venue' }); }
   setLayer(l) { this.setState({ layer: l, selectedId: null, selLodgeId: null, selFeedId: null }); }
+  setMapView(v) { this.setState({ mapView: v, selectedId: null, selLodgeId: null, selFeedId: null }); }
   selectLodge(id) { this.setState({ selLodgeId: id }); }
   openLodge(id) { this.setState({ lodgeDetailId: id, screen: 'lodge' }); }
   selectFeed(id) { this.setState({ selFeedId: id }); }
@@ -1031,6 +1103,20 @@ class Component extends DCLogic {
     }
     const lodgeFitCount = this.lodging.filter(l => this.compat(l).ok).length;
     const layers = ['venues','lodging','feed'].map(k => { const on = st.layer === k; return { label: k === 'venues' ? 'Venues' : (k === 'lodging' ? 'Lodging' : 'Feed'), pick: () => this.setLayer(k), bg: on ? '#FFFBF1' : 'transparent', fg: on ? '#B4472A' : '#8A7458', sh: on ? '0 2px 6px rgba(120,60,20,.16)' : 'none' }; });
+
+    // map / list view toggle
+    const isListView = st.mapView === 'list';
+    const viewModes = [{ k:'map', label:'Map' }, { k:'list', label:'List' }].map(m => { const on = st.mapView === m.k; return { label: m.label, pick: () => this.setMapView(m.k), bg: on ? '#FFFBF1' : 'transparent', fg: on ? '#B4472A' : '#8A7458', sh: on ? '0 2px 6px rgba(120,60,20,.16)' : 'none' }; });
+    const fitRank = c => !c.ok ? 2 : (c.tight ? 1 : 0);
+    const venueListItems = withC.slice().sort((a,b) => fitRank(a.c) - fitRank(b.c) || a.v.dist - b.v.dist)
+      .map(({ v, c, fs }) => ({ id:v.id, name:v.name, city:v.city, state:v.state, dist:v.dist, maxLengthFt:v.maxLengthFt, maxHeightFt:v.maxHeightFt, parking:v.parking, fitLabel:fs.label, fitFg:fs.fg, fitBg:fs.bg, fitBd:fs.bd, open: () => this.openVenue(v.id) }));
+    const lodgeListItems = this.lodging.map(l => ({ l, c: this.compat(l) })).sort((a,b) => fitRank(a.c) - fitRank(b.c) || a.l.dist - b.l.dist)
+      .map(({ l }) => ({ ...this.lodgeCardVals(l), open: () => this.openLodge(l.id) }));
+    const feedListItems = this.feedStores.slice().sort((a,b) => a.dist - b.dist)
+      .map(fs2 => ({ ...this.feedCardVals(fs2), pullNote: fs2.pull ? 'Pull-through parking' : 'Standard lot', pullFg: fs2.pull ? '#3F6B32' : '#986412', open: () => this.openFeed(fs2.id) }));
+    const showVenueList = isListView && st.layer === 'venues';
+    const showLodgeList = isListView && st.layer === 'lodging';
+    const showFeedList = isListView && st.layer === 'feed';
     const layerSub = st.layer === 'lodging' ? (lodgeFitCount + ' stays fit your rig') : (st.layer === 'feed' ? (this.feedStores.length + ' feed stops on route') : (resultCount + ' venues fit your rig'));
     const lSelRaw = this.lodging.find(l => l.id === st.selLodgeId);
     const lSel = lSelRaw ? this.lodgeCardVals(lSelRaw) : {};
@@ -1148,6 +1234,7 @@ class Component extends DCLogic {
       showNav: screen !== 'onboard' && screen !== 'venue' && screen !== 'weather' && screen !== 'lodge' && screen !== 'feed',
       isLodge: screen === 'lodge', isFeed: screen === 'feed',
       layers, layerSub,
+      viewModes, isListView, showVenueList, showLodgeList, showFeedList, venueListItems, lodgeListItems, feedListItems,
       hasLodgeSel: !!st.selLodgeId, lSel, openLodgeSel: () => this.openLodge(st.selLodgeId),
       hasFeedSel: !!st.selFeedId, fSel, openFeedSel: () => this.openFeed(st.selFeedId),
       ldv, backFromLodge: () => this.setState({ screen:'map', lodgeDetailId:null }),
