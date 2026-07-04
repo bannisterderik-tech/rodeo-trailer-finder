@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Trailer Finder">
-<meta name="theme-color" content="#F4EBD9">
+<meta name="theme-color" content="{{ themeSurf }}">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -28,7 +28,7 @@
   @media (max-width:700px){
     body{position:fixed;inset:0;width:100%;height:100dvh;overflow:hidden;-webkit-user-select:none;user-select:none}
     .dc-canvas{padding:0 !important;min-height:100% !important;height:100%}
-    .dc-phone{width:100% !important;height:100% !important;border-radius:0 !important;padding:0 0 env(safe-area-inset-bottom) !important;box-shadow:none !important;background:#FCF5E6 !important}
+    .dc-phone{width:100% !important;height:100% !important;border-radius:0 !important;padding:0 0 env(safe-area-inset-bottom) !important;box-shadow:none !important;background:{{ themePanel }} !important}
     .dc-bezel,.dc-statusbar,.dc-island{display:none !important}
     .dc-screen{border-radius:0 !important}
   }
@@ -45,7 +45,7 @@
 </style>
 </helmet>
 
-<div class="dc-canvas" style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:34px 12px;background:radial-gradient(120% 95% at 28% 0%,#ecdcbb 0%,#dcc59c 48%,#c7ac80 100%);position:relative;overflow:hidden">
+<div class="dc-canvas" style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;padding:34px 12px;background:{{ themeDeskBg }};position:relative;overflow:hidden">
 
   <div style="position:absolute;top:-120px;left:-70px;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(180,71,42,.14),transparent 68%);pointer-events:none"></div>
   <div style="position:absolute;bottom:-150px;right:-90px;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(122,86,40,.16),transparent 68%);pointer-events:none"></div>
@@ -54,7 +54,7 @@
   <div class="dc-phone" style="position:relative;width:392px;height:844px;border-radius:56px;padding:13px;background:linear-gradient(155deg,#453121,#241811 62%);box-shadow:0 40px 90px -20px rgba(60,35,12,.55),0 0 0 2px rgba(255,240,210,.1),inset 0 0 0 2px rgba(0,0,0,.4);flex:none">
     <div class="dc-bezel" style="position:absolute;inset:13px;border-radius:44px;box-shadow:inset 0 0 0 1.5px rgba(255,235,200,.14);pointer-events:none;z-index:60"></div>
 
-    <div class="dc-screen" style="position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:#F4EBD9">
+    <div class="dc-screen" style="position:relative;width:100%;height:100%;border-radius:44px;overflow:hidden;background:{{ themeSurf }}">
 
       <!-- status bar -->
       <div class="dc-statusbar" style="position:absolute;top:0;left:0;right:0;height:52px;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 30px 0;pointer-events:none">
@@ -72,7 +72,7 @@
 
         <!-- ============ ONBOARD ============ -->
         <sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ true }}">
-        <div style="position:absolute;inset:0;background:radial-gradient(120% 78% at 50% -6%,#f6ecd6,#eaddc2 62%);animation:screenIn .5s ease both;display:flex;flex-direction:column">
+        <div style="position:absolute;inset:0;background:{{ themeScreenBg }};animation:screenIn .5s ease both;display:flex;flex-direction:column">
           <div style="padding:64px 26px 0;flex:none">
             <div style="display:inline-flex;align-items:center;gap:7px;font:600 11px 'Oswald';letter-spacing:3px;color:{{ themeAcc }};text-transform:uppercase"><span style="width:22px;height:2px;background:{{ themeAcc }};display:inline-block"></span>Rodeo Season · 2026</div>
             <div style="font:400 58px/.86 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">DIAL IN<br><span style="color:{{ themeAcc }}">YOUR RIG</span></div>
@@ -86,12 +86,12 @@
             <div style="position:absolute;left:24px;bottom:12px;font:600 9px 'Oswald';letter-spacing:2px;color:#9c855f;text-transform:uppercase;pointer-events:none">◐ Drag to orbit</div>
             <div style="position:absolute;right:22px;top:8px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;pointer-events:none">
               <div style="font:400 15px 'Bebas Neue';letter-spacing:1px;color:#9A3A20;background:#FFFBF1;border:1px solid rgba(168,62,35,.28);border-radius:8px;padding:3px 10px;white-space:nowrap;box-shadow:0 3px 10px rgba(120,60,20,.12)">{{ rig.lengthFt }} FT · {{ rig.slots }}-HORSE</div>
-              <div style="font:400 13px 'Bebas Neue';letter-spacing:1px;color:#7A6247;background:#F4EBD9;border:1px solid rgba(74,48,22,.16);border-radius:8px;padding:2px 10px;white-space:nowrap">{{ rigTypeLabel }}</div>
+              <div style="font:400 13px 'Bebas Neue';letter-spacing:1px;color:#7A6247;background:{{ themeSurf }};border:1px solid rgba(74,48,22,.16);border-radius:8px;padding:2px 10px;white-space:nowrap">{{ rigTypeLabel }}</div>
             </div>
           </div>
 
           <!-- config controls -->
-          <div style="flex:none;background:#FCF5E6;border-top:1px solid rgba(168,62,35,.18);border-radius:26px 26px 0 0;padding:18px 22px 20px;box-shadow:0 -14px 34px rgba(120,80,30,.12)">
+          <div style="flex:none;background:{{ themePanel }};border-top:1px solid rgba(168,62,35,.18);border-radius:26px 26px 0 0;padding:18px 22px 20px;box-shadow:0 -14px 34px rgba(120,80,30,.12)">
             <div style="display:flex;gap:8px;margin-bottom:14px">
               <div onClick="{{ setTypeGoose }}" style="flex:1;text-align:center;padding:9px 0;border-radius:11px;cursor:pointer;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;background:{{ tGooseBg }};color:{{ tGooseFg }};border:1px solid {{ tGooseBd }}">Gooseneck</div>
               <div onClick="{{ setTypeBumper }}" style="flex:1;text-align:center;padding:9px 0;border-radius:11px;cursor:pointer;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;background:{{ tBumpBg }};color:{{ tBumpFg }};border:1px solid {{ tBumpBd }}">Bumper-pull</div>
@@ -146,12 +146,12 @@
         <div style="position:absolute;inset:0;background:#e6d3ab;animation:screenIn .45s ease both">
 
           <!-- MAP -->
-          <div id="mapWrap" style="position:absolute;inset:0;touch-action:none;cursor:grab;overflow:hidden;background:radial-gradient(130% 80% at 50% 44%,#efe3c6 0%,#e6d3ab 55%,#dcc59a 100%)">
+          <div id="mapWrap" style="position:absolute;inset:0;touch-action:none;cursor:grab;overflow:hidden;background:{{ themeMapBg }}">
             <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent 0 43px,rgba(120,80,30,.06) 43px 44px),repeating-linear-gradient(90deg,transparent 0 43px,rgba(120,80,30,.06) 43px 44px);pointer-events:none"></div>
             <svg viewBox="55 92 812 432" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block;position:relative">
               <defs>
                 <linearGradient id="landfill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#e2ce9f"/><stop offset="100%" stop-color="#d3bd8b"/>
+                  <stop offset="0%" stop-color="{{ themeLand1 }}"/><stop offset="100%" stop-color="{{ themeLand2 }}"/>
                 </linearGradient>
                 <filter id="pinsh" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.4" flood-color="#5a3a12" flood-opacity="0.35"/></filter>
               </defs>
@@ -168,7 +168,7 @@
                 <sc-for list="{{ roads }}" as="rd" hint-placeholder-count="0">
                   <g onClick="{{ rd.pick }}" style="cursor:pointer">
                     <polyline points="{{ rd.pts }}" fill="none" stroke="#A83E23" stroke-width="{{ rd.w }}" stroke-dasharray="7 5" stroke-linecap="round" opacity=".8"/>
-                    <circle cx="{{ rd.mx }}" cy="{{ rd.my }}" r="{{ rd.r }}" fill="#A83E23" stroke="#F4EBD9" stroke-width="2" filter="url(#pinsh)"/>
+                    <circle cx="{{ rd.mx }}" cy="{{ rd.my }}" r="{{ rd.r }}" fill="#A83E23" stroke="{{ themeSurf }}" stroke-width="2" filter="url(#pinsh)"/>
                     <text x="{{ rd.mx }}" y="{{ rd.myt }}" text-anchor="middle" fill="#FBF3E4" style="font:700 12px 'Archivo';pointer-events:none">!</text>
                   </g>
                 </sc-for>
@@ -176,7 +176,7 @@
                 <!-- pins -->
                 <sc-for list="{{ pins }}" as="p" hint-placeholder-count="10">
                   <g onClick="{{ p.onSelect }}" style="cursor:pointer">
-                    <circle cx="{{ p.x }}" cy="{{ p.y }}" r="{{ p.core }}" fill="{{ p.color }}" stroke="#F4EBD9" stroke-width="2" filter="url(#pinsh)"/>
+                    <circle cx="{{ p.x }}" cy="{{ p.y }}" r="{{ p.core }}" fill="{{ p.color }}" stroke="{{ themeSurf }}" stroke-width="2" filter="url(#pinsh)"/>
                     <circle cx="{{ p.x }}" cy="{{ p.y }}" r="{{ p.core }}" fill="none" stroke="{{ p.color }}" stroke-width="1.6" opacity=".55" style="transform-origin:{{ p.origin }};animation:pulse 2.8s ease-out infinite"/>
                     <text x="{{ p.x }}" y="{{ p.ty }}" text-anchor="middle" fill="{{ p.labelColor }}" opacity="{{ p.labelOp }}" style="font:400 13px 'Bebas Neue';letter-spacing:.6px">{{ p.short }}</text>
                   </g>
@@ -198,7 +198,7 @@
 
           <!-- LIST VIEW (per layer) -->
           <sc-if value="{{ isListView }}" hint-placeholder-val="{{ false }}">
-          <div style="position:absolute;inset:0;z-index:15;background:radial-gradient(130% 80% at 50% 30%,#f2e7cb 0%,#ead9b4 60%,#e2cfa4 100%);overflow-y:auto;padding:252px 14px 116px;animation:screenIn .3s ease both">
+          <div style="position:absolute;inset:0;z-index:15;background:{{ themeListBg }};overflow-y:auto;padding:252px 14px 116px;animation:screenIn .3s ease both">
 
             <!-- venues list -->
             <sc-if value="{{ showVenueList }}" hint-placeholder-val="{{ false }}">
@@ -212,9 +212,9 @@
                   </div>
                   <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.dist }} mi</div>
                   <div style="display:flex;gap:5px;margin-top:8px">
-                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">↔ {{ it.maxLengthFt }}ft</div>
-                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">⇅ {{ it.maxHeightFt }}ft</div>
-                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">P {{ it.parking }}</div>
+                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">↔ {{ it.maxLengthFt }}ft</div>
+                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">⇅ {{ it.maxHeightFt }}ft</div>
+                    <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">P {{ it.parking }}</div>
                   </div>
                 </div>
               </div>
@@ -339,7 +339,7 @@
                 <div style="font:600 10px 'Oswald';letter-spacing:2px;color:{{ themeAcc }};text-transform:uppercase;margin-top:4px">{{ layerSub }}</div>
               </div>
               <div style="display:flex;align-items:center;gap:6px">
-                <div style="display:flex;gap:3px;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:12px;padding:3px">
+                <div style="display:flex;gap:3px;background:{{ themeSeg }};border:1px solid rgba(74,48,22,.14);border-radius:12px;padding:3px">
                   <sc-for list="{{ viewModes }}" as="vm" hint-placeholder-count="2">
                     <div onClick="{{ vm.pick }}" style="padding:6px 10px;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;background:{{ vm.bg }};color:{{ vm.fg }};box-shadow:{{ vm.sh }}">{{ vm.label }}</div>
                   </sc-for>
@@ -350,7 +350,7 @@
                 </div>
               </div>
             </div>
-            <div style="display:flex;gap:4px;margin-top:12px;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px;overflow-x:auto">
+            <div style="display:flex;gap:4px;margin-top:12px;background:{{ themeSeg }};border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px;overflow-x:auto">
               <sc-for list="{{ layers }}" as="ly" hint-placeholder-count="5">
                 <div onClick="{{ ly.pick }}" style="flex:1 0 auto;text-align:center;padding:8px 12px;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1.2px;text-transform:uppercase;white-space:nowrap;background:{{ ly.bg }};color:{{ ly.fg }};box-shadow:{{ ly.sh }}">{{ ly.label }}</div>
               </sc-for>
@@ -380,9 +380,9 @@
                 </div>
                 <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ sv.city }}, {{ sv.state }} · {{ sv.dist }} mi</div>
                 <div style="display:flex;gap:5px;margin-top:8px">
-                  <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">↔ {{ sv.maxLengthFt }}ft</div>
-                  <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">⇅ {{ sv.maxHeightFt }}ft</div>
-                  <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">P {{ sv.parking }}</div>
+                  <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">↔ {{ sv.maxLengthFt }}ft</div>
+                  <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">⇅ {{ sv.maxHeightFt }}ft</div>
+                  <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">P {{ sv.parking }}</div>
                 </div>
                 <div onClick="{{ openVenue }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:{{ themeGrad }};border-radius:10px;padding:8px 0;cursor:pointer">View venue →</div>
               </div>
@@ -523,7 +523,7 @@
           <!-- FILTER SHEET -->
           <sc-if value="{{ filtersOpen }}" hint-placeholder-val="{{ false }}">
           <div onClick="{{ closeFilters }}" style="position:absolute;inset:0;z-index:45;background:rgba(50,30,12,.35);backdrop-filter:blur(2px);animation:screenIn .2s ease both"></div>
-          <div style="position:absolute;left:0;right:0;bottom:0;z-index:46;background:#FCF5E6;border-top:1px solid rgba(168,62,35,.22);border-radius:26px 26px 0 0;padding:18px 22px 30px;animation:sheetUp .3s ease both;box-shadow:0 -18px 44px rgba(90,58,18,.28)">
+          <div style="position:absolute;left:0;right:0;bottom:0;z-index:46;background:{{ themePanel }};border-top:1px solid rgba(168,62,35,.22);border-radius:26px 26px 0 0;padding:18px 22px 30px;animation:sheetUp .3s ease both;box-shadow:0 -18px 44px rgba(90,58,18,.28)">
             <div style="width:38px;height:4px;border-radius:3px;background:rgba(74,48,22,.2);margin:0 auto 16px"></div>
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px"><span style="font:400 26px 'Bebas Neue';color:#2C2118;letter-spacing:1px">FILTER BY RIG</span><span onClick="{{ closeFilters }}" style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};cursor:pointer;text-transform:uppercase">Done</span></div>
 
@@ -547,10 +547,10 @@
 
         <!-- ============ VENUE DETAIL ============ -->
         <sc-if value="{{ isVenue }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="position:relative;height:266px">
             <image-slot id="hero-{{ sv.id }}" style="width:100%;height:266px;display:block" shape="rect" placeholder="Drop a photo of this arena"></image-slot>
-            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,25,10,.34) 0%,transparent 26%,transparent 52%,rgba(244,235,217,.6) 82%,#F4EBD9 100%);pointer-events:none"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,25,10,.34) 0%,transparent 26%,transparent 52%,rgba(244,235,217,.6) 82%,{{ themeSurf }} 100%);pointer-events:none"></div>
             <div onClick="{{ backToMap }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
             <div onClick="{{ toggleSaveSel }}" style="position:absolute;top:56px;right:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ svSaveFill }}" stroke="#B4472A" stroke-width="2"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></div>
             <div style="position:absolute;left:18px;right:18px;bottom:14px">
@@ -656,10 +656,10 @@
 
         <!-- ============ LODGING DETAIL ============ -->
         <sc-if value="{{ isLodge }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="position:relative;height:266px">
             <image-slot id="lhero-{{ ldv.id }}" style="width:100%;height:266px;display:block" shape="rect" placeholder="Drop a photo of this stay"></image-slot>
-            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,25,10,.34) 0%,transparent 26%,transparent 52%,rgba(244,235,217,.6) 82%,#F4EBD9 100%);pointer-events:none"></div>
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(40,25,10,.34) 0%,transparent 26%,transparent 52%,rgba(244,235,217,.6) 82%,{{ themeSurf }} 100%);pointer-events:none"></div>
             <div onClick="{{ backFromLodge }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
             <div onClick="{{ toggleSaveLodge }}" style="position:absolute;top:56px;right:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.9);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ ldvSaveFill }}" stroke="#B4472A" stroke-width="2"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></div>
             <div style="position:absolute;left:18px;right:18px;bottom:14px">
@@ -707,7 +707,7 @@
 
         <!-- ============ FEED STORE DETAIL ============ -->
         <sc-if value="{{ isFeed }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="position:relative;height:150px;background:linear-gradient(160deg,#e7cf9b,#c9a24e)">
             <div style="position:absolute;inset:0;opacity:.5;background-image:repeating-linear-gradient(90deg,transparent 0 30px,rgba(107,76,20,.12) 30px 31px)"></div>
             <div onClick="{{ backFromFeed }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
@@ -749,7 +749,7 @@
 
         <!-- ============ PARKING DETAIL ============ -->
         <sc-if value="{{ isParking }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="position:relative;height:150px;background:linear-gradient(160deg,#a8c4d4,#4a7f9d)">
             <div style="position:absolute;inset:0;opacity:.4;background-image:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,251,241,.35) 42px 45px)"></div>
             <div onClick="{{ backFromPark }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
@@ -797,7 +797,7 @@
 
         <!-- ============ FARRIER DETAIL ============ -->
         <sc-if value="{{ isFarrier }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="position:relative;height:150px;background:linear-gradient(160deg,#8a7a6a,#4e443c)">
             <div style="position:absolute;inset:0;opacity:.35;background-image:repeating-linear-gradient(45deg,transparent 0 26px,rgba(240,226,204,.18) 26px 28px)"></div>
             <div onClick="{{ backFromFar }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
@@ -837,7 +837,7 @@
 
         <!-- ============ VET DETAIL ============ -->
         <sc-if value="{{ isVet }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="position:relative;height:150px;background:linear-gradient(160deg,#b06576,#7a2f3e)">
             <div style="position:absolute;inset:0;opacity:.3;background-image:repeating-linear-gradient(45deg,transparent 0 26px,rgba(247,227,231,.22) 26px 28px)"></div>
             <div onClick="{{ backFromVet }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
@@ -878,7 +878,7 @@
 
         <!-- ============ DUMP STATION DETAIL ============ -->
         <sc-if value="{{ isDump }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="position:relative;height:150px;background:linear-gradient(160deg,#7fc4bb,#236b60)">
             <div style="position:absolute;inset:0;opacity:.4;background-image:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,251,241,.3) 42px 45px)"></div>
             <div onClick="{{ backFromDump }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
@@ -925,16 +925,16 @@
 
         <!-- ============ SAVED ============ -->
         <sc-if value="{{ isSaved }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:60px 20px 12px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">SADDLEBAG</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">{{ savedCount }} venues in your book</div></div>
           <sc-if value="{{ savedEmpty }}" hint-placeholder-val="{{ true }}">
-            <div style="margin:40px 20px;text-align:center;padding:40px 20px;border:1.5px dashed rgba(168,62,35,.3);border-radius:18px;background:#FCF5E6"><div style="font:400 46px 'Bebas Neue';color:#c9b48c">✻</div><div style="font:600 12px 'Archivo';color:#7A6247;margin-top:6px">No venues saved yet</div><div style="font:400 11px 'Archivo';color:#9c855f;margin-top:3px">Tap the ribbon on any venue to keep it here.</div></div>
+            <div style="margin:40px 20px;text-align:center;padding:40px 20px;border:1.5px dashed rgba(168,62,35,.3);border-radius:18px;background:{{ themePanel }}"><div style="font:400 46px 'Bebas Neue';color:#c9b48c">✻</div><div style="font:600 12px 'Archivo';color:#7A6247;margin-top:6px">No venues saved yet</div><div style="font:400 11px 'Archivo';color:#9c855f;margin-top:3px">Tap the ribbon on any venue to keep it here.</div></div>
           </sc-if>
           <div style="padding:0 16px 120px;display:flex;flex-direction:column;gap:11px">
             <sc-for list="{{ savedList }}" as="v" hint-placeholder-count="0">
               <div onClick="{{ v.open }}" style="display:flex;gap:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:16px;padding:11px;cursor:pointer;box-shadow:0 4px 12px rgba(120,80,30,.08)">
                 <image-slot id="sv-{{ v.id }}" style="width:70px;height:70px;flex:none" shape="rounded" radius="12" placeholder="＋"></image-slot>
-                <div style="flex:1;min-width:0"><div style="font:400 20px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.4px">{{ v.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ v.city }}, {{ v.state }}</div><div style="display:flex;gap:5px;margin-top:7px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ v.fitFg }};background:{{ v.fitBg }};border:1px solid {{ v.fitBd }};border-radius:20px;padding:3px 8px">{{ v.fitLabel }}</div><div style="font:400 14px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:6px;padding:0 7px">{{ v.metric }}</div></div></div>
+                <div style="flex:1;min-width:0"><div style="font:400 20px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.4px">{{ v.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ v.city }}, {{ v.state }}</div><div style="display:flex;gap:5px;margin-top:7px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ v.fitFg }};background:{{ v.fitBg }};border:1px solid {{ v.fitBd }};border-radius:20px;padding:3px 8px">{{ v.fitLabel }}</div><div style="font:400 14px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:6px;padding:0 7px">{{ v.metric }}</div></div></div>
               </div>
             </sc-for>
           </div>
@@ -943,7 +943,7 @@
 
         <!-- ============ PLANNER ============ -->
         <sc-if value="{{ isPlanner }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:60px 20px 10px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">TRAIL RUN</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">{{ tripStops }} stops · {{ tripMiles }} mi loop</div></div>
 
           <div onClick="{{ startQuiz }}" style="margin:4px 16px 0;display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,#C25232,#A83E23);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:0 10px 24px rgba(168,62,35,.32)">
@@ -957,12 +957,12 @@
               <rect width="400" height="180" fill="#e6d3ab"/>
               <g stroke="rgba(122,74,30,.12)"><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="100" y1="0" x2="100" y2="180"/><line x1="200" y1="0" x2="200" y2="180"/><line x1="300" y1="0" x2="300" y2="180"/></g>
               <polyline points="{{ tripPath }}" fill="none" stroke="#B4472A" stroke-width="2.4" stroke-dasharray="6 6" style="animation:dash 3s linear infinite"/>
-              <sc-for list="{{ tripPins }}" as="tp" hint-placeholder-count="0"><circle cx="{{ tp.x }}" cy="{{ tp.y }}" r="6" fill="#B4472A" stroke="#F4EBD9" stroke-width="2"/><text x="{{ tp.x }}" y="{{ tp.ty }}" text-anchor="middle" fill="#6b543a" style="font:400 11px 'Bebas Neue'">{{ tp.short }}</text></sc-for>
+              <sc-for list="{{ tripPins }}" as="tp" hint-placeholder-count="0"><circle cx="{{ tp.x }}" cy="{{ tp.y }}" r="6" fill="#B4472A" stroke="{{ themeSurf }}" stroke-width="2"/><text x="{{ tp.x }}" y="{{ tp.ty }}" text-anchor="middle" fill="#6b543a" style="font:400 11px 'Bebas Neue'">{{ tp.short }}</text></sc-for>
             </svg>
           </div>
 
           <sc-if value="{{ tripEmpty }}" hint-placeholder-val="{{ true }}">
-            <div style="margin:24px 20px;text-align:center;padding:36px 20px;border:1.5px dashed rgba(168,62,35,.3);border-radius:18px;background:#FCF5E6"><div style="font:400 12px 'Archivo';color:#7A6247">No stops planned.</div><div style="font:400 11px 'Archivo';color:#9c855f;margin-top:3px">Open a venue → "Add to trip".</div></div>
+            <div style="margin:24px 20px;text-align:center;padding:36px 20px;border:1.5px dashed rgba(168,62,35,.3);border-radius:18px;background:{{ themePanel }}"><div style="font:400 12px 'Archivo';color:#7A6247">No stops planned.</div><div style="font:400 11px 'Archivo';color:#9c855f;margin-top:3px">Open a venue → "Add to trip".</div></div>
           </sc-if>
 
           <div style="padding:16px 16px 120px;display:flex;flex-direction:column;gap:0">
@@ -978,9 +978,9 @@
 
         <!-- ============ EVENTS ============ -->
         <sc-if value="{{ isEvents }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:60px 20px 10px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">SEASON FEED</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">Summer 2026 · sorted by date</div></div>
-          <div style="display:flex;gap:4px;margin:10px 20px 0;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px">
+          <div style="display:flex;gap:4px;margin:10px 20px 0;background:{{ themeSeg }};border:1px solid rgba(74,48,22,.14);border-radius:13px;padding:4px">
             <sc-for list="{{ eventKinds }}" as="ek" hint-placeholder-count="3">
               <div onClick="{{ ek.pick }}" style="flex:1;text-align:center;padding:8px 0;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1.2px;text-transform:uppercase;background:{{ ek.bg }};color:{{ ek.fg }};box-shadow:{{ ek.sh }}">{{ ek.label }}</div>
             </sc-for>
@@ -1003,7 +1003,7 @@
 
         <!-- ============ BUDDY CHECK-INS ============ -->
         <sc-if value="{{ isBuddies }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:60px 20px 8px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">BUDDY CHECK-IN</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">Haulin' watch · {{ buddyOnRoad }} rigs on the road</div></div>
 
           <!-- your status -->
@@ -1037,7 +1037,7 @@
 
         <!-- ============ WEATHER & WIND ============ -->
         <sc-if value="{{ isWeather }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:54px 18px 6px;display:flex;align-items:center;gap:12px">
             <div onClick="{{ backFromWeather }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;border:1px solid rgba(74,48,22,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
             <div><div style="font:400 30px/.85 'Bebas Neue';color:#2C2118;letter-spacing:1px">WEATHER &amp; WIND</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase;margin-top:3px">Along your trail · live</div></div>
@@ -1080,7 +1080,7 @@
 
       <!-- ============ PLAN QUIZ ============ -->
       <sc-if value="{{ isQuiz }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;background:radial-gradient(120% 78% at 50% -6%,#f6ecd6,#eaddc2 62%);animation:screenIn .35s ease both;display:flex;flex-direction:column">
+      <div style="position:absolute;inset:0;background:{{ themeScreenBg }};animation:screenIn .35s ease both;display:flex;flex-direction:column">
         <div style="padding:56px 20px 0;flex:none">
           <div style="display:flex;justify-content:space-between;align-items:center">
             <div onClick="{{ backFromQuiz }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
@@ -1140,7 +1140,7 @@
 
       <!-- ============ PLAN RESULT ============ -->
       <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+      <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
         <div style="padding:56px 20px 0">
           <div onClick="{{ backFromPlan }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
           <div style="display:inline-flex;align-items:center;gap:7px;font:600 10px 'Oswald';letter-spacing:3px;color:#B4472A;text-transform:uppercase;margin-top:18px"><span style="width:22px;height:2px;background:#B4472A;display:inline-block"></span>Built for your rig</div>
@@ -1150,7 +1150,7 @@
         </div>
 
         <sc-if value="{{ planEmpty }}" hint-placeholder-val="{{ false }}">
-          <div style="margin:24px 20px;text-align:center;padding:36px 20px;border:1.5px dashed rgba(168,62,35,.3);border-radius:18px;background:#FCF5E6">
+          <div style="margin:24px 20px;text-align:center;padding:36px 20px;border:1.5px dashed rgba(168,62,35,.3);border-radius:18px;background:{{ themePanel }}">
             <div style="font:400 12px 'Archivo';color:#7A6247">Nothing fits those answers — the budget or haul limit is too tight for events that take your rig.</div>
             <div style="font:400 11px 'Archivo';color:#9c855f;margin-top:3px">Loosen the reins and run the quiz again.</div>
           </div>
@@ -1168,8 +1168,8 @@
                   </div>
                   <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">{{ s.day }} {{ s.mon }} · {{ s.venue }} · ◈ {{ s.city }}, {{ s.state }}</div>
                   <div style="display:flex;gap:5px;margin-top:8px;flex-wrap:wrap">
-                    <div style="font:400 14px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">⇢ {{ s.legTxt }}</div>
-                    <div style="font:400 14px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">{{ s.costTxt }} est.</div>
+                    <div style="font:400 14px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">⇢ {{ s.legTxt }}</div>
+                    <div style="font:400 14px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">{{ s.costTxt }} est.</div>
                   </div>
                   <div style="font:600 9.5px 'Oswald';letter-spacing:.5px;color:#986412;margin-top:6px">{{ s.moneyTxt }} · {{ s.nightsTxt }}</div>
                 </div>
@@ -1188,7 +1188,7 @@
 
       <!-- BOTTOM NAV -->
       <sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;left:0;right:0;bottom:0;z-index:50;height:88px;background:linear-gradient(0deg,#FCF5E6 66%,rgba(252,245,230,.82) 100%);border-top:1px solid rgba(74,48,22,.12);display:flex;align-items:flex-start;padding:10px 6px 0;backdrop-filter:blur(8px);box-shadow:0 -6px 18px rgba(120,80,30,.08)">
+      <div style="position:absolute;left:0;right:0;bottom:0;z-index:50;height:88px;background:linear-gradient(0deg,{{ themePanel }} 66%,rgba(252,245,230,.82) 100%);border-top:1px solid rgba(74,48,22,.12);display:flex;align-items:flex-start;padding:10px 6px 0;backdrop-filter:blur(8px);box-shadow:0 -6px 18px rgba(120,80,30,.08)">
         <div onClick="{{ goMap }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding-top:4px">
           <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="{{ nav.map }}" stroke-width="1.9" stroke-linejoin="round"><path d="M9 4L3 6.5v14L9 18l6 2.5 6-2.5v-14L15 6.5 9 4z"/><path d="M9 4v14M15 6.5v14"/></svg>
           <span style="font:600 8px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ nav.map }}">Map</span>
@@ -1258,13 +1258,14 @@ class Component extends DCLogic {
     map: { x: 0, y: -70, s: 1 }
   };
 
+  // c1..c4 = light→deep parchment ramp that retints the whole app per skin
   SKINS = {
-    sunset:    { name:'Sunset',    accent:'#B4472A', deep:'#A83E23', light:'#C25232', glow:'rgba(168,62,35,.32)',  soft:'rgba(180,71,42,.10)',  dot:'linear-gradient(140deg,#C25232,#8f2f18)' },
-    rose:      { name:'Rosé',      accent:'#C24A78', deep:'#A8365F', light:'#D65E8C', glow:'rgba(168,54,95,.34)',   soft:'rgba(198,74,120,.12)', dot:'linear-gradient(140deg,#E27AA0,#A8365F)' },
-    turquoise: { name:'Turquoise', accent:'#1F8A8A', deep:'#166B6B', light:'#2AA1A1', glow:'rgba(22,107,107,.32)',  soft:'rgba(31,138,138,.12)', dot:'linear-gradient(140deg,#3FB6B6,#166B6B)' },
-    sage:      { name:'Sage',      accent:'#5E7A4E', deep:'#47613A', light:'#6E8C5A', glow:'rgba(71,97,58,.32)',    soft:'rgba(94,122,78,.12)',  dot:'linear-gradient(140deg,#7C9A63,#47613A)' },
-    midnight:  { name:'Midnight',  accent:'#4C5C86', deep:'#384769', light:'#5D6E9C', glow:'rgba(56,71,105,.34)',   soft:'rgba(76,92,134,.12)',  dot:'linear-gradient(140deg,#6E7FAE,#384769)' },
-    buckskin:  { name:'Buckskin',  accent:'#B07A2E', deep:'#8A5D1E', light:'#C69138', glow:'rgba(138,93,30,.32)',   soft:'rgba(176,122,46,.12)', dot:'linear-gradient(140deg,#D2A44E,#8A5D1E)' }
+    sunset:    { name:'Sunset',    accent:'#B4472A', deep:'#A83E23', light:'#C25232', glow:'rgba(168,62,35,.32)',  soft:'rgba(180,71,42,.10)',  dot:'linear-gradient(140deg,#C25232,#8f2f18)', c1:'#FCF5E6', c2:'#F4EBD9', c3:'#EEDFC2', c4:'#DCC59C' },
+    rose:      { name:'Rosé',      accent:'#C24A78', deep:'#A8365F', light:'#D65E8C', glow:'rgba(168,54,95,.34)',   soft:'rgba(198,74,120,.12)', dot:'linear-gradient(140deg,#E27AA0,#A8365F)', c1:'#FBEAF0', c2:'#F5DEE7', c3:'#EBC8D6', c4:'#D49CB4' },
+    turquoise: { name:'Turquoise', accent:'#1F8A8A', deep:'#166B6B', light:'#2AA1A1', glow:'rgba(22,107,107,.32)',  soft:'rgba(31,138,138,.12)', dot:'linear-gradient(140deg,#3FB6B6,#166B6B)', c1:'#E3F3ED', c2:'#D2E9DF', c3:'#B7DACD', c4:'#8FC4B4' },
+    sage:      { name:'Sage',      accent:'#5E7A4E', deep:'#47613A', light:'#6E8C5A', glow:'rgba(71,97,58,.32)',    soft:'rgba(94,122,78,.12)',  dot:'linear-gradient(140deg,#7C9A63,#47613A)', c1:'#EFF3E2', c2:'#E1E9C9', c3:'#CDDAAF', c4:'#A8BC82' },
+    denim:     { name:'Denim',     accent:'#4C5C86', deep:'#384769', light:'#5D6E9C', glow:'rgba(56,71,105,.34)',   soft:'rgba(76,92,134,.12)',  dot:'linear-gradient(140deg,#6E7FAE,#384769)', c1:'#EAEEF7', c2:'#D9E1F1', c3:'#C3CCE1', c4:'#9BA8CC' },
+    buckskin:  { name:'Buckskin',  accent:'#B07A2E', deep:'#8A5D1E', light:'#C69138', glow:'rgba(138,93,30,.32)',   soft:'rgba(176,122,46,.12)', dot:'linear-gradient(140deg,#D2A44E,#8A5D1E)', c1:'#F9F0D6', c2:'#F0E1B6', c3:'#E4CE98', c4:'#C9A44E' }
   };
   setSkin(k) { this.setState({ skin: k }); }
 
@@ -2037,6 +2038,11 @@ class Component extends DCLogic {
       togglePull: () => this.setState({ filters: { ...f, requirePull: !f.requirePull } }), pullTrack: pullOn?TON:TOFF, pullDot: pullOn?'22px':'3px',
       enterApp: () => this.setScreen('map'),
       skinOpts, themeAcc: theme.accent, themeDeep: theme.deep, themeGrad: 'linear-gradient(180deg,'+theme.light+','+theme.deep+')', themeGlow: theme.glow, themeSoft: theme.soft,
+      themeSurf: theme.c2, themePanel: theme.c1, themeSeg: theme.c3, themeLand1: theme.c3, themeLand2: theme.c4,
+      themeDeskBg: 'linear-gradient(155deg,'+theme.c2+','+theme.c3+','+theme.c4+')',
+      themeScreenBg: 'linear-gradient(180deg,'+theme.c1+','+theme.c2+')',
+      themeMapBg: 'linear-gradient(170deg,'+theme.c2+','+theme.c3+','+theme.c4+')',
+      themeListBg: 'linear-gradient(180deg,'+theme.c1+','+theme.c2+','+theme.c3+')',
       resultCount,
       lqChipFg: lqOn?'#3F6B32':'#a1896a', lqChipBg: lqOn?'rgba(94,122,78,.14)':'#F7EEDC', lqChipBd: lqOn?'rgba(94,122,78,.35)':'rgba(74,48,22,.12)',
       openFilters: () => this.setState({ filtersOpen: true }), closeFilters: () => this.setState({ filtersOpen: false }), filtersOpen: st.filtersOpen,
