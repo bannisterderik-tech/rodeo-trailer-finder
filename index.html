@@ -74,8 +74,8 @@
         <sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ true }}">
         <div style="position:absolute;inset:0;background:radial-gradient(120% 78% at 50% -6%,#f6ecd6,#eaddc2 62%);animation:screenIn .5s ease both;display:flex;flex-direction:column">
           <div style="padding:64px 26px 0;flex:none">
-            <div style="display:inline-flex;align-items:center;gap:7px;font:600 11px 'Oswald';letter-spacing:3px;color:#B4472A;text-transform:uppercase"><span style="width:22px;height:2px;background:#B4472A;display:inline-block"></span>Rodeo Season · 2026</div>
-            <div style="font:400 58px/.86 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">DIAL IN<br><span style="color:#B4472A">YOUR RIG</span></div>
+            <div style="display:inline-flex;align-items:center;gap:7px;font:600 11px 'Oswald';letter-spacing:3px;color:{{ themeAcc }};text-transform:uppercase"><span style="width:22px;height:2px;background:{{ themeAcc }};display:inline-block"></span>Rodeo Season · 2026</div>
+            <div style="font:400 58px/.86 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">DIAL IN<br><span style="color:{{ themeAcc }}">YOUR RIG</span></div>
             <div style="font:400 13px/1.5 'Archivo';color:#7A6247;margin-top:10px;max-width:284px">Set your trailer once. We'll only show you arenas &amp; venues that can actually take your size.</div>
           </div>
 
@@ -124,7 +124,19 @@
               <div style="width:46px;height:27px;border-radius:14px;background:{{ lqTrack }};position:relative;transition:.25s;flex:none"><div style="position:absolute;top:3px;left:{{ lqDot }};width:21px;height:21px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 1px 4px rgba(60,35,12,.35)"></div></div>
             </div>
 
-            <div onClick="{{ enterApp }}" style="margin-top:16px;text-align:center;padding:15px 0;border-radius:14px;cursor:pointer;font:400 22px 'Bebas Neue';letter-spacing:2px;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23);box-shadow:0 8px 20px rgba(168,62,35,.32)">SADDLE UP → FIND VENUES</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+              <span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Trail Style</span>
+              <div style="display:flex;gap:11px;align-items:center">
+                <sc-for list="{{ skinOpts }}" as="sk" hint-placeholder-count="6">
+                  <div onClick="{{ sk.pick }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer">
+                    <div style="width:26px;height:26px;border-radius:50%;background:{{ sk.dot }};border:{{ sk.ringW }} solid {{ sk.ring }};box-shadow:0 2px 5px rgba(90,58,18,.2)"></div>
+                    <span style="font:600 7.5px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sk.nameFg }}">{{ sk.name }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div onClick="{{ enterApp }}" style="margin-top:16px;text-align:center;padding:15px 0;border-radius:14px;cursor:pointer;font:400 22px 'Bebas Neue';letter-spacing:2px;color:#FBF3E4;background:{{ themeGrad }};box-shadow:0 8px 20px {{ themeGlow }}">SADDLE UP → FIND VENUES</div>
           </div>
         </div>
         </sc-if>
@@ -280,6 +292,42 @@
             </sc-for>
             </sc-if>
 
+            <!-- vets list -->
+            <sc-if value="{{ showVetList }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ vetListItems }}" as="it" hint-placeholder-count="6">
+              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+                <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#b06576,#8A3A4A)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f7e3e7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 3 12 2.5-7H21"/></svg></div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                    <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ it.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.emFg }};background:rgba(138,58,74,.1);border:1px solid rgba(138,58,74,.32);border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ it.emTxt }}</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.hours }}</div>
+                  <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ it.spec }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.mobileFg }};margin-top:5px">{{ it.mobileTxt }}</div>
+                </div>
+              </div>
+            </sc-for>
+            </sc-if>
+
+            <!-- dump stations list -->
+            <sc-if value="{{ showDumpList }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ dumpListItems }}" as="it" hint-placeholder-count="6">
+              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+                <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#7fc4bb,#2E8577)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#123f39" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 13a2.5 2.5 0 002.5 2.5"/></svg></div>
+                <div style="flex:1;min-width:0">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                    <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ it.name }}</div>
+                    <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.fitFg }};background:{{ it.fitBg }};border:1px solid {{ it.fitBd }};border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ it.fitLabel }}</div>
+                  </div>
+                  <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ it.city }}, {{ it.state }} · {{ it.type }}</div>
+                  <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ it.fee }} · {{ it.hours }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ it.waterFg }};margin-top:5px">{{ it.waterTxt }}</div>
+                </div>
+              </div>
+            </sc-for>
+            </sc-if>
+
           </div>
           </sc-if>
 
@@ -288,7 +336,7 @@
             <div style="display:flex;justify-content:space-between;align-items:flex-start">
               <div>
                 <div style="font:400 30px/.85 'Bebas Neue';color:#2C2118;letter-spacing:1px">TRAIL MAP</div>
-                <div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase;margin-top:4px">{{ layerSub }}</div>
+                <div style="font:600 10px 'Oswald';letter-spacing:2px;color:{{ themeAcc }};text-transform:uppercase;margin-top:4px">{{ layerSub }}</div>
               </div>
               <div style="display:flex;align-items:center;gap:6px">
                 <div style="display:flex;gap:3px;background:#EEDFC2;border:1px solid rgba(74,48,22,.14);border-radius:12px;padding:3px">
@@ -296,9 +344,9 @@
                     <div onClick="{{ vm.pick }}" style="padding:6px 10px;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;background:{{ vm.bg }};color:{{ vm.fg }};box-shadow:{{ vm.sh }}">{{ vm.label }}</div>
                   </sc-for>
                 </div>
-                <div onClick="{{ openFilters }}" style="display:flex;align-items:center;gap:7px;background:#FFFBF1;border:1px solid rgba(168,62,35,.3);border-radius:12px;padding:8px 12px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.1)">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B4472A" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
-                  <span style="font:600 11px 'Oswald';letter-spacing:1px;color:#B4472A;text-transform:uppercase">Filter</span>
+                <div onClick="{{ openFilters }}" style="display:flex;align-items:center;gap:7px;background:#FFFBF1;border:1px solid {{ themeAcc }};border-radius:12px;padding:8px 12px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.1)">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ themeAcc }}" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+                  <span style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};text-transform:uppercase">Filter</span>
                 </div>
               </div>
             </div>
@@ -336,7 +384,7 @@
                   <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">⇅ {{ sv.maxHeightFt }}ft</div>
                   <div style="font:400 15px 'Bebas Neue';color:#6b543a;background:#F4EBD9;border-radius:7px;padding:2px 8px">P {{ sv.parking }}</div>
                 </div>
-                <div onClick="{{ openVenue }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23);border-radius:10px;padding:8px 0;cursor:pointer">View venue →</div>
+                <div onClick="{{ openVenue }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:{{ themeGrad }};border-radius:10px;padding:8px 0;cursor:pointer">View venue →</div>
               </div>
             </div>
           </div>
@@ -416,6 +464,42 @@
           </div>
           </sc-if>
 
+          <!-- selected vet card -->
+          <sc-if value="{{ hasVetSel }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
+            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+              <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#b06576,#8A3A4A)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f7e3e7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 3 12 2.5-7H21"/></svg></div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                  <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ vetSel.name }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:#8A3A4A;background:rgba(138,58,74,.12);border:1px solid rgba(138,58,74,.35);border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">Vet</div>
+                </div>
+                <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ vetSel.city }}, {{ vetSel.state }} · {{ vetSel.hours }}</div>
+                <div style="font:500 10px 'Archivo';color:#6b543a;margin-top:6px">{{ vetSel.spec }}</div>
+                <div onClick="{{ openVetSel }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:linear-gradient(180deg,#a84c60,#8A3A4A);border-radius:10px;padding:8px 0;cursor:pointer">View vet →</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <!-- selected dump station card -->
+          <sc-if value="{{ hasDumpSel }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
+            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+              <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#7fc4bb,#2E8577)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#123f39" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 13a2.5 2.5 0 002.5 2.5"/></svg></div>
+              <div style="flex:1;min-width:0">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
+                  <div style="font:400 21px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.5px">{{ dumpSel.name }}</div>
+                  <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ dumpSel.fitFg }};background:{{ dumpSel.fitBg }};border:1px solid {{ dumpSel.fitBd }};border-radius:20px;padding:3px 8px;white-space:nowrap;flex:none">{{ dumpSel.fitLabel }}</div>
+                </div>
+                <div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ dumpSel.city }}, {{ dumpSel.state }} · {{ dumpSel.type }}</div>
+                <div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ dumpSel.waterFg }};margin-top:6px">{{ dumpSel.waterTxt }} · {{ dumpSel.fee }}</div>
+                <div onClick="{{ openDumpSel }}" style="margin-top:9px;text-align:center;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#FBF3E4;background:linear-gradient(180deg,#37a08f,#2E8577);border-radius:10px;padding:8px 0;cursor:pointer">View station →</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
           <!-- selected no-go road card -->
           <sc-if value="{{ hasRoadSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
@@ -441,7 +525,7 @@
           <div onClick="{{ closeFilters }}" style="position:absolute;inset:0;z-index:45;background:rgba(50,30,12,.35);backdrop-filter:blur(2px);animation:screenIn .2s ease both"></div>
           <div style="position:absolute;left:0;right:0;bottom:0;z-index:46;background:#FCF5E6;border-top:1px solid rgba(168,62,35,.22);border-radius:26px 26px 0 0;padding:18px 22px 30px;animation:sheetUp .3s ease both;box-shadow:0 -18px 44px rgba(90,58,18,.28)">
             <div style="width:38px;height:4px;border-radius:3px;background:rgba(74,48,22,.2);margin:0 auto 16px"></div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px"><span style="font:400 26px 'Bebas Neue';color:#2C2118;letter-spacing:1px">FILTER BY RIG</span><span onClick="{{ closeFilters }}" style="font:600 11px 'Oswald';letter-spacing:1px;color:#B4472A;cursor:pointer;text-transform:uppercase">Done</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px"><span style="font:400 26px 'Bebas Neue';color:#2C2118;letter-spacing:1px">FILTER BY RIG</span><span onClick="{{ closeFilters }}" style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};cursor:pointer;text-transform:uppercase">Done</span></div>
 
             <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Length ≥</span><span style="font:400 18px 'Bebas Neue';color:#2C2118">{{ rig.lengthFt }} ft</span></div>
             <input type="range" min="16" max="60" step="1" value="{{ rig.lengthFt }}" onInput="{{ onLen }}">
@@ -455,7 +539,7 @@
             <div onClick="{{ toggleLQ }}" style="display:flex;justify-content:space-between;align-items:center;margin-top:16px;cursor:pointer"><div style="font:600 12px 'Archivo';color:#2C2118">Require LQ hookups</div><div style="width:46px;height:27px;border-radius:14px;background:{{ lqTrack }};position:relative;flex:none"><div style="position:absolute;top:3px;left:{{ lqDot }};width:21px;height:21px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 1px 4px rgba(60,35,12,.3)"></div></div></div>
             <div onClick="{{ togglePull }}" style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;cursor:pointer"><div><div style="font:600 12px 'Archivo';color:#2C2118">Pull-through parking only</div><div style="font:400 10px 'Archivo';color:#9c855f">No backing the rig up</div></div><div style="width:46px;height:27px;border-radius:14px;background:{{ pullTrack }};position:relative;flex:none"><div style="position:absolute;top:3px;left:{{ pullDot }};width:21px;height:21px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 1px 4px rgba(60,35,12,.3)"></div></div></div>
 
-            <div onClick="{{ closeFilters }}" style="margin-top:18px;text-align:center;padding:14px 0;border-radius:13px;cursor:pointer;font:400 20px 'Bebas Neue';letter-spacing:1.5px;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23)">SHOW {{ resultCount }} VENUES</div>
+            <div onClick="{{ closeFilters }}" style="margin-top:18px;text-align:center;padding:14px 0;border-radius:13px;cursor:pointer;font:400 20px 'Bebas Neue';letter-spacing:1.5px;color:#FBF3E4;background:{{ themeGrad }}">SHOW {{ resultCount }} VENUES</div>
           </div>
           </sc-if>
         </div>
@@ -747,6 +831,94 @@
 
             <div onClick="{{ toggleSaveFar }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#7a6a58,#5E5248);cursor:pointer">♥ SAVE THIS FARRIER</div>
             <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">A thrown shoe two days before a jackpot is an emergency — save a name in every town you haul through.</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ VET DETAIL ============ -->
+        <sc-if value="{{ isVet }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+          <div style="position:relative;height:150px;background:linear-gradient(160deg,#b06576,#7a2f3e)">
+            <div style="position:absolute;inset:0;opacity:.3;background-image:repeating-linear-gradient(45deg,transparent 0 26px,rgba(247,227,231,.22) 26px 28px)"></div>
+            <div onClick="{{ backFromVet }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+            <div onClick="{{ toggleSaveVet }}" style="position:absolute;top:56px;right:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ vdvSaveFill }}" stroke="#B4472A" stroke-width="2"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></div>
+            <div style="position:absolute;left:18px;bottom:14px;display:flex;align-items:center;gap:11px">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f7e3e7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 3 12 2.5-7H21"/></svg>
+              <div style="font:600 9px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#f7e3e7;background:rgba(74,28,36,.5);border-radius:20px;padding:4px 9px">Equine vet</div>
+            </div>
+          </div>
+          <div style="padding:14px 18px 120px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+              <div style="font:400 34px/.9 'Bebas Neue';color:#2C2118;letter-spacing:.6px">{{ vdv.name }}</div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ vdv.emFg }};background:{{ vdv.emBg }};border:1px solid {{ vdv.emBd }};border-radius:20px;padding:4px 9px;white-space:nowrap;flex:none;margin-top:6px">{{ vdv.emTxt }}</div>
+            </div>
+            <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ vdv.city }}, {{ vdv.state }} · {{ vdv.haul }}</div>
+
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.phone }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Hours</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.hours }}</div></div></div>
+            </div>
+
+            <div style="margin-top:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
+              <div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Specialty</div>
+              <div style="font:600 13px 'Archivo';color:#2C2118;margin-top:3px">{{ vdv.spec }}</div>
+              <div style="font:600 11px 'Archivo';color:{{ vdv.mobileFg }};margin-top:6px">{{ vdv.mobileTxt }}</div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #8A3A4A;border-radius:12px;padding:12px 14px">
+              <div style="font:400 16px 'Bebas Neue';color:#8A3A4A">✦</div>
+              <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ vdv.note }}</div>
+            </div>
+
+            <div onClick="{{ toggleSaveVet }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#a84c60,#8A3A4A);cursor:pointer">♥ SAVE THIS VET</div>
+            <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Colic won’t wait for morning — keep a vet’s number saved in every town on your route.</div>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ============ DUMP STATION DETAIL ============ -->
+        <sc-if value="{{ isDump }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:#F4EBD9;overflow-y:auto;animation:screenIn .4s ease both">
+          <div style="position:relative;height:150px;background:linear-gradient(160deg,#7fc4bb,#236b60)">
+            <div style="position:absolute;inset:0;opacity:.4;background-image:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,251,241,.3) 42px 45px)"></div>
+            <div onClick="{{ backFromDump }}" style="position:absolute;top:56px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+            <div onClick="{{ toggleSaveDump }}" style="position:absolute;top:56px;right:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,251,241,.92);display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.2)"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ ddvSaveFill }}" stroke="#B4472A" stroke-width="2"><path d="M6 3h12a1 1 0 011 1v17l-7-4-7 4V4a1 1 0 011-1z"/></svg></div>
+            <div style="position:absolute;left:18px;bottom:14px;display:flex;align-items:center;gap:11px">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0f3a35" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 13a2.5 2.5 0 002.5 2.5"/></svg>
+              <div style="font:600 9px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#0f3a35;background:rgba(255,251,241,.7);border-radius:20px;padding:4px 9px">{{ ddv.type }}</div>
+            </div>
+          </div>
+          <div style="padding:14px 18px 120px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+              <div style="font:400 34px/.9 'Bebas Neue';color:#2C2118;letter-spacing:.6px">{{ ddv.name }}</div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ ddv.fitFg }};background:{{ ddv.fitBg }};border:1px solid {{ ddv.fitBd }};border-radius:20px;padding:4px 9px;white-space:nowrap;flex:none;margin-top:6px">{{ ddv.fitLabel }}</div>
+            </div>
+            <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ ddv.city }}, {{ ddv.state }} · {{ ddv.hours }}</div>
+
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <div style="flex:1;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#2E8577">{{ ddv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Max ft</div></div>
+              <div style="flex:1.4;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 15px/1.5 'Bebas Neue';color:#2E8577">{{ ddv.fee }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Cost</div></div>
+            </div>
+
+            <div style="margin-top:12px;background:{{ ddv.fitPanelBg }};border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
+              <div style="font:600 12px 'Oswald';letter-spacing:.8px;text-transform:uppercase;color:{{ ddv.fitFg }}">{{ ddv.fitHead }}</div>
+              <div style="font:400 11px/1.5 'Archivo';color:#6b543a;margin-top:3px">{{ ddv.fitDetail }}</div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Fresh water</div><div style="font:600 11px 'Archivo';color:{{ ddv.waterFg }};margin-top:2px">{{ ddv.waterTxt }}</div></div>
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Approach</div><div style="font:600 11px 'Archivo';color:{{ ddv.pullFg }};margin-top:2px">{{ ddv.pullTxt }}</div></div>
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rinse</div><div style="font:600 11px 'Archivo';color:{{ ddv.rinseFg }};margin-top:2px">{{ ddv.rinseTxt }}</div></div>
+              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Cost</div><div style="font:600 11px 'Archivo';color:#2C2118;margin-top:2px">{{ ddv.fee }}</div></div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #2E8577;border-radius:12px;padding:12px 14px">
+              <div style="font:400 16px 'Bebas Neue';color:#2E8577">✦</div>
+              <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ ddv.note }}</div>
+            </div>
+
+            <div onClick="{{ toggleSaveDump }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#37a08f,#2E8577);cursor:pointer">♥ SAVE THIS STATION</div>
+            <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Dump when you can, not when you must — tanks fill fast with a barn full of horses.</div>
           </div>
         </div>
         </sc-if>
@@ -1067,6 +1239,10 @@ class Component extends DCLogic {
     parkDetailId: null,
     selFarId: null,
     farDetailId: null,
+    selVetId: null,
+    vetDetailId: null,
+    selDumpId: null,
+    dumpDetailId: null,
     noGoOn: true,
     selRoadId: null,
     saved: {},
@@ -1078,8 +1254,19 @@ class Component extends DCLogic {
     checkedAt: null,
     nudged: {},
     sosOn: false,
+    skin: 'sunset',
     map: { x: 0, y: -70, s: 1 }
   };
+
+  SKINS = {
+    sunset:    { name:'Sunset',    accent:'#B4472A', deep:'#A83E23', light:'#C25232', glow:'rgba(168,62,35,.32)',  soft:'rgba(180,71,42,.10)',  dot:'linear-gradient(140deg,#C25232,#8f2f18)' },
+    rose:      { name:'Rosé',      accent:'#C24A78', deep:'#A8365F', light:'#D65E8C', glow:'rgba(168,54,95,.34)',   soft:'rgba(198,74,120,.12)', dot:'linear-gradient(140deg,#E27AA0,#A8365F)' },
+    turquoise: { name:'Turquoise', accent:'#1F8A8A', deep:'#166B6B', light:'#2AA1A1', glow:'rgba(22,107,107,.32)',  soft:'rgba(31,138,138,.12)', dot:'linear-gradient(140deg,#3FB6B6,#166B6B)' },
+    sage:      { name:'Sage',      accent:'#5E7A4E', deep:'#47613A', light:'#6E8C5A', glow:'rgba(71,97,58,.32)',    soft:'rgba(94,122,78,.12)',  dot:'linear-gradient(140deg,#7C9A63,#47613A)' },
+    midnight:  { name:'Midnight',  accent:'#4C5C86', deep:'#384769', light:'#5D6E9C', glow:'rgba(56,71,105,.34)',   soft:'rgba(76,92,134,.12)',  dot:'linear-gradient(140deg,#6E7FAE,#384769)' },
+    buckskin:  { name:'Buckskin',  accent:'#B07A2E', deep:'#8A5D1E', light:'#C69138', glow:'rgba(138,93,30,.32)',   soft:'rgba(176,122,46,.12)', dot:'linear-gradient(140deg,#D2A44E,#8A5D1E)' }
+  };
+  setSkin(k) { this.setState({ skin: k }); }
 
   venues = [
     { id:'ftw', name:'Cowtown Coliseum', city:'Fort Worth', state:'TX', x:520, y:470, maxLengthFt:52, maxHeightFt:14, maxSlots:6, pullThrough:true, water:true, power:true, manure:true, covered:true, footing:'Groomed sand', arenaSize:'150 × 300 ft', stalls:200, parking:180, turn:'Wide · 90ft bays', dist:0, events:[{d:'2026-06-12',name:'Stockyards Championship Rodeo'},{d:'2026-07-04',name:'Fourth of July Bull Bash'}] },
@@ -1134,6 +1321,27 @@ class Component extends DCLogic {
     { id:'fr_wck', name:'Sonoran Anvil', city:'Wickenburg', state:'AZ', x:256, y:410, phone:'(928) 555-0186', radius:'Travels 50 mi', spec:'Team roping horses', price:'$45 trim · $135 shoes', emergency:true, yrs:15, note:'Lives at Rancho Rio all jackpot season. Ask for Manny at the office.' },
     { id:'fr_oca', name:'Cypress Forge & Farrier', city:'Ocala', state:'FL', x:744, y:460, phone:'(352) 555-0129', radius:'Travels 40 mi', spec:'All-around, hot shoeing', price:'$50 trim · $145 shoes', emergency:false, yrs:20, note:'Runs a Saturday walk-in clinic at the feed store, first-come.' },
     { id:'fr_rno', name:'Silver State Shoeing', city:'Reno', state:'NV', x:182, y:312, phone:'(775) 555-0153', radius:'Travels 70 mi', spec:'Rodeo stock, pads & rim shoes', price:'$48 trim · $150 shoes', emergency:true, yrs:14, note:'Emergency line answered during Reno Rodeo week, day or night.' }
+  ];
+
+  vets = [
+    { id:'vt_wea', name:'Brazos Valley Equine', city:'Weatherford', state:'TX', x:506, y:458, phone:'(817) 555-0190', hours:'24/7 emergency line', spec:'Colic, lameness, dental', mobile:true, emergency:true, haul:'Haul-in clinic + farm calls', note:'On call every night of Stockyards season. Text a photo and they’ll tell you whether to trailer in.' },
+    { id:'vt_gut', name:'Red Dirt Equine Vets', city:'Guthrie', state:'OK', x:552, y:396, phone:'(405) 555-0155', hours:'Mon–Sat 7a–7p · after-hours on call', spec:'Sports medicine, joint injections', mobile:true, emergency:true, haul:'Farm & arena calls', note:'Rigs a truck at Lazy E during big timed-event weekends — flags you down in the barn aisle.' },
+    { id:'vt_chy', name:'Frontier Large Animal Clinic', city:'Cheyenne', state:'WY', x:448, y:264, phone:'(307) 555-0177', hours:'Mon–Fri 8a–6p', spec:'Ranch & rodeo stock, Coggins', mobile:false, emergency:false, haul:'Haul-in only', note:'Fast turnaround on Coggins and health certs if you’re crossing into Colorado for the next rodeo.' },
+    { id:'vt_slc', name:'Wasatch Equine Hospital', city:'Salt Lake City', state:'UT', x:296, y:294, phone:'(801) 555-0134', hours:'24/7 hospital', spec:'Surgery, colic, imaging', mobile:true, emergency:true, haul:'Full hospital + ambulatory', note:'Only surgical referral hospital on the I-15 corridor. Big-rig parking at the loading chute.' },
+    { id:'vt_wck', name:'Sonoran Desert Equine', city:'Wickenburg', state:'AZ', x:250, y:408, phone:'(928) 555-0166', hours:'Daily 7a–8p · emergency after', spec:'Colic, dehydration, hoof abscess', mobile:true, emergency:true, haul:'Farm calls to Rancho Rio', note:'Knows the jackpot crowd — carries electrolytes and banamine on the truck all season.' },
+    { id:'vt_oca', name:'Ocala Equine Medical', city:'Ocala', state:'FL', x:748, y:456, phone:'(352) 555-0143', hours:'24/7 emergency', spec:'Lameness, reproduction, dentistry', mobile:true, emergency:true, haul:'Hospital + ambulatory', note:'Horse-capital of the world — deepest bench of specialists on the winter circuit.' },
+    { id:'vt_rno', name:'Sierra Equine Emergency', city:'Reno', state:'NV', x:178, y:318, phone:'(775) 555-0128', hours:'24/7 emergency', spec:'Trauma, colic, tie-up', mobile:true, emergency:true, haul:'Ambulatory + haul-in', note:'Answers the emergency line all through Reno Rodeo week, day or night.' }
+  ];
+
+  dumpStations = [
+    { id:'d_ama', name:"Love's Travel Stop #288", city:'Amarillo', state:'TX', x:446, y:390, type:'Travel stop', fee:'Free w/ fuel · $15 w/o', potable:true, rinse:true, pullThrough:true, maxLengthFt:75, hours:'24/7', note:'Dump + fresh-water fill right in the RV lane behind the truck lot. DEF at every pump.' },
+    { id:'d_ftw', name:'Cowtown RV Dump', city:'Fort Worth', state:'TX', x:524, y:466, type:'RV park', fee:'$10', potable:true, rinse:true, pullThrough:true, maxLengthFt:70, hours:'Daily 7a–9p', note:'Wide pull-through dump lane a few minutes from the Stockyards. Attendant hoses it down between rigs.' },
+    { id:'d_gut', name:'Guthrie Fairgrounds Dump', city:'Guthrie', state:'OK', x:548, y:392, type:'Fairgrounds', fee:'Free during events', potable:false, rinse:false, pullThrough:true, maxLengthFt:90, hours:'Gate 6a–10p', note:'Open to Lazy E haulers on event weeks. No potable fill — top off your water before you get here.' },
+    { id:'d_chy', name:'Frontier Days RV Dump', city:'Cheyenne', state:'WY', x:458, y:256, type:'Fairgrounds', fee:'$5 honor box', potable:true, rinse:true, pullThrough:false, maxLengthFt:45, hours:'Daylight hours', note:'Back-in dump beside the fairgrounds overflow. Tight for long rigs — scout the approach first.' },
+    { id:'d_slc', name:'Pilot Flying J #467 Dump', city:'Salt Lake City', state:'UT', x:308, y:290, type:'Travel stop', fee:'Free w/ RV reservation', potable:true, rinse:true, pullThrough:true, maxLengthFt:75, hours:'24/7', note:'Dump station shares the reservable RV row. Fills fast on rodeo weekends — get in before 8 PM.' },
+    { id:'d_rap', name:'Black Hills Fairgrounds Dump', city:'Rapid City', state:'SD', x:472, y:234, type:'Fairgrounds', fee:'$10/night incl.', potable:true, rinse:false, pullThrough:true, maxLengthFt:90, hours:'Gate 6a–10p', note:'Bundled with the overflow-lot fee during Roundup week. Water spigots on the north fence.' },
+    { id:'d_wck', name:'Cactus Wren Casino Dump', city:'Wickenburg', state:'AZ', x:246, y:414, type:'Casino lot', fee:'Free with players card', potable:true, rinse:true, pullThrough:true, maxLengthFt:80, hours:'24/7', note:'Quiet dump + fill on the wash side of the lot. Security patrols keep it clean overnight.' },
+    { id:'d_rno', name:'Reno RV Dump & Fill', city:'Reno', state:'NV', x:172, y:326, type:'RV park', fee:'$12', potable:true, rinse:true, pullThrough:false, maxLengthFt:55, hours:'Daily 6a–10p', note:'Handy dump near the rodeo grounds. Back-in only, but the attendant will spot you if it’s busy.' }
   ];
 
   noGoRoads = [
@@ -1192,8 +1400,8 @@ class Component extends DCLogic {
   setRig(k, v) { this.setState(st => ({ rig: { ...st.rig, [k]: v } }), () => this.updateRig()); }
   selectVenue(id) { this.setState({ selectedId: id }); }
   openVenue(id) { this.setState({ detailId: id, screen: 'venue' }); }
-  setLayer(l) { this.setState({ layer: l, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selRoadId: null }); }
-  setMapView(v) { this.setState({ mapView: v, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selRoadId: null }); }
+  setLayer(l) { this.setState({ layer: l, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selVetId: null, selDumpId: null, selRoadId: null }); }
+  setMapView(v) { this.setState({ mapView: v, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selVetId: null, selDumpId: null, selRoadId: null }); }
   selectLodge(id) { this.setState({ selLodgeId: id }); }
   openLodge(id) { this.setState({ lodgeDetailId: id, screen: 'lodge' }); }
   selectFeed(id) { this.setState({ selFeedId: id }); }
@@ -1202,7 +1410,11 @@ class Component extends DCLogic {
   openPark(id) { this.setState({ parkDetailId: id, screen: 'parking' }); }
   selectFar(id) { this.setState({ selFarId: id }); }
   openFar(id) { this.setState({ farDetailId: id, screen: 'farrier' }); }
-  selectRoad(id) { this.setState({ selRoadId: id, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null }); }
+  selectVet(id) { this.setState({ selVetId: id }); }
+  openVet(id) { this.setState({ vetDetailId: id, screen: 'vet' }); }
+  selectDump(id) { this.setState({ selDumpId: id }); }
+  openDump(id) { this.setState({ dumpDetailId: id, screen: 'dump' }); }
+  selectRoad(id) { this.setState({ selRoadId: id, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selVetId: null, selDumpId: null }); }
 
   parkFits(p) { const r = this.state.rig; return p.maxLengthFt >= r.lengthFt && (!this.state.filters.requirePull || p.pullThrough); }
   parkCardVals(p) { const ok = this.parkFits(p);
@@ -1221,6 +1433,24 @@ class Component extends DCLogic {
     emTxt: f.emergency ? 'Emergency calls' : 'By appointment', emFg: f.emergency ? '#3F6B32' : '#986412' }; }
   farDetailVals(f) { return { ...this.farCardVals(f), yrs:f.yrs, note:f.note,
     emBg: f.emergency ? 'rgba(94,122,78,.15)' : 'rgba(198,150,40,.16)', emBd: f.emergency ? 'rgba(94,122,78,.42)' : 'rgba(198,150,40,.45)' }; }
+  vetCardVals(v) { return { id:v.id, name:v.name, city:v.city, state:v.state, spec:v.spec, hours:v.hours, phone:v.phone,
+    emTxt: v.emergency ? '24/7 emergency' : 'Clinic hours', emFg: v.emergency ? '#3F6B32' : '#986412',
+    mobileTxt: v.mobile ? 'Mobile / farm calls' : 'Haul-in only', mobileFg: v.mobile ? '#3F6B32' : '#986412' }; }
+  vetDetailVals(v) { return { ...this.vetCardVals(v), haul:v.haul, note:v.note,
+    emBg: v.emergency ? 'rgba(94,122,78,.15)' : 'rgba(198,150,40,.16)', emBd: v.emergency ? 'rgba(94,122,78,.42)' : 'rgba(198,150,40,.45)' }; }
+  dumpFits(d) { const r = this.state.rig; return d.maxLengthFt >= r.lengthFt && (!this.state.filters.requirePull || d.pullThrough); }
+  dumpCardVals(d) { const ok = this.dumpFits(d);
+    return { id:d.id, name:d.name, city:d.city, state:d.state, type:d.type, fee:d.fee, hours:d.hours,
+      waterTxt: d.potable ? 'Potable water' : 'Dump only', waterFg: d.potable ? '#3F6B32' : '#986412',
+      fitLabel: ok ? 'Fits rig ✓' : 'Too tight', fitFg: ok ? '#3F6B32' : '#A83E23',
+      fitBg: ok ? 'rgba(94,122,78,.15)' : 'rgba(168,62,35,.12)', fitBd: ok ? 'rgba(94,122,78,.42)' : 'rgba(168,62,35,.38)' }; }
+  dumpDetailVals(d) { const ok = this.dumpFits(d);
+    return { ...this.dumpCardVals(d), maxLengthFt:d.maxLengthFt, note:d.note,
+      pullTxt: d.pullThrough ? 'Pull-through' : 'Back-in only', pullFg: d.pullThrough ? '#3F6B32' : '#986412',
+      rinseTxt: d.rinse ? 'Rinse hose on site' : 'No rinse hose', rinseFg: d.rinse ? '#3F6B32' : '#986412',
+      fitHead: ok ? 'Room for your rig' : 'Scout before you commit',
+      fitDetail: ok ? ('Takes rigs to ' + d.maxLengthFt + 'ft — your ' + this.state.rig.lengthFt + 'ft clears easy.') : ('Rated to ' + d.maxLengthFt + 'ft — tight for your ' + this.state.rig.lengthFt + 'ft rig.'),
+      fitPanelBg: ok ? 'rgba(94,122,78,.1)' : 'rgba(168,62,35,.09)' }; }
 
   // ---------- Plan my trail run ----------
   setQuiz(k, v) { this.setState(st => ({ quiz: { ...st.quiz, [k]: v } })); }
@@ -1517,7 +1747,12 @@ class Component extends DCLogic {
     const screen = st.screen;
     const seg = (on) => on ? { bg:'linear-gradient(180deg,#C25232,#A83E23)', fg:'#FBF3E4', bd:'rgba(168,62,35,.5)' } : { bg:'#F0E6D2', fg:'#8A7458', bd:'rgba(74,48,22,.16)' };
     const g = seg(r.type === 'gooseneck'), b = seg(r.type === 'bumper');
-    const navc = k => screen === k ? '#B4472A' : '#A8906E';
+    const theme = this.SKINS[st.skin] || this.SKINS.sunset;
+    const navc = k => screen === k ? theme.accent : '#A8906E';
+    const skinOpts = Object.keys(this.SKINS).map(k => { const sk = this.SKINS[k]; const on = st.skin === k;
+      return { key:k, name:sk.name, dot:sk.dot, pick:() => this.setSkin(k),
+        ring: on ? sk.accent : 'rgba(74,48,22,.18)', ringW: on ? '2.5px' : '1.5px',
+        nameFg: on ? sk.accent : '#9c855f' }; });
 
     const withC = this.venues.map(v => { const c = this.compat(v); const fs = this.fitStyle(c); return { v, c, fs }; });
     const resultCount = withC.filter(o => o.c.ok).length;
@@ -1539,6 +1774,14 @@ class Component extends DCLogic {
       pins = this.farriers.map(fr => { const sel = fr.id === st.selFarId;
         return { x:fr.x, y:fr.y, core: sel?9:6, color:'#5E5248', origin: fr.x+'px '+fr.y+'px', ty: fr.y-13, short: fr.state,
           labelColor: sel ? '#2C2118' : '#5E5248', labelOp: sel ? 1 : 0.85, onSelect: () => this.selectFar(fr.id) }; });
+    } else if (st.layer === 'vets') {
+      pins = this.vets.map(vt => { const sel = vt.id === st.selVetId;
+        return { x:vt.x, y:vt.y, core: sel?9:6, color:'#8A3A4A', origin: vt.x+'px '+vt.y+'px', ty: vt.y-13, short: vt.state,
+          labelColor: sel ? '#2C2118' : '#7a3341', labelOp: sel ? 1 : 0.85, onSelect: () => this.selectVet(vt.id) }; });
+    } else if (st.layer === 'dumps') {
+      pins = this.dumpStations.map(d => { const sel = d.id === st.selDumpId; const ok = this.dumpFits(d);
+        return { x:d.x, y:d.y, core: sel?9:6, color: ok ? '#2E8577' : '#ad9a78', origin: d.x+'px '+d.y+'px', ty: d.y-13, short: d.state,
+          labelColor: sel ? '#2C2118' : (ok ? '#276b60' : '#a1896a'), labelOp: sel ? 1 : (ok ? 0.9 : 0.5), onSelect: () => this.selectDump(d.id) }; });
     } else {
       pins = withC.map(({ v, c }) => {
         const selected = v.id === st.selectedId;
@@ -1551,8 +1794,8 @@ class Component extends DCLogic {
       });
     }
     const lodgeFitCount = this.lodging.filter(l => this.compat(l).ok).length;
-    const LAYER_LABELS = { venues:'Venues', lodging:'Lodging', feed:'Feed', parking:'Parking', farriers:'Farriers' };
-    const layers = ['venues','lodging','feed','parking','farriers'].map(k => { const on = st.layer === k; return { label: LAYER_LABELS[k], pick: () => this.setLayer(k), bg: on ? '#FFFBF1' : 'transparent', fg: on ? '#B4472A' : '#8A7458', sh: on ? '0 2px 6px rgba(120,60,20,.16)' : 'none' }; });
+    const LAYER_LABELS = { venues:'Venues', lodging:'Lodging', feed:'Feed', parking:'Parking', farriers:'Farriers', vets:'Vets', dumps:'Dumps' };
+    const layers = ['venues','lodging','feed','parking','farriers','vets','dumps'].map(k => { const on = st.layer === k; return { label: LAYER_LABELS[k], pick: () => this.setLayer(k), bg: on ? '#FFFBF1' : 'transparent', fg: on ? theme.accent : '#8A7458', sh: on ? '0 2px 6px rgba(120,60,20,.16)' : 'none' }; });
 
     // no-go roads overlay (map only, honors toggle)
     const roads = st.noGoOn ? this.noGoRoads.map(rd => { const sel = rd.id === st.selRoadId;
@@ -1574,11 +1817,16 @@ class Component extends DCLogic {
     const parkListItems = this.parkingSpots.map(p => ({ p, ok: this.parkFits(p) })).sort((a,b) => (a.ok === b.ok ? 0 : a.ok ? -1 : 1))
       .map(({ p }) => ({ ...this.parkCardVals(p), open: () => this.openPark(p.id) }));
     const farListItems = this.farriers.map(f => ({ ...this.farCardVals(f), open: () => this.openFar(f.id) }));
+    const vetListItems = this.vets.map(v => ({ ...this.vetCardVals(v), open: () => this.openVet(v.id) }));
+    const dumpListItems = this.dumpStations.map(d => ({ d, ok: this.dumpFits(d) })).sort((a,b) => (a.ok === b.ok ? 0 : a.ok ? -1 : 1))
+      .map(({ d }) => ({ ...this.dumpCardVals(d), open: () => this.openDump(d.id) }));
     const showVenueList = isListView && st.layer === 'venues';
     const showLodgeList = isListView && st.layer === 'lodging';
     const showFeedList = isListView && st.layer === 'feed';
     const showParkList = isListView && st.layer === 'parking';
     const showFarList = isListView && st.layer === 'farriers';
+    const showVetList = isListView && st.layer === 'vets';
+    const showDumpList = isListView && st.layer === 'dumps';
 
     // quiz + plan
     const q = st.quiz;
@@ -1599,10 +1847,14 @@ class Component extends DCLogic {
     const planStops = plan.stops.map((s, i) => ({ ...s, num: i + 1, line: i === plan.stops.length - 1 ? 'transparent' : 'rgba(168,62,35,.3)' }));
     const planBudgetLeft = '$' + Math.max(0, plan.budget - plan.cost).toLocaleString() + ' left in the kitty';
     const parkFitCount = this.parkingSpots.filter(p => this.parkFits(p)).length;
+    const dumpFitCount = this.dumpStations.filter(d => this.dumpFits(d)).length;
+    const vetErCount = this.vets.filter(v => v.emergency).length;
     const layerSub = st.layer === 'lodging' ? (lodgeFitCount + ' stays fit your rig')
       : st.layer === 'feed' ? (this.feedStores.length + ' feed stops on route')
       : st.layer === 'parking' ? (parkFitCount + ' lots take your rig')
       : st.layer === 'farriers' ? (this.farriers.length + ' farriers on route')
+      : st.layer === 'vets' ? (vetErCount + ' emergency vets on route')
+      : st.layer === 'dumps' ? (dumpFitCount + ' dump stations take your rig')
       : (resultCount + ' venues fit your rig');
     const lSelRaw = this.lodging.find(l => l.id === st.selLodgeId);
     const lSel = lSelRaw ? this.lodgeCardVals(lSelRaw) : {};
@@ -1620,6 +1872,14 @@ class Component extends DCLogic {
     const farSel = farSelRaw ? this.farCardVals(farSelRaw) : {};
     const fardvRaw = this.farriers.find(f => f.id === st.farDetailId) || this.farriers[0];
     const fardv = this.farDetailVals(fardvRaw);
+    const vetSelRaw = this.vets.find(v => v.id === st.selVetId);
+    const vetSel = vetSelRaw ? this.vetCardVals(vetSelRaw) : {};
+    const vdvRaw = this.vets.find(v => v.id === st.vetDetailId) || this.vets[0];
+    const vdv = this.vetDetailVals(vdvRaw);
+    const dumpSelRaw = this.dumpStations.find(d => d.id === st.selDumpId);
+    const dumpSel = dumpSelRaw ? this.dumpCardVals(dumpSelRaw) : {};
+    const ddvRaw = this.dumpStations.find(d => d.id === st.dumpDetailId) || this.dumpStations[0];
+    const ddv = this.dumpDetailVals(ddvRaw);
 
     const svRaw = this.venues.find(v => v.id === (st.detailId || st.selectedId)) || this.venues[0];
     const svc = this.compat(svRaw); const svfs = this.fitStyle(svc);
@@ -1729,14 +1989,16 @@ class Component extends DCLogic {
     return {
       isOnboard: screen === 'onboard', isMap: screen === 'map', isVenue: screen === 'venue', isSaved: screen === 'saved', isPlanner: screen === 'planner', isEvents: screen === 'events', isBuddies: screen === 'buddies', isWeather: screen === 'weather',
       showNav: ['map','saved','planner','events','buddies'].includes(screen),
-      isLodge: screen === 'lodge', isFeed: screen === 'feed', isParking: screen === 'parking', isFarrier: screen === 'farrier', isQuiz: screen === 'quiz', isPlan: screen === 'plan',
+      isLodge: screen === 'lodge', isFeed: screen === 'feed', isParking: screen === 'parking', isFarrier: screen === 'farrier', isVet: screen === 'vet', isDump: screen === 'dump', isQuiz: screen === 'quiz', isPlan: screen === 'plan',
       layers, layerSub,
-      viewModes, isListView, showVenueList, showLodgeList, showFeedList, showParkList, showFarList,
-      venueListItems, lodgeListItems, feedListItems, parkListItems, farListItems,
+      viewModes, isListView, showVenueList, showLodgeList, showFeedList, showParkList, showFarList, showVetList, showDumpList,
+      venueListItems, lodgeListItems, feedListItems, parkListItems, farListItems, vetListItems, dumpListItems,
       hasLodgeSel: !!st.selLodgeId, lSel, openLodgeSel: () => this.openLodge(st.selLodgeId),
       hasFeedSel: !!st.selFeedId, fSel, openFeedSel: () => this.openFeed(st.selFeedId),
       hasParkSel: !!st.selParkId, pSel, openParkSel: () => this.openPark(st.selParkId),
       hasFarSel: !!st.selFarId, farSel, openFarSel: () => this.openFar(st.selFarId),
+      hasVetSel: !!st.selVetId, vetSel, openVetSel: () => this.openVet(st.selVetId),
+      hasDumpSel: !!st.selDumpId, dumpSel, openDumpSel: () => this.openDump(st.selDumpId),
       roads, hasRoadSel: !!rSelRaw, rSel, dismissRoad: () => this.setState({ selRoadId: null }),
       toggleNoGo: () => this.setState({ noGoOn: !st.noGoOn, selRoadId: null }),
       ngBg: st.noGoOn ? 'rgba(168,62,35,.12)' : '#FFFBF1', ngBd: st.noGoOn ? 'rgba(168,62,35,.45)' : 'rgba(74,48,22,.18)',
@@ -1745,6 +2007,10 @@ class Component extends DCLogic {
       pdvSaveFill: st.saved[pdv.id] ? '#B4472A' : 'none', toggleSavePark: () => this.toggleSave(pdv.id),
       fardv, backFromFar: () => this.setState({ screen:'map', farDetailId:null }),
       fardvSaveFill: st.saved[fardv.id] ? '#B4472A' : 'none', toggleSaveFar: () => this.toggleSave(fardv.id),
+      vdv, backFromVet: () => this.setState({ screen:'map', vetDetailId:null }),
+      vdvSaveFill: st.saved[vdv.id] ? '#B4472A' : 'none', toggleSaveVet: () => this.toggleSave(vdv.id),
+      ddv, backFromDump: () => this.setState({ screen:'map', dumpDetailId:null }),
+      ddvSaveFill: st.saved[ddv.id] ? '#B4472A' : 'none', toggleSaveDump: () => this.toggleSave(ddv.id),
       eventKinds,
       startQuiz: () => this.startQuiz(), backFromQuiz: () => this.setScreen('planner'),
       qStep0: q.step === 0, qStep1: q.step === 1, qStep2: q.step === 2, qStep3: q.step === 3,
@@ -1770,6 +2036,7 @@ class Component extends DCLogic {
       slotOpts, toggleLQ: () => this.setRig('lq', !r.lq), lqTrack: lqOn?TON:TOFF, lqDot: lqOn?'22px':'3px',
       togglePull: () => this.setState({ filters: { ...f, requirePull: !f.requirePull } }), pullTrack: pullOn?TON:TOFF, pullDot: pullOn?'22px':'3px',
       enterApp: () => this.setScreen('map'),
+      skinOpts, themeAcc: theme.accent, themeDeep: theme.deep, themeGrad: 'linear-gradient(180deg,'+theme.light+','+theme.deep+')', themeGlow: theme.glow, themeSoft: theme.soft,
       resultCount,
       lqChipFg: lqOn?'#3F6B32':'#a1896a', lqChipBg: lqOn?'rgba(94,122,78,.14)':'#F7EEDC', lqChipBd: lqOn?'rgba(94,122,78,.35)':'rgba(74,48,22,.12)',
       openFilters: () => this.setState({ filtersOpen: true }), closeFilters: () => this.setState({ filtersOpen: false }), filtersOpen: st.filtersOpen,
