@@ -998,9 +998,23 @@
         <!-- ============ PLANNER ============ -->
         <sc-if value="{{ isPlanner }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
-          <div style="padding:60px 20px 10px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">TRAIL RUN</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">{{ tripStops }} stops · {{ tripMiles }} mi loop</div></div>
+          <div style="padding:60px 20px 10px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">TRAIL RUN</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">{{ tripStops }} stops · {{ tripMiles }} mi from {{ startName }}</div></div>
 
-          <div onClick="{{ startQuiz }}" style="margin:4px 16px 0;display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,#C25232,#A83E23);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:0 10px 24px rgba(168,62,35,.32)">
+          <!-- starting location picker -->
+          <div style="margin:2px 16px 0">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ themeAcc }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.3-7-11a7 7 0 1114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+              <span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Starting from</span>
+              <span style="font:600 11px 'Archivo';color:#2C2118">{{ startName }}</span>
+            </div>
+            <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:3px">
+              <sc-for list="{{ startChips }}" as="sl" hint-placeholder-count="4">
+                <div onClick="{{ sl.pick }}" style="flex:none;padding:6px 11px;border-radius:20px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;background:{{ sl.bg }};color:{{ sl.fg }};border:1px solid {{ sl.bd }}">{{ sl.name }}</div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div onClick="{{ startQuiz }}" style="margin:12px 16px 0;display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,#C25232,#A83E23);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:0 10px 24px rgba(168,62,35,.32)">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FBF3E4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2zM5 16l.6 1.5 1.5.6-1.5.6L5 20.2l-.6-1.5-1.5-.6 1.5-.6L5 16z"/></svg>
             <div style="flex:1"><div style="font:400 21px/.95 'Bebas Neue';color:#FBF3E4;letter-spacing:1px">PLAN MY TRAIL RUN</div><div style="font:500 10px 'Archivo';color:rgba(251,243,228,.85);margin-top:2px">Quick quiz → the best schedule for your rig &amp; budget</div></div>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBF3E4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
@@ -1011,7 +1025,9 @@
               <rect width="400" height="180" fill="{{ themeSurf }}"/>
               <g stroke="rgba(122,74,30,.12)"><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="100" y1="0" x2="100" y2="180"/><line x1="200" y1="0" x2="200" y2="180"/><line x1="300" y1="0" x2="300" y2="180"/></g>
               <polyline points="{{ tripPath }}" fill="none" stroke="#B4472A" stroke-width="2.4" stroke-dasharray="6 6" style="animation:dash 3s linear infinite"/>
-              <sc-for list="{{ tripPins }}" as="tp" hint-placeholder-count="0"><circle cx="{{ tp.x }}" cy="{{ tp.y }}" r="6" fill="#B4472A" stroke="{{ themeSurf }}" stroke-width="2"/><text x="{{ tp.x }}" y="{{ tp.ty }}" text-anchor="middle" fill="#6b543a" style="font:400 11px 'Bebas Neue'">{{ tp.short }}</text></sc-for>
+              <sc-for list="{{ tripPins }}" as="tp" hint-placeholder-count="0"><circle cx="{{ tp.x }}" cy="{{ tp.y }}" r="{{ tp.r }}" fill="{{ tp.fill }}" stroke="{{ themeSurf }}" stroke-width="2"/><text x="{{ tp.x }}" y="{{ tp.ty }}" text-anchor="middle" fill="{{ tp.labelFill }}" style="font:{{ tp.labelFont }}">{{ tp.label }}</text></sc-for>
+              <circle cx="{{ startPin.x }}" cy="{{ startPin.y }}" r="7" fill="#3F7D5A" stroke="{{ themeSurf }}" stroke-width="2"/>
+              <text x="{{ startPin.x }}" y="{{ startPin.ty }}" text-anchor="middle" fill="#2f6347" style="font:600 8px 'Oswald';letter-spacing:.5px">START</text>
             </svg>
           </div>
 
@@ -1212,6 +1228,15 @@
           <div style="display:inline-flex;align-items:center;gap:7px;font:600 10px 'Oswald';letter-spacing:3px;color:#B4472A;text-transform:uppercase;margin-top:18px"><span style="width:22px;height:2px;background:#B4472A;display:inline-block"></span>Built for your rig</div>
           <div style="font:400 44px/.88 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">YOUR<br><span style="color:#B4472A">TRAIL RUN</span></div>
           <div style="font:600 11px 'Oswald';letter-spacing:1.5px;color:#7A6247;text-transform:uppercase;margin-top:8px">{{ planSummary }}</div>
+          <sc-if value="{{ planHasEnd }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:8px;margin-top:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 12px">
+            <span style="width:9px;height:9px;border-radius:50%;background:#3F7D5A;flex:none"></span>
+            <div style="flex:1;min-width:0"><div style="font:600 8px 'Oswald';letter-spacing:1px;color:#8A7458;text-transform:uppercase">Start</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ planStartName }}</div></div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A7458" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <div style="flex:1;min-width:0;text-align:right"><div style="font:600 8px 'Oswald';letter-spacing:1px;color:#8A7458;text-transform:uppercase">End</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ planEndName }}</div></div>
+            <span style="width:9px;height:9px;border-radius:50%;background:#2C2118;flex:none"></span>
+          </div>
+          </sc-if>
           <div style="display:inline-block;font:600 10px 'Oswald';letter-spacing:.8px;color:#3F6B32;background:rgba(94,122,78,.14);border:1px solid rgba(94,122,78,.35);border-radius:20px;padding:5px 11px;margin-top:9px;text-transform:uppercase">{{ planBudgetLeft }}</div>
         </div>
 
@@ -1348,6 +1373,7 @@ class Component extends DCLogic {
     trip: [],
     eventFitOnly: false,
     eventKind: 'all',
+    startLocId: 'ftw',
     quiz: { step: 0, budget: 1500, count: 4, priorities: { payouts: true, short: true }, maxLeg: 600 },
     plan: null,
     checkedAt: null,
@@ -1481,6 +1507,21 @@ class Component extends DCLogic {
     l_ftw:{r:4.8,n:64,d:3}, l_gut:{r:4.7,n:51,d:6}, p_ama:{r:4.5,n:97,d:2}, p_rap:{r:4.2,n:38,d:14},
     vt_wea:{r:4.9,n:73,d:1}, vt_slc:{r:5.0,n:41,d:2} };
   _hash(s) { let n = 0; for (const c of s) n = (n * 131 + c.charCodeAt(0)) % 100000; return n; }
+
+  // ---- starting location ----
+  START_LOCS = [
+    { id:'ftw', name:'Fort Worth, TX', x:520, y:470 },
+    { id:'gut', name:'Guthrie, OK', x:545, y:395 },
+    { id:'amar', name:'Amarillo, TX', x:450, y:400 },
+    { id:'chy', name:'Cheyenne, WY', x:455, y:255 },
+    { id:'slc', name:'Salt Lake City, UT', x:300, y:290 },
+    { id:'rno', name:'Reno, NV', x:175, y:315 },
+    { id:'rap', name:'Rapid City, SD', x:470, y:235 },
+    { id:'oca', name:'Ocala, FL', x:748, y:452 }
+  ];
+  startPt() { return this.START_LOCS.find(s => s.id === this.state.startLocId) || this.START_LOCS[0]; }
+  milesBetween(ax, ay, bx, by) { return Math.round(Math.hypot(ax - bx, ay - by) * 3.4); }
+  setStart(id) { this.setState({ startLocId: id }); }
   reviewVals(id) { const b = this.reviews[id]; let r, n, d;
     if (b) { r = b.r; n = b.n; d = b.d; } else { const h = this._hash(id); r = (38 + h % 12) / 10; n = 18 + h % 170; d = h % 20; }
     if (this.state.verified[id]) d = 0;
@@ -1620,6 +1661,7 @@ class Component extends DCLogic {
   quizStep(d) { this.setState(st => ({ quiz: { ...st.quiz, step: Math.max(0, st.quiz.step + d) } })); }
   buildPlan() {
     const q = this.state.quiz, r = this.state.rig, pri = q.priorities;
+    const home = this.startPt();
     const cands = [];
     this.venues.forEach(v => { const c = this.compat(v); if (!c.ok) return;
       this.allEvents(v).forEach(e => { const isJack = e.kind === 'jackpot';
@@ -1628,27 +1670,29 @@ class Component extends DCLogic {
         if (pri.jackpots && isJack) score += 25;
         if (pri.covered && v.covered) score += 15;
         if (pri.hookups && v.water && v.power) score += 15;
-        if (pri.short) score += Math.max(0, 20 - v.dist / 80);
+        if (pri.short) score += Math.max(0, 20 - this.milesBetween(home.x, home.y, v.x, v.y) / 80);
         if (c.tight) score -= 8;
         cands.push({ v, e, isJack, score, ts: this.fmtEvent(e.d).ts }); }); });
     cands.sort((a, b) => b.score - a.score);
     const pool = cands.slice(0, Math.max(q.count * 3, 10)).sort((a, b) => a.ts - b.ts);
     const FUEL = 0.85, RODEO_ENTRY = 45, LODGE = 52;
-    let miles = 0, cost = 0, cur = 0, lastTs = -1;
+    const start = this.startPt();
+    let miles = 0, cost = 0, prevX = start.x, prevY = start.y, lastTs = -1;
     const stops = [];
     for (const cd of pool) {
       if (stops.length >= q.count) break;
-      const leg = stops.length === 0 ? cd.v.dist : Math.abs(cd.v.dist - cur);
+      const leg = this.milesBetween(prevX, prevY, cd.v.x, cd.v.y);
       if (leg > q.maxLeg) continue;
       if (cd.ts === lastTs) continue;
       const fee = cd.isJack ? (cd.e.fee || 60) : RODEO_ENTRY;
       const nights = leg > 250 ? 1 : 0;
       const stopCost = Math.round(fee + leg * FUEL + nights * LODGE);
       if (cost + stopCost > q.budget) continue;
-      cost += stopCost; miles += leg; cur = cd.v.dist; lastTs = cd.ts;
+      cost += stopCost; miles += leg; prevX = cd.v.x; prevY = cd.v.y; lastTs = cd.ts;
       const fe = this.fmtEvent(cd.e.d);
+      const fromTxt = stops.length === 0 ? ('from ' + start.name) : 'from last stop';
       stops.push({ id: cd.v.id, day: fe.day, mon: fe.mon, name: cd.e.name, venue: cd.v.name, city: cd.v.city, state: cd.v.state,
-        legTxt: leg === 0 ? 'Same grounds' : leg + ' mi haul', costTxt: '$' + stopCost, nightsTxt: nights ? '+1 layover night' : 'Day trip from last stop',
+        legTxt: leg === 0 ? 'Same grounds' : (leg + ' mi ' + fromTxt), costTxt: '$' + stopCost, nightsTxt: nights ? '+1 layover night' : 'Day trip from last stop',
         kindTxt: cd.isJack ? 'Jackpot' : 'Rodeo', kindFg: cd.isJack ? '#7a5f28' : '#A83E23',
         kindBg: cd.isJack ? 'rgba(184,134,47,.15)' : 'rgba(168,62,35,.1)', kindBd: cd.isJack ? 'rgba(184,134,47,.42)' : 'rgba(168,62,35,.35)',
         moneyTxt: cd.isJack ? ('$' + cd.e.fee + ' entry · $' + cd.e.payout.toLocaleString() + ' pot') : '$' + RODEO_ENTRY + ' entry est.',
@@ -1656,7 +1700,8 @@ class Component extends DCLogic {
     }
     const hazards = this.noGoRoads.map(rd => ({ rd, hit: this.roadHitsRig(rd) })).filter(o => o.hit.level !== 'clear')
       .map(o => ({ name: o.rd.name, why: o.hit.why, detour: o.rd.detour, block: o.hit.level === 'block' }));
-    this.setState({ plan: { stops, miles, cost, budget: q.budget, hazards }, screen: 'plan' });
+    const endStop = stops.length ? stops[stops.length - 1] : null;
+    this.setState({ plan: { stops, miles, cost, budget: q.budget, hazards, startName: start.name, endName: endStop ? (endStop.venue + ' · ' + endStop.city + ', ' + endStop.state) : '' }, screen: 'plan' });
   }
   savePlanToTrip() { const p = this.state.plan; if (!p) return;
     this.setState(st => { const trip = st.trip.slice(); p.stops.forEach(s => { if (!trip.includes(s.id)) trip.push(s.id); }); return { trip, screen: 'planner' }; }); }
@@ -2100,12 +2145,24 @@ class Component extends DCLogic {
       ...this.feedStores.filter(f => st.saved[f.id]).map(f => ({ id:f.id, name:f.name, city:f.city, state:f.state, metric:f.hours.replace('Daily ','').replace('Mon–Sat ',''), fitLabel:'Feed store', fitFg:'#7a5f28', fitBg:'rgba(184,134,47,.15)', fitBd:'rgba(184,134,47,.42)', open: () => this.openFeed(f.id) }))
     ];
 
+    const startLoc = this.startPt();
+    const startChips = this.START_LOCS.map(s => { const on = s.id === st.startLocId; return { name: s.name.split(',')[0], pick: () => this.setStart(s.id),
+      bg: on ? theme.accent : theme.c0, fg: on ? '#FBF3E4' : '#8A7458', bd: on ? theme.accent : 'rgba(74,48,22,.18)' }; });
     const tripVenues = st.trip.map(id => this.venues.find(v => v.id === id)).filter(Boolean);
-    const tripList = tripVenues.map((v, i) => ({ num: i+1, name:v.name, city:v.city, state:v.state, leg: i===0 ? 'Start' : Math.abs(v.dist-tripVenues[i-1].dist) + ' mi leg', next: v.events[0] ? this.fmtEvent(v.events[0].d).day+' '+this.fmtEvent(v.events[0].d).mon+' · '+v.events[0].name : 'No dates listed', line: i===tripVenues.length-1 ? 'transparent' : 'rgba(168,62,35,.3)', open: () => this.openVenue(v.id), remove: () => this.removeTrip(v.id) }));
-    const tripMiles = tripVenues.reduce((a, v, i) => i===0?0:a+Math.abs(v.dist-tripVenues[i-1].dist), 0);
-    const tp = tripVenues.map(v => ({ x: 30 + (v.x/1000)*340, y: 25 + (v.y/680)*130 }));
-    const tripPath = tp.map(p => p.x.toFixed(0)+','+p.y.toFixed(0)).join(' ');
-    const tripPins = tripVenues.map((v, i) => ({ x: tp[i].x, y: tp[i].y, ty: tp[i].y-11, short: v.state }));
+    const mm = v => ({ x: 30 + (v.x/1000)*340, y: 25 + (v.y/680)*130 });
+    const legMiles = (v, i) => this.milesBetween(i === 0 ? startLoc.x : tripVenues[i-1].x, i === 0 ? startLoc.y : tripVenues[i-1].y, v.x, v.y);
+    const tripList = tripVenues.map((v, i) => ({ num: i+1, name:v.name, city:v.city, state:v.state,
+      leg: legMiles(v, i) + ' mi ' + (i === 0 ? 'from ' + startLoc.name.split(',')[0] : 'leg'),
+      next: v.events[0] ? this.fmtEvent(v.events[0].d).day+' '+this.fmtEvent(v.events[0].d).mon+' · '+v.events[0].name : 'No dates listed', line: i===tripVenues.length-1 ? 'transparent' : 'rgba(168,62,35,.3)', open: () => this.openVenue(v.id), remove: () => this.removeTrip(v.id) }));
+    const tripMiles = tripVenues.reduce((a, v, i) => a + legMiles(v, i), 0);
+    const startMap = mm(startLoc);
+    const tp = tripVenues.map(mm);
+    const tripPath = [startMap, ...tp].map(p => p.x.toFixed(0)+','+p.y.toFixed(0)).join(' ');
+    const tripPins = tripVenues.map((v, i) => { const end = i === tripVenues.length-1;
+      return { x: tp[i].x, y: tp[i].y, ty: tp[i].y-11, r: end ? 7 : 6, fill: end ? '#2C2118' : '#B4472A',
+        label: end ? ('END · ' + v.state) : v.state, labelFill: end ? '#2C2118' : '#6b543a',
+        labelFont: end ? "600 8px 'Oswald'" : "400 11px 'Bebas Neue'" }; });
+    const startPin = { x: startMap.x, y: startMap.y, ty: startMap.y-11 };
 
     let feed = [];
     this.venues.forEach(v => { const c = this.compat(v); const fs = this.fitStyle(c); this.allEvents(v).forEach(e => { const fe = this.fmtEvent(e.d); const isJack = e.kind === 'jackpot'; feed.push({ ts:fe.ts, day:fe.day, mon:fe.mon, name:e.name, venue:v.name, city:v.city, state:v.state, ok:c.ok, isJack, moneyTxt: isJack ? ('$' + e.fee + ' entry · $' + e.payout.toLocaleString() + ' pot') : '', fitLabel:fs.label, fitFg:fs.fg, fitBg:fs.bg, fitBd:fs.bd, open: () => this.openVenue(v.id) }); }); });
@@ -2190,6 +2247,8 @@ class Component extends DCLogic {
       toggleNoGo: () => this.setState({ noGoOn: !st.noGoOn, selRoadId: null }),
       ngBg: st.noGoOn ? 'rgba(168,62,35,.12)' : '#FFFBF1', ngBd: st.noGoOn ? 'rgba(168,62,35,.45)' : 'rgba(74,48,22,.18)',
       ngFg: st.noGoOn ? '#A83E23' : '#8A7458', ngTxt: st.noGoOn ? 'ON' : 'OFF',
+      backFromLodge: () => this.setState({ screen:'map', lodgeDetailId:null }), ldvSaveFill: st.saved[ldvRaw.id] ? '#B4472A' : 'none', toggleSaveLodge: () => this.toggleSave(ldvRaw.id),
+      backFromFeed: () => this.setState({ screen:'map', feedDetailId:null }), fdvSaveFill: st.saved[fdvRaw.id] ? '#B4472A' : 'none', toggleSaveFeed: () => this.toggleSave(fdvRaw.id),
       pdv, backFromPark: () => this.setState({ screen:'map', parkDetailId:null }),
       pdvSaveFill: st.saved[pdv.id] ? '#B4472A' : 'none', toggleSavePark: () => this.toggleSave(pdv.id),
       fardv, backFromFar: () => this.setState({ screen:'map', farDetailId:null }),
@@ -2206,6 +2265,7 @@ class Component extends DCLogic {
       quizBack: () => this.quizStep(-1), quizNext: () => { if (q.step === 3) this.buildPlan(); else this.quizStep(1); },
       qRigNote: 'Planning around your ' + r.lengthFt + 'ft ' + (r.type === 'gooseneck' ? 'gooseneck' : 'bumper-pull') + ' · ' + r.heightFt + 'ft · ' + r.slots + '-horse',
       planStops, planSummary, planBudgetLeft, planEmpty: plan.stops.length === 0, planHazards, planHasHazards,
+      planStartName: plan.startName || startLoc.name, planEndName: plan.endName || '', planHasEnd: !!plan.endName,
       backFromPlan: () => this.setScreen('planner'), retakeQuiz: () => this.startQuiz(),
       savePlan: () => this.savePlanToTrip(),
       goWeather: () => this.setScreen('weather'), backFromWeather: () => this.setScreen('map'),
@@ -2246,6 +2306,7 @@ class Component extends DCLogic {
       ldvReserveTxt: ldvReserved ? '✓ RESERVED — TAP TO CANCEL' : 'RESERVE THIS STAY', pdvReserveTxt: pdvReserved ? '✓ SPOT HELD — TAP TO CANCEL' : 'HOLD A SPOT',
       savedCount: savedIds.length, savedEmpty: savedIds.length === 0, savedList,
       tripStops: tripVenues.length, tripMiles, tripEmpty: tripVenues.length === 0, tripList, tripPath, tripPins,
+      startChips, startName: startLoc.name, startPin,
       eventFeed: feed, toggleEventFit: () => this.setState({ eventFitOnly: !st.eventFitOnly }), efTrack: efOn?TON:TOFF, efDot: efOn?'21px':'3px',
       nav: { map: navc('map'), events: navc('events'), planner: navc('planner'), buddies: navc('buddies'), saved: navc('saved'), rig: navc('onboard') },
       goMap: () => this.setScreen('map'), goEvents: () => this.setScreen('events'), goPlanner: () => this.setScreen('planner'), goBuddies: () => this.setScreen('buddies'), goSaved: () => this.setScreen('saved'), goRig: () => this.setScreen('onboard')
