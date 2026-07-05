@@ -34,7 +34,7 @@
   }
   input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;height:26px;width:100%;margin:0}
   input[type=range]::-webkit-slider-runnable-track{height:5px;border-radius:4px;background:linear-gradient(90deg,#C89A4A,#B4472A)}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:20px;width:20px;margin-top:-8px;border-radius:50%;background:#FFFBF1;border:3px solid #B4472A;box-shadow:0 2px 6px rgba(120,60,20,.35);cursor:pointer}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:20px;width:20px;margin-top:-8px;border-radius:50%;background:{{ themeCard }};border:3px solid #B4472A;box-shadow:0 2px 6px rgba(120,60,20,.35);cursor:pointer}
   ::-webkit-scrollbar{width:0;height:0}
   @keyframes screenIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
   @keyframes sheetUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
@@ -85,7 +85,7 @@
             <div id="rig3d" style="position:absolute;inset:0;cursor:grab;touch-action:none"></div>
             <div style="position:absolute;left:24px;bottom:12px;font:600 9px 'Oswald';letter-spacing:2px;color:#9c855f;text-transform:uppercase;pointer-events:none">◐ Drag to orbit</div>
             <div style="position:absolute;right:22px;top:8px;display:flex;flex-direction:column;gap:6px;align-items:flex-end;pointer-events:none">
-              <div style="font:400 15px 'Bebas Neue';letter-spacing:1px;color:#9A3A20;background:#FFFBF1;border:1px solid rgba(168,62,35,.28);border-radius:8px;padding:3px 10px;white-space:nowrap;box-shadow:0 3px 10px rgba(120,60,20,.12)">{{ rig.lengthFt }} FT · {{ rig.slots }}-HORSE</div>
+              <div style="font:400 15px 'Bebas Neue';letter-spacing:1px;color:#9A3A20;background:{{ themeCard }};border:1px solid rgba(168,62,35,.28);border-radius:8px;padding:3px 10px;white-space:nowrap;box-shadow:0 3px 10px rgba(120,60,20,.12)">{{ rig.lengthFt }} FT · {{ rig.slots }}-HORSE</div>
               <div style="font:400 13px 'Bebas Neue';letter-spacing:1px;color:#7A6247;background:{{ themeSurf }};border:1px solid rgba(74,48,22,.16);border-radius:8px;padding:2px 10px;white-space:nowrap">{{ rigTypeLabel }}</div>
             </div>
           </div>
@@ -143,7 +143,7 @@
 
         <!-- ============ MAP ============ -->
         <sc-if value="{{ isMap }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;inset:0;background:#e6d3ab;animation:screenIn .45s ease both">
+        <div style="position:absolute;inset:0;background:{{ themeSurf }};animation:screenIn .45s ease both">
 
           <!-- MAP -->
           <div id="mapWrap" style="position:absolute;inset:0;touch-action:none;cursor:grab;overflow:hidden;background:{{ themeMapBg }}">
@@ -186,8 +186,8 @@
 
             <!-- zoom controls -->
             <div style="position:absolute;right:16px;bottom:210px;display:flex;flex-direction:column;gap:1px;border-radius:12px;overflow:hidden;border:1px solid rgba(168,62,35,.25);box-shadow:0 4px 12px rgba(120,60,20,.15)">
-              <div onClick="{{ zoomIn }}" style="width:38px;height:38px;background:#FFFBF1;display:flex;align-items:center;justify-content:center;color:#B4472A;font:400 24px 'Bebas Neue';cursor:pointer">+</div>
-              <div onClick="{{ zoomOut }}" style="width:38px;height:38px;background:#FFFBF1;display:flex;align-items:center;justify-content:center;color:#B4472A;font:400 24px 'Bebas Neue';cursor:pointer;border-top:1px solid rgba(74,48,22,.12)">–</div>
+              <div onClick="{{ zoomIn }}" style="width:38px;height:38px;background:{{ themeCard }};display:flex;align-items:center;justify-content:center;color:#B4472A;font:400 24px 'Bebas Neue';cursor:pointer">+</div>
+              <div onClick="{{ zoomOut }}" style="width:38px;height:38px;background:{{ themeCard }};display:flex;align-items:center;justify-content:center;color:#B4472A;font:400 24px 'Bebas Neue';cursor:pointer;border-top:1px solid rgba(74,48,22,.12)">–</div>
             </div>
             <div style="position:absolute;left:16px;bottom:214px;font:600 8px 'Oswald';letter-spacing:1.5px;color:#a1774a;text-transform:uppercase;pointer-events:none">✦ Continental US · Trail Map</div>
             <div onClick="{{ toggleNoGo }}" style="position:absolute;left:16px;bottom:238px;display:flex;align-items:center;gap:6px;background:{{ ngBg }};border:1px solid {{ ngBd }};border-radius:11px;padding:7px 11px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.12)">
@@ -203,7 +203,7 @@
             <!-- venues list -->
             <sc-if value="{{ showVenueList }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ venueListItems }}" as="it" hint-placeholder-count="6">
-              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+              <div onClick="{{ it.open }}" style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
                 <image-slot id="thumb-{{ it.id }}" style="width:78px;height:78px;flex:none" shape="rounded" radius="14" placeholder="＋"></image-slot>
                 <div style="flex:1;min-width:0">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -224,7 +224,7 @@
             <!-- lodging list -->
             <sc-if value="{{ showLodgeList }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ lodgeListItems }}" as="it" hint-placeholder-count="6">
-              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+              <div onClick="{{ it.open }}" style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
                 <image-slot id="lthumb-{{ it.id }}" style="width:78px;height:78px;flex:none" shape="rounded" radius="14" placeholder="＋"></image-slot>
                 <div style="flex:1;min-width:0">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -241,7 +241,7 @@
             <!-- feed list -->
             <sc-if value="{{ showFeedList }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ feedListItems }}" as="it" hint-placeholder-count="6">
-              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+              <div onClick="{{ it.open }}" style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
                 <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#e7cf9b,#c9a24e)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#6b4c14" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8l1.5-3h7L17 8M6 8h12l-1 12H7L6 8z"/><path d="M9.5 12h5"/></svg></div>
                 <div style="flex:1;min-width:0">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -259,7 +259,7 @@
             <!-- parking list -->
             <sc-if value="{{ showParkList }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ parkListItems }}" as="it" hint-placeholder-count="6">
-              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+              <div onClick="{{ it.open }}" style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
                 <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#a8c4d4,#5b8aa4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e3d4f" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="13" height="10" rx="1.5"/><path d="M16 9h3.5l1.5 3v4h-5M6.5 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg></div>
                 <div style="flex:1;min-width:0">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -277,7 +277,7 @@
             <!-- farriers list -->
             <sc-if value="{{ showFarList }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ farListItems }}" as="it" hint-placeholder-count="6">
-              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+              <div onClick="{{ it.open }}" style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
                 <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#8a7a6a,#5E5248)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f0e2cc" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c4 0 7 3.2 7 7.5 0 3-1.4 5.3-2.6 6.8l-2.2-1.6c1-1.3 1.8-2.9 1.8-5.2 0-2.7-1.7-4.5-4-4.5s-4 1.8-4 4.5c0 2.3.8 3.9 1.8 5.2l-2.2 1.6C6.4 16.8 5 14.5 5 11.5 5 7.2 8 4 12 4z"/></svg></div>
                 <div style="flex:1;min-width:0">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -295,7 +295,7 @@
             <!-- vets list -->
             <sc-if value="{{ showVetList }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ vetListItems }}" as="it" hint-placeholder-count="6">
-              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+              <div onClick="{{ it.open }}" style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
                 <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#b06576,#8A3A4A)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f7e3e7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 3 12 2.5-7H21"/></svg></div>
                 <div style="flex:1;min-width:0">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -313,7 +313,7 @@
             <!-- dump stations list -->
             <sc-if value="{{ showDumpList }}" hint-placeholder-val="{{ false }}">
             <sc-for list="{{ dumpListItems }}" as="it" hint-placeholder-count="6">
-              <div onClick="{{ it.open }}" style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
+              <div onClick="{{ it.open }}" style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 6px 16px rgba(90,58,18,.1);display:flex;gap:12px;cursor:pointer;margin-bottom:10px">
                 <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#7fc4bb,#2E8577)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#123f39" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 13a2.5 2.5 0 002.5 2.5"/></svg></div>
                 <div style="flex:1;min-width:0">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -344,7 +344,7 @@
                     <div onClick="{{ vm.pick }}" style="padding:6px 10px;border-radius:9px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;background:{{ vm.bg }};color:{{ vm.fg }};box-shadow:{{ vm.sh }}">{{ vm.label }}</div>
                   </sc-for>
                 </div>
-                <div onClick="{{ openFilters }}" style="display:flex;align-items:center;gap:7px;background:#FFFBF1;border:1px solid {{ themeAcc }};border-radius:12px;padding:8px 12px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.1)">
+                <div onClick="{{ openFilters }}" style="display:flex;align-items:center;gap:7px;background:{{ themeCard }};border:1px solid {{ themeAcc }};border-radius:12px;padding:8px 12px;cursor:pointer;box-shadow:0 3px 9px rgba(120,60,20,.1)">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ themeAcc }}" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
                   <span style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};text-transform:uppercase">Filter</span>
                 </div>
@@ -356,9 +356,9 @@
               </sc-for>
             </div>
             <div style="display:flex;gap:6px;margin-top:11px;overflow:hidden">
-              <div style="font:500 10px 'Archivo';color:#7A6247;background:#F7EEDC;border:1px solid rgba(74,48,22,.15);border-radius:20px;padding:4px 10px;white-space:nowrap">{{ rig.lengthFt }}ft {{ rigTypeShort }}</div>
-              <div style="font:500 10px 'Archivo';color:#7A6247;background:#F7EEDC;border:1px solid rgba(74,48,22,.15);border-radius:20px;padding:4px 10px;white-space:nowrap">{{ rig.heightFt }}ft tall</div>
-              <div style="font:500 10px 'Archivo';color:#7A6247;background:#F7EEDC;border:1px solid rgba(74,48,22,.15);border-radius:20px;padding:4px 10px;white-space:nowrap">{{ rig.slots }} slots</div>
+              <div style="font:500 10px 'Archivo';color:#7A6247;background:{{ themePanel }};border:1px solid rgba(74,48,22,.15);border-radius:20px;padding:4px 10px;white-space:nowrap">{{ rig.lengthFt }}ft {{ rigTypeShort }}</div>
+              <div style="font:500 10px 'Archivo';color:#7A6247;background:{{ themePanel }};border:1px solid rgba(74,48,22,.15);border-radius:20px;padding:4px 10px;white-space:nowrap">{{ rig.heightFt }}ft tall</div>
+              <div style="font:500 10px 'Archivo';color:#7A6247;background:{{ themePanel }};border:1px solid rgba(74,48,22,.15);border-radius:20px;padding:4px 10px;white-space:nowrap">{{ rig.slots }} slots</div>
               <div style="font:500 10px 'Archivo';color:{{ lqChipFg }};background:{{ lqChipBg }};border:1px solid {{ lqChipBd }};border-radius:20px;padding:4px 10px;white-space:nowrap">LQ hookups</div>
             </div>
             <div onClick="{{ goWeather }}" style="display:flex;align-items:center;gap:9px;margin-top:9px;background:{{ wxBannerBg }};border:1px solid {{ wxBannerBd }};border-radius:12px;padding:9px 12px;cursor:pointer">
@@ -371,7 +371,7 @@
           <!-- selected venue card -->
           <sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
               <image-slot id="thumb-{{ sv.id }}" style="width:78px;height:78px;flex:none" shape="rounded" radius="14" placeholder="＋"></image-slot>
               <div style="flex:1;min-width:0">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -393,7 +393,7 @@
           <!-- selected lodging card -->
           <sc-if value="{{ hasLodgeSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
               <image-slot id="lthumb-{{ lSel.id }}" style="width:78px;height:78px;flex:none" shape="rounded" radius="14" placeholder="＋"></image-slot>
               <div style="flex:1;min-width:0">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -413,7 +413,7 @@
           <!-- selected feed card -->
           <sc-if value="{{ hasFeedSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
               <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#e7cf9b,#c9a24e)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#6b4c14" stroke-width="1.7" stroke-linejoin="round"><path d="M7 8l1.5-3h7L17 8M6 8h12l-1 12H7L6 8z"/><path d="M9.5 12h5"/></svg></div>
               <div style="flex:1;min-width:0">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -431,7 +431,7 @@
           <!-- selected parking card -->
           <sc-if value="{{ hasParkSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
               <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#a8c4d4,#5b8aa4)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#1e3d4f" stroke-width="1.7" stroke-linejoin="round"><rect x="3" y="6" width="13" height="10" rx="1.5"/><path d="M16 9h3.5l1.5 3v4h-5M6.5 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6zM17 19a1.8 1.8 0 100-3.6 1.8 1.8 0 000 3.6z"/></svg></div>
               <div style="flex:1;min-width:0">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -449,7 +449,7 @@
           <!-- selected farrier card -->
           <sc-if value="{{ hasFarSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
               <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#8a7a6a,#5E5248)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f0e2cc" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c4 0 7 3.2 7 7.5 0 3-1.4 5.3-2.6 6.8l-2.2-1.6c1-1.3 1.8-2.9 1.8-5.2 0-2.7-1.7-4.5-4-4.5s-4 1.8-4 4.5c0 2.3.8 3.9 1.8 5.2l-2.2 1.6C6.4 16.8 5 14.5 5 11.5 5 7.2 8 4 12 4z"/></svg></div>
               <div style="flex:1;min-width:0">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -467,7 +467,7 @@
           <!-- selected vet card -->
           <sc-if value="{{ hasVetSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
               <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#b06576,#8A3A4A)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#f7e3e7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-5 3 12 2.5-7H21"/></svg></div>
               <div style="flex:1;min-width:0">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -485,7 +485,7 @@
           <!-- selected dump station card -->
           <sc-if value="{{ hasDumpSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);border-radius:20px;padding:13px;box-shadow:0 18px 40px rgba(90,58,18,.24);display:flex;gap:12px">
               <div style="width:78px;height:78px;flex:none;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(155deg,#7fc4bb,#2E8577)"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#123f39" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 13a2.5 2.5 0 002.5 2.5"/></svg></div>
               <div style="flex:1;min-width:0">
                 <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:6px">
@@ -503,7 +503,7 @@
           <!-- selected no-go road card -->
           <sc-if value="{{ hasRoadSel }}" hint-placeholder-val="{{ false }}">
           <div style="position:absolute;left:12px;right:12px;bottom:98px;z-index:25;animation:sheetUp .35s ease both">
-            <div style="background:#FFFBF1;border:1.5px solid rgba(168,62,35,.45);border-radius:20px;padding:14px;box-shadow:0 18px 40px rgba(90,58,18,.24)">
+            <div style="background:{{ themeCard }};border:1.5px solid rgba(168,62,35,.45);border-radius:20px;padding:14px;box-shadow:0 18px 40px rgba(90,58,18,.24)">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
                 <div style="display:flex;align-items:center;gap:9px">
                   <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#A83E23" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 21h20L12 3z"/><path d="M12 10v5M12 18.2v.1"/></svg>
@@ -562,10 +562,10 @@
           <div style="padding:6px 18px 120px">
             <!-- quick stats -->
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:8px">
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Max ft</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxHeightFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Clear ft</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxSlots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Slots</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.parking }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rig spots</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Max ft</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxHeightFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Clear ft</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxSlots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Slots</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.parking }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rig spots</div></div>
             </div>
 
             <!-- compat readout -->
@@ -577,21 +577,21 @@
             <!-- pull-through / parking -->
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">RIG &amp; PARKING</div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;align-items:center;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2"><path d="M3 12h18M14 8l4 4-4 4"/></svg><div style="flex:1"><div style="font:600 12px 'Archivo';color:#2C2118">Pull-through access</div></div><div style="font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ sv.pullFg }}">{{ sv.pullTxt }}</div></div>
-              <div style="display:flex;align-items:center;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2"><path d="M12 21s-7-5.6-7-11a7 7 0 0114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div style="flex:1"><div style="font:600 12px 'Archivo';color:#2C2118">Turning radius</div><div style="font:400 10px 'Archivo';color:#8A7458">{{ sv.turn }}</div></div></div>
+              <div style="display:flex;align-items:center;gap:11px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2"><path d="M3 12h18M14 8l4 4-4 4"/></svg><div style="flex:1"><div style="font:600 12px 'Archivo';color:#2C2118">Pull-through access</div></div><div style="font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ sv.pullFg }}">{{ sv.pullTxt }}</div></div>
+              <div style="display:flex;align-items:center;gap:11px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2"><path d="M12 21s-7-5.6-7-11a7 7 0 0114 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><div style="flex:1"><div style="font:600 12px 'Archivo';color:#2C2118">Turning radius</div><div style="font:400 10px 'Archivo';color:#8A7458">{{ sv.turn }}</div></div></div>
             </div>
 
             <!-- hookups -->
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">HOOKUPS</div>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-              <div style="background:#FFFBF1;border:1px solid {{ sv.waterBd }};border-radius:12px;padding:12px 8px;text-align:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ sv.waterFg }}" stroke-width="1.8" style="margin-bottom:4px"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/></svg><div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sv.waterFg }}">Water</div></div>
-              <div style="background:#FFFBF1;border:1px solid {{ sv.powerBd }};border-radius:12px;padding:12px 8px;text-align:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ sv.powerFg }}" stroke-width="1.8" style="margin-bottom:4px"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg><div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sv.powerFg }}">Power</div></div>
-              <div style="background:#FFFBF1;border:1px solid {{ sv.manureBd }};border-radius:12px;padding:12px 8px;text-align:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ sv.manureFg }}" stroke-width="1.8" style="margin-bottom:4px"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg><div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sv.manureFg }}">Manure</div></div>
+              <div style="background:{{ themeCard }};border:1px solid {{ sv.waterBd }};border-radius:12px;padding:12px 8px;text-align:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ sv.waterFg }}" stroke-width="1.8" style="margin-bottom:4px"><path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/></svg><div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sv.waterFg }}">Water</div></div>
+              <div style="background:{{ themeCard }};border:1px solid {{ sv.powerBd }};border-radius:12px;padding:12px 8px;text-align:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ sv.powerFg }}" stroke-width="1.8" style="margin-bottom:4px"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg><div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sv.powerFg }}">Power</div></div>
+              <div style="background:{{ themeCard }};border:1px solid {{ sv.manureBd }};border-radius:12px;padding:12px 8px;text-align:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ sv.manureFg }}" stroke-width="1.8" style="margin-bottom:4px"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg><div style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sv.manureFg }}">Manure</div></div>
             </div>
 
             <!-- arena specs -->
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">ARENA</div>
-            <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:14px;padding:4px 14px">
+            <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:14px;padding:4px 14px">
               <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(74,48,22,.08)"><span style="font:400 12px 'Archivo';color:#8A7458">Cover</span><span style="font:600 12px 'Archivo';color:#2C2118">{{ sv.coverTxt }}</span></div>
               <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(74,48,22,.08)"><span style="font:400 12px 'Archivo';color:#8A7458">Footing</span><span style="font:600 12px 'Archivo';color:#2C2118">{{ sv.footing }}</span></div>
               <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(74,48,22,.08)"><span style="font:400 12px 'Archivo';color:#8A7458">Size</span><span style="font:600 12px 'Archivo';color:#2C2118">{{ sv.arenaSize }}</span></div>
@@ -604,19 +604,19 @@
               <div style="display:flex;align-items:center;gap:4px;background:#EAF0F4;border:1px solid rgba(63,94,120,.3);border-radius:20px;padding:3px 8px"><svg width="11" height="11" viewBox="0 0 24 24" fill="#3F5E78"><circle cx="12" cy="4" r="2.2"/><path d="M9 8.5v4l4 .5 2.5 6 1.8-.8-2.6-6.4-4-.6V8.5z" stroke="#3F5E78" stroke-width="1.2" fill="#3F5E78"/><path d="M8 11a5 5 0 105.7 7.8" fill="none" stroke="#3F5E78" stroke-width="1.6" stroke-linecap="round"/></svg><span style="font:600 8px 'Oswald';letter-spacing:1px;color:#3F5E78;text-transform:uppercase">ADA</span></div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-              <div style="background:#FFFBF1;border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
+              <div style="background:{{ themeCard }};border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3F5E78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4.2" r="2"/><path d="M10 7v5l4 .5 2.4 5.5M8.5 10a5 5 0 105.6 7.6"/></svg>
                 <div><div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Seating</div><div style="font:600 11px/1.25 'Archivo';color:#2C2118">{{ sv.ada.seatsTxt }}</div></div>
               </div>
-              <div style="background:#FFFBF1;border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
+              <div style="background:{{ themeCard }};border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3F5E78" stroke-width="1.8" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 17V8h4a2.5 2.5 0 010 5H9"/></svg>
                 <div><div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Parking</div><div style="font:600 11px/1.25 'Archivo';color:#2C2118">{{ sv.ada.parkTxt }}</div></div>
               </div>
-              <div style="background:#FFFBF1;border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
+              <div style="background:{{ themeCard }};border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3F5E78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18M6 21h12M6 8h9a3 3 0 013 3v0a3 3 0 01-3 3H6"/></svg>
                 <div><div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Restrooms</div><div style="font:600 11px/1.25 'Archivo';color:#2C2118">{{ sv.ada.restroomTxt }}</div></div>
               </div>
-              <div style="background:#FFFBF1;border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
+              <div style="background:{{ themeCard }};border:1px solid rgba(63,94,120,.16);border-radius:12px;padding:11px 12px;display:flex;gap:10px;align-items:center">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ sv.ada.shuttleFg }}" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="11" rx="2"/><path d="M3 11h18M7 20v-2M17 20v-2"/><circle cx="7.5" cy="16" r="1"/><circle cx="16.5" cy="16" r="1"/></svg>
                 <div><div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Shuttle</div><div style="font:600 11px/1.25 'Archivo';color:#2C2118">{{ sv.ada.shuttleTxt }}</div></div>
               </div>
@@ -637,7 +637,7 @@
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">RODEO DATES</div>
             <div style="display:flex;flex-direction:column;gap:8px">
               <sc-for list="{{ sv.eventList }}" as="e" hint-placeholder-count="2">
-                <div style="display:flex;align-items:center;gap:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:10px 13px">
+                <div style="display:flex;align-items:center;gap:12px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:10px 13px">
                   <div style="text-align:center;flex:none;width:44px"><div style="font:400 20px 'Bebas Neue';color:#B4472A;line-height:.9">{{ e.day }}</div><div style="font:600 8px 'Oswald';letter-spacing:1px;color:#8A7458;text-transform:uppercase">{{ e.mon }}</div></div>
                   <div style="flex:1"><div style="font:600 12px 'Archivo';color:#2C2118">{{ e.name }}</div><div style="font:400 10px 'Archivo';color:#8A7458">{{ e.sub }}</div></div>
                 </div>
@@ -647,7 +647,7 @@
             <!-- directions -->
             <div onClick="{{ addToTrip }}" style="margin-top:18px;display:flex;gap:10px">
               <div style="flex:1;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23);cursor:pointer">＋ ADD TO TRIP</div>
-              <div style="width:52px;border-radius:13px;background:#FFFBF1;border:1px solid rgba(168,62,35,.3);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B4472A" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+              <div style="width:52px;border-radius:13px;background:{{ themeCard }};border:1px solid rgba(168,62,35,.3);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B4472A" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
             </div>
             <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Rig-friendly routing avoids low bridges &amp; tight switchbacks for {{ rig.heightFt }}ft / {{ rig.lengthFt }}ft rigs.</div>
           </div>
@@ -669,10 +669,10 @@
           </div>
           <div style="padding:6px 18px 120px">
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:8px">
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxSlots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Stalls</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Max ft</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxHeightFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Clear ft</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">${{ ldv.price }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Per night</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxSlots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Stalls</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Max ft</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxHeightFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Clear ft</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">${{ ldv.price }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Per night</div></div>
             </div>
             <div style="margin-top:14px;background:{{ ldv.fitPanelBg }};border:1px solid {{ ldv.fitBd }};border-radius:14px;padding:12px 14px">
               <div style="font:400 18px 'Bebas Neue';letter-spacing:.5px;color:{{ ldv.fitFg }}">{{ ldv.fitHead }}</div>
@@ -682,14 +682,14 @@
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">WHAT'S HERE FOR THE HERD</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
               <sc-for list="{{ ldv.amenities }}" as="a" hint-placeholder-count="6">
-                <div style="display:flex;align-items:center;gap:9px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:11px 12px"><span style="font:400 18px 'Bebas Neue';color:#3F7D5A;width:18px;text-align:center">{{ a.glyph }}</span><span style="font:600 11px 'Archivo';color:#2C2118">{{ a.label }}</span></div>
+                <div style="display:flex;align-items:center;gap:9px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:11px 12px"><span style="font:400 18px 'Bebas Neue';color:#3F7D5A;width:18px;text-align:center">{{ a.glyph }}</span><span style="font:600 11px 'Archivo';color:#2C2118">{{ a.label }}</span></div>
               </sc-for>
             </div>
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">HOOKUPS &amp; PARKING</div>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 6px;text-align:center"><div style="font:600 12px 'Archivo';color:#2C2118">{{ ldv.waterTxt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Water</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 6px;text-align:center"><div style="font:600 12px 'Archivo';color:#2C2118">{{ ldv.powerTxt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Power</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 6px;text-align:center"><div style="font:600 12px 'Archivo';color:{{ ldv.pullFg }}">{{ ldv.pullTxt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Pull-thru</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 6px;text-align:center"><div style="font:600 12px 'Archivo';color:#2C2118">{{ ldv.waterTxt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Water</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 6px;text-align:center"><div style="font:600 12px 'Archivo';color:#2C2118">{{ ldv.powerTxt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Power</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 6px;text-align:center"><div style="font:600 12px 'Archivo';color:{{ ldv.pullFg }}">{{ ldv.pullTxt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Pull-thru</div></div>
             </div>
             <div style="display:flex;gap:8px;margin-top:16px">
               <image-slot id="lg1-{{ ldv.id }}" style="width:33%;height:74px" shape="rounded" radius="10" placeholder="＋"></image-slot>
@@ -698,7 +698,7 @@
             </div>
             <div onClick="{{ toggleSaveLodge }}" style="margin-top:18px;display:flex;gap:10px">
               <div style="flex:1;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#4C9070,#2f6347);cursor:pointer">♥ SAVE THIS STAY</div>
-              <div style="width:52px;border-radius:13px;background:#FFFBF1;border:1px solid rgba(63,125,90,.4);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F7D5A" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+              <div style="width:52px;border-radius:13px;background:{{ themeCard }};border:1px solid rgba(63,125,90,.4);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F7D5A" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
             </div>
             <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Exact address &amp; gate code shared after you book. Coggins required on arrival.</div>
           </div>
@@ -722,8 +722,8 @@
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ fdv.city }}, {{ fdv.state }} · {{ fdv.dist }} mi off route</div>
 
             <div style="display:flex;gap:8px;margin-top:14px">
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Hours</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fdv.hours }}</div></div></div>
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fdv.phone }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Hours</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fdv.hours }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fdv.phone }}</div></div></div>
             </div>
 
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">WHAT THEY CARRY</div>
@@ -733,14 +733,14 @@
               </sc-for>
             </div>
 
-            <div style="margin-top:16px;display:flex;align-items:center;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #B8862F;border-radius:12px;padding:12px 14px">
+            <div style="margin-top:16px;display:flex;align-items:center;gap:11px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-left:3px solid #B8862F;border-radius:12px;padding:12px 14px">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2"><path d="M3 12h18M14 8l4 4-4 4"/></svg>
               <div style="flex:1"><div style="font:600 12px 'Archivo';color:#2C2118">{{ fdv.pullTxt }}</div><div style="font:400 10px 'Archivo';color:#8A7458;margin-top:1px">Big-rig friendly — pull in, load up, pull out.</div></div>
             </div>
 
             <div onClick="{{ toggleSaveFeed }}" style="margin-top:18px;display:flex;gap:10px">
               <div style="flex:1;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#c39433,#a6771f);cursor:pointer">♥ SAVE THIS STORE</div>
-              <div style="width:52px;border-radius:13px;background:#FFFBF1;border:1px solid rgba(184,134,47,.45);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+              <div style="width:52px;border-radius:13px;background:{{ themeCard }};border:1px solid rgba(184,134,47,.45);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
             </div>
             <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Stock &amp; hours change — call ahead before a big load or a late stop.</div>
           </div>
@@ -767,9 +767,9 @@
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ pdv.city }}, {{ pdv.state }} · {{ pdv.hours }}</div>
 
             <div style="display:flex;gap:8px;margin-top:14px">
-              <div style="flex:1;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#B4472A">{{ pdv.spots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Rig spots</div></div>
-              <div style="flex:1;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#B4472A">{{ pdv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Max ft</div></div>
-              <div style="flex:1.4;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 15px/1.5 'Bebas Neue';color:#B4472A">{{ pdv.fee }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Cost</div></div>
+              <div style="flex:1;text-align:center;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#B4472A">{{ pdv.spots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Rig spots</div></div>
+              <div style="flex:1;text-align:center;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#B4472A">{{ pdv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Max ft</div></div>
+              <div style="flex:1.4;text-align:center;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 15px/1.5 'Bebas Neue';color:#B4472A">{{ pdv.fee }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Cost</div></div>
             </div>
 
             <div style="margin-top:12px;background:{{ pdv.fitPanelBg }};border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
@@ -778,13 +778,13 @@
             </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Overnight</div><div style="font:600 11px 'Archivo';color:{{ pdv.onFg }};margin-top:2px">{{ pdv.onTxt }}</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Parking</div><div style="font:600 11px 'Archivo';color:{{ pdv.pullFg }};margin-top:2px">{{ pdv.pullTxt }}</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Lighting</div><div style="font:600 11px 'Archivo';color:{{ pdv.litFg }};margin-top:2px">{{ pdv.litTxt }}</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Grub</div><div style="font:600 11px 'Archivo';color:#2C2118;margin-top:2px">{{ pdv.food }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Overnight</div><div style="font:600 11px 'Archivo';color:{{ pdv.onFg }};margin-top:2px">{{ pdv.onTxt }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Parking</div><div style="font:600 11px 'Archivo';color:{{ pdv.pullFg }};margin-top:2px">{{ pdv.pullTxt }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Lighting</div><div style="font:600 11px 'Archivo';color:{{ pdv.litFg }};margin-top:2px">{{ pdv.litTxt }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Grub</div><div style="font:600 11px 'Archivo';color:#2C2118;margin-top:2px">{{ pdv.food }}</div></div>
             </div>
 
-            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #2F6F8F;border-radius:12px;padding:12px 14px">
+            <div style="margin-top:12px;display:flex;gap:11px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-left:3px solid #2F6F8F;border-radius:12px;padding:12px 14px">
               <div style="font:400 16px 'Bebas Neue';color:#2F6F8F">✦</div>
               <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ pdv.note }}</div>
             </div>
@@ -815,16 +815,16 @@
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ Based {{ fardv.city }}, {{ fardv.state }} · {{ fardv.radius }}</div>
 
             <div style="display:flex;gap:8px;margin-top:14px">
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.phone }}</div></div></div>
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rates</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.price }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.phone }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rates</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.price }}</div></div></div>
             </div>
 
-            <div style="margin-top:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
+            <div style="margin-top:12px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
               <div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Specialty</div>
               <div style="font:600 13px 'Archivo';color:#2C2118;margin-top:3px">{{ fardv.spec }}</div>
             </div>
 
-            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #5E5248;border-radius:12px;padding:12px 14px">
+            <div style="margin-top:12px;display:flex;gap:11px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-left:3px solid #5E5248;border-radius:12px;padding:12px 14px">
               <div style="font:400 16px 'Bebas Neue';color:#5E5248">✦</div>
               <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ fardv.note }}</div>
             </div>
@@ -855,17 +855,17 @@
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ vdv.city }}, {{ vdv.state }} · {{ vdv.haul }}</div>
 
             <div style="display:flex;gap:8px;margin-top:14px">
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.phone }}</div></div></div>
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Hours</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.hours }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.phone }}</div></div></div>
+              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Hours</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.hours }}</div></div></div>
             </div>
 
-            <div style="margin-top:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
+            <div style="margin-top:12px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
               <div style="font:600 8px 'Oswald';letter-spacing:.8px;color:#8A7458;text-transform:uppercase">Specialty</div>
               <div style="font:600 13px 'Archivo';color:#2C2118;margin-top:3px">{{ vdv.spec }}</div>
               <div style="font:600 11px 'Archivo';color:{{ vdv.mobileFg }};margin-top:6px">{{ vdv.mobileTxt }}</div>
             </div>
 
-            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #8A3A4A;border-radius:12px;padding:12px 14px">
+            <div style="margin-top:12px;display:flex;gap:11px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-left:3px solid #8A3A4A;border-radius:12px;padding:12px 14px">
               <div style="font:400 16px 'Bebas Neue';color:#8A3A4A">✦</div>
               <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ vdv.note }}</div>
             </div>
@@ -896,8 +896,8 @@
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ ddv.city }}, {{ ddv.state }} · {{ ddv.hours }}</div>
 
             <div style="display:flex;gap:8px;margin-top:14px">
-              <div style="flex:1;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#2E8577">{{ ddv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Max ft</div></div>
-              <div style="flex:1.4;text-align:center;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 15px/1.5 'Bebas Neue';color:#2E8577">{{ ddv.fee }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Cost</div></div>
+              <div style="flex:1;text-align:center;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#2E8577">{{ ddv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Max ft</div></div>
+              <div style="flex:1.4;text-align:center;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 15px/1.5 'Bebas Neue';color:#2E8577">{{ ddv.fee }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Cost</div></div>
             </div>
 
             <div style="margin-top:12px;background:{{ ddv.fitPanelBg }};border:1px solid rgba(74,48,22,.12);border-radius:14px;padding:13px 15px">
@@ -906,13 +906,13 @@
             </div>
 
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Fresh water</div><div style="font:600 11px 'Archivo';color:{{ ddv.waterFg }};margin-top:2px">{{ ddv.waterTxt }}</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Approach</div><div style="font:600 11px 'Archivo';color:{{ ddv.pullFg }};margin-top:2px">{{ ddv.pullTxt }}</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rinse</div><div style="font:600 11px 'Archivo';color:{{ ddv.rinseFg }};margin-top:2px">{{ ddv.rinseTxt }}</div></div>
-              <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Cost</div><div style="font:600 11px 'Archivo';color:#2C2118;margin-top:2px">{{ ddv.fee }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Fresh water</div><div style="font:600 11px 'Archivo';color:{{ ddv.waterFg }};margin-top:2px">{{ ddv.waterTxt }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Approach</div><div style="font:600 11px 'Archivo';color:{{ ddv.pullFg }};margin-top:2px">{{ ddv.pullTxt }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rinse</div><div style="font:600 11px 'Archivo';color:{{ ddv.rinseFg }};margin-top:2px">{{ ddv.rinseTxt }}</div></div>
+              <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:11px 12px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Cost</div><div style="font:600 11px 'Archivo';color:#2C2118;margin-top:2px">{{ ddv.fee }}</div></div>
             </div>
 
-            <div style="margin-top:12px;display:flex;gap:11px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-left:3px solid #2E8577;border-radius:12px;padding:12px 14px">
+            <div style="margin-top:12px;display:flex;gap:11px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-left:3px solid #2E8577;border-radius:12px;padding:12px 14px">
               <div style="font:400 16px 'Bebas Neue';color:#2E8577">✦</div>
               <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ ddv.note }}</div>
             </div>
@@ -932,7 +932,7 @@
           </sc-if>
           <div style="padding:0 16px 120px;display:flex;flex-direction:column;gap:11px">
             <sc-for list="{{ savedList }}" as="v" hint-placeholder-count="0">
-              <div onClick="{{ v.open }}" style="display:flex;gap:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:16px;padding:11px;cursor:pointer;box-shadow:0 4px 12px rgba(120,80,30,.08)">
+              <div onClick="{{ v.open }}" style="display:flex;gap:12px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:16px;padding:11px;cursor:pointer;box-shadow:0 4px 12px rgba(120,80,30,.08)">
                 <image-slot id="sv-{{ v.id }}" style="width:70px;height:70px;flex:none" shape="rounded" radius="12" placeholder="＋"></image-slot>
                 <div style="flex:1;min-width:0"><div style="font:400 20px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.4px">{{ v.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ v.city }}, {{ v.state }}</div><div style="display:flex;gap:5px;margin-top:7px"><div style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ v.fitFg }};background:{{ v.fitBg }};border:1px solid {{ v.fitBd }};border-radius:20px;padding:3px 8px">{{ v.fitLabel }}</div><div style="font:400 14px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:6px;padding:0 7px">{{ v.metric }}</div></div></div>
               </div>
@@ -952,9 +952,9 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBF3E4" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
           </div>
 
-          <div style="margin:12px 16px 0;position:relative;height:180px;border-radius:18px;overflow:hidden;border:1px solid rgba(74,48,22,.14);background:#e6d3ab">
+          <div style="margin:12px 16px 0;position:relative;height:180px;border-radius:18px;overflow:hidden;border:1px solid rgba(74,48,22,.14);background:{{ themeSurf }}">
             <svg viewBox="0 0 400 180" style="width:100%;height:100%">
-              <rect width="400" height="180" fill="#e6d3ab"/>
+              <rect width="400" height="180" fill="{{ themeSurf }}"/>
               <g stroke="rgba(122,74,30,.12)"><line x1="0" y1="45" x2="400" y2="45"/><line x1="0" y1="90" x2="400" y2="90"/><line x1="0" y1="135" x2="400" y2="135"/><line x1="100" y1="0" x2="100" y2="180"/><line x1="200" y1="0" x2="200" y2="180"/><line x1="300" y1="0" x2="300" y2="180"/></g>
               <polyline points="{{ tripPath }}" fill="none" stroke="#B4472A" stroke-width="2.4" stroke-dasharray="6 6" style="animation:dash 3s linear infinite"/>
               <sc-for list="{{ tripPins }}" as="tp" hint-placeholder-count="0"><circle cx="{{ tp.x }}" cy="{{ tp.y }}" r="6" fill="#B4472A" stroke="{{ themeSurf }}" stroke-width="2"/><text x="{{ tp.x }}" y="{{ tp.ty }}" text-anchor="middle" fill="#6b543a" style="font:400 11px 'Bebas Neue'">{{ tp.short }}</text></sc-for>
@@ -969,7 +969,7 @@
             <sc-for list="{{ tripList }}" as="t" hint-placeholder-count="0">
               <div style="display:flex;gap:13px">
                 <div style="display:flex;flex-direction:column;align-items:center;flex:none;width:26px"><div style="width:26px;height:26px;border-radius:50%;background:#B4472A;color:#FBF3E4;font:400 16px 'Bebas Neue';display:flex;align-items:center;justify-content:center">{{ t.num }}</div><div style="flex:1;width:2px;background:{{ t.line }};margin:2px 0"></div></div>
-                <div onClick="{{ t.open }}" style="flex:1;padding-bottom:16px;cursor:pointer"><div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:13px;padding:11px 13px;box-shadow:0 3px 9px rgba(120,80,30,.06)"><div style="display:flex;justify-content:space-between"><div style="font:400 19px/.95 'Bebas Neue';color:#2C2118">{{ t.name }}</div><div onClick="{{ t.remove }}" style="font:600 9px 'Oswald';color:#A83E23;cursor:pointer;letter-spacing:.5px">REMOVE</div></div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ t.city }}, {{ t.state }} · {{ t.leg }}</div><div style="font:400 10px 'Archivo';color:#986412;margin-top:5px">◆ {{ t.next }}</div></div></div>
+                <div onClick="{{ t.open }}" style="flex:1;padding-bottom:16px;cursor:pointer"><div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:13px;padding:11px 13px;box-shadow:0 3px 9px rgba(120,80,30,.06)"><div style="display:flex;justify-content:space-between"><div style="font:400 19px/.95 'Bebas Neue';color:#2C2118">{{ t.name }}</div><div onClick="{{ t.remove }}" style="font:600 9px 'Oswald';color:#A83E23;cursor:pointer;letter-spacing:.5px">REMOVE</div></div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">◈ {{ t.city }}, {{ t.state }} · {{ t.leg }}</div><div style="font:400 10px 'Archivo';color:#986412;margin-top:5px">◆ {{ t.next }}</div></div></div>
               </div>
             </sc-for>
           </div>
@@ -991,7 +991,7 @@
           </div>
           <div style="padding:14px 16px 120px;display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ eventFeed }}" as="e" hint-placeholder-count="6">
-              <div onClick="{{ e.open }}" style="display:flex;gap:13px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:15px;padding:12px;cursor:pointer;box-shadow:0 4px 12px rgba(120,80,30,.07)">
+              <div onClick="{{ e.open }}" style="display:flex;gap:13px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:15px;padding:12px;cursor:pointer;box-shadow:0 4px 12px rgba(120,80,30,.07)">
                 <div style="text-align:center;flex:none;width:48px;border-right:1px solid rgba(74,48,22,.12);padding-right:11px"><div style="font:400 26px/.85 'Bebas Neue';color:#B4472A">{{ e.day }}</div><div style="font:600 8px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">{{ e.mon }}</div></div>
                 <div style="flex:1;min-width:0"><div style="font:400 19px/.95 'Bebas Neue';color:#2C2118;letter-spacing:.3px">{{ e.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">{{ e.venue }} · ◈ {{ e.city }}, {{ e.state }}</div><div style="font:600 10px 'Oswald';letter-spacing:.5px;color:#986412">{{ e.moneyTxt }}</div></div>
                 <div style="align-self:center;font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ e.fitFg }};background:{{ e.fitBg }};border:1px solid {{ e.fitBd }};border-radius:20px;padding:3px 8px;flex:none">{{ e.fitLabel }}</div>
@@ -1022,10 +1022,10 @@
           <div style="font:600 10px 'Oswald';letter-spacing:2px;color:#8A7458;text-transform:uppercase;margin:22px 20px 8px">Your convoy</div>
           <div style="padding:0 16px 120px;display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ buddyList }}" as="b" hint-placeholder-count="4">
-              <div style="display:flex;gap:12px;align-items:center;background:#FFFBF1;border:1px solid {{ b.cardBd }};border-radius:16px;padding:12px;box-shadow:0 3px 10px rgba(120,80,30,.06)">
+              <div style="display:flex;gap:12px;align-items:center;background:{{ themeCard }};border:1px solid {{ b.cardBd }};border-radius:16px;padding:12px;box-shadow:0 3px 10px rgba(120,80,30,.06)">
                 <div style="position:relative;flex:none">
                   <image-slot id="{{ b.avatarId }}" style="width:50px;height:50px" shape="circle" placeholder="＋"></image-slot>
-                  <div style="position:absolute;right:-1px;bottom:-1px;width:16px;height:16px;border-radius:50%;background:{{ b.dot }};border:2.5px solid #FFFBF1"></div>
+                  <div style="position:absolute;right:-1px;bottom:-1px;width:16px;height:16px;border-radius:50%;background:{{ b.dot }};border:2.5px solid {{ themeCard }}"></div>
                 </div>
                 <div style="flex:1;min-width:0"><div style="font:400 20px/.9 'Bebas Neue';color:#2C2118">{{ b.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:3px">{{ b.rig }} · ◈ {{ b.loc }}</div><div style="font:600 9px 'Oswald';letter-spacing:.8px;text-transform:uppercase;color:{{ b.statusFg }};margin-top:6px">{{ b.statusTxt }}</div></div>
                 <div onClick="{{ b.nudge }}" style="flex:none;font:600 9px 'Oswald';letter-spacing:.6px;text-transform:uppercase;color:{{ b.nudgeFg }};background:{{ b.nudgeBg }};border:1px solid {{ b.nudgeBd }};border-radius:20px;padding:8px 12px;cursor:pointer">{{ b.nudgeTxt }}</div>
@@ -1039,12 +1039,12 @@
         <sc-if value="{{ isWeather }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:54px 18px 6px;display:flex;align-items:center;gap:12px">
-            <div onClick="{{ backFromWeather }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;border:1px solid rgba(74,48,22,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+            <div onClick="{{ backFromWeather }}" style="width:38px;height:38px;border-radius:50%;background:{{ themeCard }};border:1px solid rgba(74,48,22,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;flex:none;box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
             <div><div style="font:400 30px/.85 'Bebas Neue';color:#2C2118;letter-spacing:1px">WEATHER &amp; WIND</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase;margin-top:3px">Along your trail · live</div></div>
           </div>
 
           <!-- rig wind risk -->
-          <div style="margin:12px 16px 0;background:#FFFBF1;border:1px solid rgba(74,48,22,.12);border-radius:16px;padding:14px 16px;box-shadow:0 4px 12px rgba(120,80,30,.07)">
+          <div style="margin:12px 16px 0;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:16px;padding:14px 16px;box-shadow:0 4px 12px rgba(120,80,30,.07)">
             <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Crosswind risk · your rig</span><span style="font:400 17px 'Bebas Neue';color:{{ windRiskFg }}">{{ windRiskLabel }}</span></div>
             <div style="height:10px;border-radius:6px;background:#EEE3CE;margin-top:9px;overflow:hidden"><div style="height:100%;width:{{ windRiskPct }};border-radius:6px;background:linear-gradient(90deg,#5E7A4E,#C89A4A,#A83E23)"></div></div>
             <div style="font:400 10px 'Archivo';color:#8A7458;margin-top:7px">Tall trailers act like a sail — 40+ mph crosswinds can push a high rig off line.</div>
@@ -1066,7 +1066,7 @@
           <div style="font:600 10px 'Oswald';letter-spacing:2px;color:#8A7458;text-transform:uppercase;margin:22px 20px 8px">Trail conditions</div>
           <div style="padding:0 16px 120px;display:flex;flex-direction:column;gap:8px">
             <sc-for list="{{ wxRoute }}" as="w" hint-placeholder-count="4">
-              <div style="display:flex;align-items:center;gap:12px;background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:13px;padding:11px 14px;box-shadow:0 3px 9px rgba(120,80,30,.05)">
+              <div style="display:flex;align-items:center;gap:12px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:13px;padding:11px 14px;box-shadow:0 3px 9px rgba(120,80,30,.05)">
                 <div style="font:400 28px 'Bebas Neue';color:#2C2118;flex:none;width:54px">{{ w.temp }}</div>
                 <div style="flex:1;min-width:0"><div style="font:600 12px 'Archivo';color:#2C2118">{{ w.name }}</div><div style="font:500 10px 'Archivo';color:#8A7458;margin-top:1px">{{ w.cond }} · wind {{ w.wind }} · gust {{ w.gust }} mph</div></div>
                 <div style="font:600 9px 'Oswald';letter-spacing:.6px;text-transform:uppercase;color:{{ w.ratFg }};background:{{ w.ratBg }};border:1px solid {{ w.ratBd }};border-radius:20px;padding:5px 10px;flex:none">{{ w.ratTxt }}</div>
@@ -1083,7 +1083,7 @@
       <div style="position:absolute;inset:0;background:{{ themeScreenBg }};animation:screenIn .35s ease both;display:flex;flex-direction:column">
         <div style="padding:56px 20px 0;flex:none">
           <div style="display:flex;justify-content:space-between;align-items:center">
-            <div onClick="{{ backFromQuiz }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+            <div onClick="{{ backFromQuiz }}" style="width:38px;height:38px;border-radius:50%;background:{{ themeCard }};display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
             <div style="display:flex;gap:6px">
               <sc-for list="{{ qStepDots }}" as="d" hint-placeholder-count="4"><div style="width:26px;height:5px;border-radius:3px;background:{{ d.bg }}"></div></sc-for>
             </div>
@@ -1130,7 +1130,7 @@
           <div style="font:600 9px 'Oswald';letter-spacing:1.2px;color:#9c855f;text-transform:uppercase;text-align:center;margin-bottom:10px">{{ qRigNote }}</div>
           <div style="display:flex;gap:10px">
             <sc-if value="{{ qShowBack }}" hint-placeholder-val="{{ false }}">
-              <div onClick="{{ quizBack }}" style="flex:1;text-align:center;padding:14px 0;border-radius:14px;cursor:pointer;font:400 19px 'Bebas Neue';letter-spacing:1.5px;color:#8A7458;background:#F0E6D2;border:1px solid rgba(74,48,22,.16)">← BACK</div>
+              <div onClick="{{ quizBack }}" style="flex:1;text-align:center;padding:14px 0;border-radius:14px;cursor:pointer;font:400 19px 'Bebas Neue';letter-spacing:1.5px;color:#8A7458;background:{{ themeSeg }};border:1px solid rgba(74,48,22,.16)">← BACK</div>
             </sc-if>
             <div onClick="{{ quizNext }}" style="flex:2;text-align:center;padding:14px 0;border-radius:14px;cursor:pointer;font:400 19px 'Bebas Neue';letter-spacing:1.5px;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23);box-shadow:0 8px 20px rgba(168,62,35,.3)">{{ qNextTxt }}</div>
           </div>
@@ -1142,7 +1142,7 @@
       <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
       <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
         <div style="padding:56px 20px 0">
-          <div onClick="{{ backFromPlan }}" style="width:38px;height:38px;border-radius:50%;background:#FFFBF1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
+          <div onClick="{{ backFromPlan }}" style="width:38px;height:38px;border-radius:50%;background:{{ themeCard }};display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(74,48,22,.14);box-shadow:0 3px 9px rgba(60,35,12,.12)"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2C2118" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></div>
           <div style="display:inline-flex;align-items:center;gap:7px;font:600 10px 'Oswald';letter-spacing:3px;color:#B4472A;text-transform:uppercase;margin-top:18px"><span style="width:22px;height:2px;background:#B4472A;display:inline-block"></span>Built for your rig</div>
           <div style="font:400 44px/.88 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">YOUR<br><span style="color:#B4472A">TRAIL RUN</span></div>
           <div style="font:600 11px 'Oswald';letter-spacing:1.5px;color:#7A6247;text-transform:uppercase;margin-top:8px">{{ planSummary }}</div>
@@ -1161,7 +1161,7 @@
             <div style="display:flex;gap:13px">
               <div style="display:flex;flex-direction:column;align-items:center;flex:none;width:26px"><div style="width:26px;height:26px;border-radius:50%;background:#B4472A;color:#FBF3E4;font:400 16px 'Bebas Neue';display:flex;align-items:center;justify-content:center">{{ s.num }}</div><div style="flex:1;width:2px;background:{{ s.line }};margin:2px 0"></div></div>
               <div style="flex:1;padding-bottom:14px">
-                <div style="background:#FFFBF1;border:1px solid rgba(74,48,22,.1);border-radius:14px;padding:12px 14px;box-shadow:0 3px 9px rgba(120,80,30,.06)">
+                <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:14px;padding:12px 14px;box-shadow:0 3px 9px rgba(120,80,30,.06)">
                   <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
                     <div style="font:400 19px/.95 'Bebas Neue';color:#2C2118">{{ s.name }}</div>
                     <div style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ s.kindFg }};background:{{ s.kindBg }};border:1px solid {{ s.kindBd }};border-radius:20px;padding:3px 8px;flex:none">{{ s.kindTxt }}</div>
@@ -1180,7 +1180,7 @@
 
         <div style="padding:0 20px 40px">
           <div onClick="{{ savePlan }}" style="text-align:center;padding:15px 0;border-radius:14px;cursor:pointer;font:400 21px 'Bebas Neue';letter-spacing:2px;color:#FBF3E4;background:linear-gradient(180deg,#C25232,#A83E23);box-shadow:0 8px 20px rgba(168,62,35,.32)">SAVE TO TRIP PLANNER →</div>
-          <div onClick="{{ retakeQuiz }}" style="text-align:center;padding:13px 0;border-radius:14px;cursor:pointer;font:400 17px 'Bebas Neue';letter-spacing:1.5px;color:#8A7458;background:#F0E6D2;border:1px solid rgba(74,48,22,.16);margin-top:9px">RETAKE THE QUIZ</div>
+          <div onClick="{{ retakeQuiz }}" style="text-align:center;padding:13px 0;border-radius:14px;cursor:pointer;font:400 17px 'Bebas Neue';letter-spacing:1.5px;color:#8A7458;background:{{ themeSeg }};border:1px solid rgba(74,48,22,.16);margin-top:9px">RETAKE THE QUIZ</div>
           <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:10px;text-align:center">Estimates figure diesel at $0.85/mi, $45 rodeo entries, and a $52 layover night on hauls past 250 mi.</div>
         </div>
       </div>
@@ -1260,12 +1260,12 @@ class Component extends DCLogic {
 
   // c1..c4 = light→deep parchment ramp that retints the whole app per skin
   SKINS = {
-    sunset:    { name:'Sunset',    accent:'#B4472A', deep:'#A83E23', light:'#C25232', glow:'rgba(168,62,35,.32)',  soft:'rgba(180,71,42,.10)',  dot:'linear-gradient(140deg,#C25232,#8f2f18)', c1:'#FCF5E6', c2:'#F4EBD9', c3:'#EEDFC2', c4:'#DCC59C' },
-    rose:      { name:'Rosé',      accent:'#C24A78', deep:'#A8365F', light:'#D65E8C', glow:'rgba(168,54,95,.34)',   soft:'rgba(198,74,120,.12)', dot:'linear-gradient(140deg,#E27AA0,#A8365F)', c1:'#FBEAF0', c2:'#F5DEE7', c3:'#EBC8D6', c4:'#D49CB4' },
-    turquoise: { name:'Turquoise', accent:'#1F8A8A', deep:'#166B6B', light:'#2AA1A1', glow:'rgba(22,107,107,.32)',  soft:'rgba(31,138,138,.12)', dot:'linear-gradient(140deg,#3FB6B6,#166B6B)', c1:'#E3F3ED', c2:'#D2E9DF', c3:'#B7DACD', c4:'#8FC4B4' },
-    sage:      { name:'Sage',      accent:'#5E7A4E', deep:'#47613A', light:'#6E8C5A', glow:'rgba(71,97,58,.32)',    soft:'rgba(94,122,78,.12)',  dot:'linear-gradient(140deg,#7C9A63,#47613A)', c1:'#EFF3E2', c2:'#E1E9C9', c3:'#CDDAAF', c4:'#A8BC82' },
-    denim:     { name:'Denim',     accent:'#4C5C86', deep:'#384769', light:'#5D6E9C', glow:'rgba(56,71,105,.34)',   soft:'rgba(76,92,134,.12)',  dot:'linear-gradient(140deg,#6E7FAE,#384769)', c1:'#EAEEF7', c2:'#D9E1F1', c3:'#C3CCE1', c4:'#9BA8CC' },
-    buckskin:  { name:'Buckskin',  accent:'#B07A2E', deep:'#8A5D1E', light:'#C69138', glow:'rgba(138,93,30,.32)',   soft:'rgba(176,122,46,.12)', dot:'linear-gradient(140deg,#D2A44E,#8A5D1E)', c1:'#F9F0D6', c2:'#F0E1B6', c3:'#E4CE98', c4:'#C9A44E' }
+    sunset:    { name:'Sunset',    accent:'#B4472A', deep:'#A83E23', light:'#C25232', glow:'rgba(168,62,35,.32)',  soft:'rgba(180,71,42,.10)',  dot:'linear-gradient(140deg,#C25232,#8f2f18)', c0:'#FFFBF1', c1:'#FCF5E6', c2:'#F4EBD9', c3:'#EEDFC2', c4:'#DCC59C' },
+    rose:      { name:'Rosé',      accent:'#C24A78', deep:'#A8365F', light:'#D65E8C', glow:'rgba(168,54,95,.34)',   soft:'rgba(198,74,120,.12)', dot:'linear-gradient(140deg,#E27AA0,#A8365F)', c0:'#FFF5FA', c1:'#FBEAF0', c2:'#F5DEE7', c3:'#EBC8D6', c4:'#D49CB4' },
+    turquoise: { name:'Turquoise', accent:'#1F8A8A', deep:'#166B6B', light:'#2AA1A1', glow:'rgba(22,107,107,.32)',  soft:'rgba(31,138,138,.12)', dot:'linear-gradient(140deg,#3FB6B6,#166B6B)', c0:'#F1FCF8', c1:'#E3F3ED', c2:'#D2E9DF', c3:'#B7DACD', c4:'#8FC4B4' },
+    sage:      { name:'Sage',      accent:'#5E7A4E', deep:'#47613A', light:'#6E8C5A', glow:'rgba(71,97,58,.32)',    soft:'rgba(94,122,78,.12)',  dot:'linear-gradient(140deg,#7C9A63,#47613A)', c0:'#F9FCEE', c1:'#EFF3E2', c2:'#E1E9C9', c3:'#CDDAAF', c4:'#A8BC82' },
+    denim:     { name:'Denim',     accent:'#4C5C86', deep:'#384769', light:'#5D6E9C', glow:'rgba(56,71,105,.34)',   soft:'rgba(76,92,134,.12)',  dot:'linear-gradient(140deg,#6E7FAE,#384769)', c0:'#F4F7FD', c1:'#EAEEF7', c2:'#D9E1F1', c3:'#C3CCE1', c4:'#9BA8CC' },
+    buckskin:  { name:'Buckskin',  accent:'#B07A2E', deep:'#8A5D1E', light:'#C69138', glow:'rgba(138,93,30,.32)',   soft:'rgba(176,122,46,.12)', dot:'linear-gradient(140deg,#D2A44E,#8A5D1E)', c0:'#FFFCEF', c1:'#F9F0D6', c2:'#F0E1B6', c3:'#E4CE98', c4:'#C9A44E' }
   };
   setSkin(k) { this.setState({ skin: k }); }
 
@@ -2038,7 +2038,7 @@ class Component extends DCLogic {
       togglePull: () => this.setState({ filters: { ...f, requirePull: !f.requirePull } }), pullTrack: pullOn?TON:TOFF, pullDot: pullOn?'22px':'3px',
       enterApp: () => this.setScreen('map'),
       skinOpts, themeAcc: theme.accent, themeDeep: theme.deep, themeGrad: 'linear-gradient(180deg,'+theme.light+','+theme.deep+')', themeGlow: theme.glow, themeSoft: theme.soft,
-      themeSurf: theme.c2, themePanel: theme.c1, themeSeg: theme.c3, themeLand1: theme.c3, themeLand2: theme.c4,
+      themeSurf: theme.c2, themePanel: theme.c1, themeSeg: theme.c3, themeCard: theme.c0, themeLand1: theme.c3, themeLand2: theme.c4,
       themeDeskBg: 'linear-gradient(155deg,'+theme.c2+','+theme.c3+','+theme.c4+')',
       themeScreenBg: 'linear-gradient(180deg,'+theme.c1+','+theme.c2+')',
       themeMapBg: 'linear-gradient(170deg,'+theme.c2+','+theme.c3+','+theme.c4+')',
