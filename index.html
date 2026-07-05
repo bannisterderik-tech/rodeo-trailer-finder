@@ -1948,7 +1948,10 @@ class Component extends DCLogic {
     if (!c) return;
     if (this.renderer.domElement.parentNode !== c) { c.innerHTML = ''; c.appendChild(this.renderer.domElement); }
     const w = c.clientWidth || 340, h = c.clientHeight || 300;
-    if (this._lastW !== w || this._lastH !== h) { this.renderer.setSize(w, h, false); this.cam.aspect = w / h; const df = Math.max(1, 1.1 / this.cam.aspect); this.cam.position.set(9.6 * df, 5.0 * df, 10.6 * df); this.cam.lookAt(0, 1.9, 0); this.cam.updateProjectionMatrix(); this._lastW = w; this._lastH = h; }
+    if (this._lastW !== w || this._lastH !== h) { this.renderer.setSize(w, h, false); this.cam.aspect = w / h;
+      // frame the rig to fill the stage: pull in on short/wide viewports, pull back on tall/narrow ones
+      const df = Math.min(1.5, Math.max(0.66, 1.04 / this.cam.aspect));
+      this.cam.position.set(9.6 * df, 5.0 * df, 10.6 * df); this.cam.lookAt(0, 1.9, 0); this.cam.updateProjectionMatrix(); this._lastW = w; this._lastH = h; }
   }
 
   renderVals() {
@@ -2247,8 +2250,8 @@ class Component extends DCLogic {
       toggleNoGo: () => this.setState({ noGoOn: !st.noGoOn, selRoadId: null }),
       ngBg: st.noGoOn ? 'rgba(168,62,35,.12)' : '#FFFBF1', ngBd: st.noGoOn ? 'rgba(168,62,35,.45)' : 'rgba(74,48,22,.18)',
       ngFg: st.noGoOn ? '#A83E23' : '#8A7458', ngTxt: st.noGoOn ? 'ON' : 'OFF',
-      backFromLodge: () => this.setState({ screen:'map', lodgeDetailId:null }), ldvSaveFill: st.saved[ldvRaw.id] ? '#B4472A' : 'none', toggleSaveLodge: () => this.toggleSave(ldvRaw.id),
-      backFromFeed: () => this.setState({ screen:'map', feedDetailId:null }), fdvSaveFill: st.saved[fdvRaw.id] ? '#B4472A' : 'none', toggleSaveFeed: () => this.toggleSave(fdvRaw.id),
+      ldv, backFromLodge: () => this.setState({ screen:'map', lodgeDetailId:null }), ldvSaveFill: st.saved[ldvRaw.id] ? '#B4472A' : 'none', toggleSaveLodge: () => this.toggleSave(ldvRaw.id),
+      fdv, backFromFeed: () => this.setState({ screen:'map', feedDetailId:null }), fdvSaveFill: st.saved[fdvRaw.id] ? '#B4472A' : 'none', toggleSaveFeed: () => this.toggleSave(fdvRaw.id),
       pdv, backFromPark: () => this.setState({ screen:'map', parkDetailId:null }),
       pdvSaveFill: st.saved[pdv.id] ? '#B4472A' : 'none', toggleSavePark: () => this.toggleSave(pdv.id),
       fardv, backFromFar: () => this.setState({ screen:'map', farDetailId:null }),
