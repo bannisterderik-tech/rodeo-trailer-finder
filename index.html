@@ -91,7 +91,27 @@
           </div>
 
           <!-- config controls -->
-          <div style="flex:none;background:{{ themePanel }};border-top:1px solid rgba(168,62,35,.18);border-radius:26px 26px 0 0;padding:18px 22px 20px;box-shadow:0 -14px 34px rgba(120,80,30,.12)">
+          <div style="flex:none;background:{{ themePanel }};border-top:1px solid rgba(168,62,35,.18);border-radius:26px 26px 0 0;padding:16px 22px 20px;box-shadow:0 -14px 34px rgba(120,80,30,.12)">
+            <!-- rig switcher -->
+            <div style="display:flex;gap:7px;align-items:center;margin-bottom:12px;overflow-x:auto;padding-bottom:2px">
+              <sc-for list="{{ rigChips }}" as="rc" hint-placeholder-count="2">
+                <div onClick="{{ rc.pick }}" style="flex:none;display:flex;align-items:center;gap:6px;padding:7px 11px;border-radius:11px;cursor:pointer;background:{{ rc.bg }};border:1px solid {{ rc.bd }};box-shadow:{{ rc.sh }}">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ rc.fg }}" stroke-width="1.9" stroke-linejoin="round"><path d="M2 8h10v7H2zM12 10h5l3 3v2h-8z"/><circle cx="6" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></svg>
+                  <span style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ rc.fg }};white-space:nowrap">{{ rc.name }}</span>
+                  <span style="font:500 9px 'Archivo';color:{{ rc.subFg }};white-space:nowrap">{{ rc.dims }}</span>
+                </div>
+              </sc-for>
+              <div onClick="{{ addRig }}" style="flex:none;display:flex;align-items:center;gap:5px;padding:7px 11px;border-radius:11px;cursor:pointer;border:1px dashed rgba(168,62,35,.4)">
+                <span style="font:600 14px 'Oswald';color:{{ themeAcc }};line-height:1">+</span>
+                <span style="font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ themeAcc }}">Rig</span>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <input value="{{ rig.name }}" onInput="{{ onRigName }}" style="flex:1;min-width:0;background:transparent;border:none;border-bottom:1.5px solid rgba(74,48,22,.18);padding:2px 0;font:400 22px 'Bebas Neue';letter-spacing:.5px;color:#2C2118;outline:none">
+              <sc-if value="{{ canDeleteRig }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ deleteRig }}" style="margin-left:10px;font:600 9px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#A83E23;cursor:pointer;padding:4px 6px">Delete</div>
+              </sc-if>
+            </div>
             <div style="display:flex;gap:8px;margin-bottom:14px">
               <div onClick="{{ setTypeGoose }}" style="flex:1;text-align:center;padding:9px 0;border-radius:11px;cursor:pointer;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;background:{{ tGooseBg }};color:{{ tGooseFg }};border:1px solid {{ tGooseBd }}">Gooseneck</div>
               <div onClick="{{ setTypeBumper }}" style="flex:1;text-align:center;padding:9px 0;border-radius:11px;cursor:pointer;font:600 11px 'Oswald';letter-spacing:1.5px;text-transform:uppercase;background:{{ tBumpBg }};color:{{ tBumpFg }};border:1px solid {{ tBumpBd }}">Bumper-pull</div>
@@ -107,6 +127,10 @@
               <div style="flex:1">
                 <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Height</span><span style="font:400 16px 'Bebas Neue';color:#2C2118">{{ rig.heightFt }} ft</span></div>
                 <input type="range" min="10" max="15" step="0.5" value="{{ rig.heightFt }}" onInput="{{ onHt }}">
+              </div>
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Loaded Wt</span><span style="font:400 16px 'Bebas Neue';color:#2C2118">{{ rigWeightK }}k lb</span></div>
+                <input type="range" min="4000" max="30000" step="500" value="{{ rig.weightLbs }}" onInput="{{ onWeight }}">
               </div>
             </div>
 
@@ -514,6 +538,10 @@
                 </div>
                 <div onClick="{{ dismissRoad }}" style="font:600 10px 'Oswald';letter-spacing:1px;color:#8A7458;cursor:pointer;text-transform:uppercase;padding:2px 4px">✕</div>
               </div>
+              <div style="margin-top:9px;background:{{ rSel.hitBg }};border-radius:10px;padding:8px 11px">
+                <div style="font:600 9px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:{{ rSel.hitFg }}">◆ {{ rSel.hitLabel }}</div>
+                <div style="font:400 10.5px/1.4 'Archivo';color:#6b543a;margin-top:2px">{{ rSel.hitWhy }}</div>
+              </div>
               <div style="font:400 11px/1.5 'Archivo';color:#6b543a;margin-top:8px">{{ rSel.detail }}</div>
               <div style="font:600 10px 'Oswald';letter-spacing:.5px;color:#3F6B32;text-transform:uppercase;margin-top:8px">↳ {{ rSel.detour }}</div>
             </div>
@@ -560,8 +588,14 @@
           </div>
 
           <div style="padding:6px 18px 120px">
+            <!-- reviews + freshness -->
+            <div style="display:flex;align-items:center;gap:9px;margin-top:10px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:5px"><span style="font:400 15px 'Archivo';color:#C89A4A;letter-spacing:1px">{{ svReview.stars }}</span><span style="font:700 12px 'Archivo';color:#2C2118">{{ svReview.rating }}</span><span style="font:500 10px 'Archivo';color:#8A7458">({{ svReview.count }})</span></div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ svReview.freshFg }}">● {{ svReview.freshTxt }}</div>
+              <div onClick="{{ verifyVenue }}" style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ themeAcc }};border:1px solid {{ themeAcc }};border-radius:20px;padding:4px 9px;cursor:pointer;margin-left:auto">✓ I was here</div>
+            </div>
             <!-- quick stats -->
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:8px">
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:12px">
               <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Max ft</div></div>
               <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxHeightFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Clear ft</div></div>
               <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#B4472A">{{ sv.maxSlots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Slots</div></div>
@@ -640,6 +674,7 @@
                 <div style="display:flex;align-items:center;gap:12px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.1);border-radius:12px;padding:10px 13px">
                   <div style="text-align:center;flex:none;width:44px"><div style="font:400 20px 'Bebas Neue';color:#B4472A;line-height:.9">{{ e.day }}</div><div style="font:600 8px 'Oswald';letter-spacing:1px;color:#8A7458;text-transform:uppercase">{{ e.mon }}</div></div>
                   <div style="flex:1"><div style="font:600 12px 'Archivo';color:#2C2118">{{ e.name }}</div><div style="font:400 10px 'Archivo';color:#8A7458">{{ e.sub }}</div></div>
+                  <a href="{{ e.gcal }}" target="_blank" rel="noopener" style="flex:none;display:flex;align-items:center;gap:5px;text-decoration:none;border:1px solid {{ themeAcc }};border-radius:20px;padding:5px 9px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ themeAcc }}" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4.5" width="18" height="17" rx="2"/><path d="M3 9h18M8 2.5v4M16 2.5v4M12 13v4M10 15h4"/></svg><span style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ themeAcc }}">Add</span></a>
                 </div>
               </sc-for>
             </div>
@@ -668,7 +703,12 @@
             </div>
           </div>
           <div style="padding:6px 18px 120px">
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:8px">
+            <div style="display:flex;align-items:center;gap:9px;margin-top:10px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:5px"><span style="font:400 15px 'Archivo';color:#C89A4A;letter-spacing:1px">{{ ldvReview.stars }}</span><span style="font:700 12px 'Archivo';color:#2C2118">{{ ldvReview.rating }}</span><span style="font:500 10px 'Archivo';color:#8A7458">({{ ldvReview.count }})</span></div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ ldvReview.freshFg }}">● {{ ldvReview.freshTxt }}</div>
+              <div onClick="{{ verifyLodge }}" style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ themeAcc }};border:1px solid {{ themeAcc }};border-radius:20px;padding:4px 9px;cursor:pointer;margin-left:auto">✓ I stayed here</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:12px">
               <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxSlots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Stalls</div></div>
               <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxLengthFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Max ft</div></div>
               <div style="background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:12px;padding:9px 6px;text-align:center"><div style="font:400 22px 'Bebas Neue';color:#3F7D5A">{{ ldv.maxHeightFt }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Clear ft</div></div>
@@ -696,9 +736,9 @@
               <image-slot id="lg2-{{ ldv.id }}" style="width:33%;height:74px" shape="rounded" radius="10" placeholder="＋"></image-slot>
               <image-slot id="lg3-{{ ldv.id }}" style="width:33%;height:74px" shape="rounded" radius="10" placeholder="＋"></image-slot>
             </div>
-            <div onClick="{{ toggleSaveLodge }}" style="margin-top:18px;display:flex;gap:10px">
-              <div style="flex:1;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#4C9070,#2f6347);cursor:pointer">♥ SAVE THIS STAY</div>
-              <div style="width:52px;border-radius:13px;background:{{ themeCard }};border:1px solid rgba(63,125,90,.4);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3F7D5A" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+            <div onClick="{{ reserveLodge }}" style="margin-top:16px;text-align:center;padding:14px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#4C9070,#2f6347);cursor:pointer;box-shadow:0 6px 16px rgba(47,99,71,.28)">{{ ldvReserveTxt }}</div>
+            <div onClick="{{ toggleSaveLodge }}" style="margin-top:9px;display:flex;gap:10px">
+              <div style="flex:1;text-align:center;padding:12px 0;border-radius:13px;font:400 17px 'Bebas Neue';letter-spacing:1px;color:#3F7D5A;background:{{ themeCard }};border:1px solid rgba(63,125,90,.4);cursor:pointer">♥ SAVE THIS STAY</div>
             </div>
             <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Exact address &amp; gate code shared after you book. Coggins required on arrival.</div>
           </div>
@@ -723,7 +763,7 @@
 
             <div style="display:flex;gap:8px;margin-top:14px">
               <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Hours</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fdv.hours }}</div></div></div>
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fdv.phone }}</div></div></div>
+              <a href="tel:{{ fdv.phone }}" style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px;text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8862F" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fdv.phone }}</div></div></a>
             </div>
 
             <div style="font:400 22px 'Bebas Neue';color:#2C2118;letter-spacing:.8px;margin:20px 0 8px">WHAT THEY CARRY</div>
@@ -765,6 +805,11 @@
               <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ pdv.fitFg }};background:{{ pdv.fitBg }};border:1px solid {{ pdv.fitBd }};border-radius:20px;padding:4px 9px;white-space:nowrap;flex:none;margin-top:6px">{{ pdv.fitLabel }}</div>
             </div>
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ pdv.city }}, {{ pdv.state }} · {{ pdv.hours }}</div>
+            <div style="display:flex;align-items:center;gap:9px;margin-top:9px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:5px"><span style="font:400 15px 'Archivo';color:#C89A4A;letter-spacing:1px">{{ pdvReview.stars }}</span><span style="font:700 12px 'Archivo';color:#2C2118">{{ pdvReview.rating }}</span><span style="font:500 10px 'Archivo';color:#8A7458">({{ pdvReview.count }})</span></div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ pdvReview.freshFg }}">● {{ pdvReview.freshTxt }}</div>
+              <div onClick="{{ verifyPark }}" style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:#2F6F8F;border:1px solid #2F6F8F;border-radius:20px;padding:4px 9px;cursor:pointer;margin-left:auto">✓ Confirm rules</div>
+            </div>
 
             <div style="display:flex;gap:8px;margin-top:14px">
               <div style="flex:1;text-align:center;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 6px"><div style="font:400 24px/.9 'Bebas Neue';color:#B4472A">{{ pdv.spots }}</div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase;margin-top:2px">Rig spots</div></div>
@@ -789,7 +834,8 @@
               <div style="flex:1;font:400 11px/1.5 'Archivo';color:#6b543a">{{ pdv.note }}</div>
             </div>
 
-            <div onClick="{{ toggleSavePark }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#4a7f9d,#2F6F8F);cursor:pointer">♥ SAVE THIS LOT</div>
+            <div onClick="{{ reservePark }}" style="margin-top:18px;text-align:center;padding:14px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#4a7f9d,#2F6F8F);cursor:pointer;box-shadow:0 6px 16px rgba(47,111,143,.28)">{{ pdvReserveTxt }}</div>
+            <div onClick="{{ toggleSavePark }}" style="margin-top:9px;text-align:center;padding:12px 0;border-radius:13px;font:400 17px 'Bebas Neue';letter-spacing:1px;color:#2F6F8F;background:{{ themeCard }};border:1px solid rgba(47,111,143,.4);cursor:pointer">♥ SAVE THIS LOT</div>
             <div style="font:400 10px/1.5 'Archivo';color:#9c855f;margin-top:8px;text-align:center">Lot rules change with new managers — a quick call saves a knock on the door at 2 AM.</div>
           </div>
         </div>
@@ -815,7 +861,7 @@
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ Based {{ fardv.city }}, {{ fardv.state }} · {{ fardv.radius }}</div>
 
             <div style="display:flex;gap:8px;margin-top:14px">
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.phone }}</div></div></div>
+              <a href="tel:{{ fardv.phone }}" style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px;text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.phone }}</div></div></a>
               <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5E5248" stroke-width="2" stroke-linecap="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Rates</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ fardv.price }}</div></div></div>
             </div>
 
@@ -853,9 +899,16 @@
               <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ vdv.emFg }};background:{{ vdv.emBg }};border:1px solid {{ vdv.emBd }};border-radius:20px;padding:4px 9px;white-space:nowrap;flex:none;margin-top:6px">{{ vdv.emTxt }}</div>
             </div>
             <div style="font:500 11px 'Archivo';color:#8A7458;margin-top:5px">◈ {{ vdv.city }}, {{ vdv.state }} · {{ vdv.haul }}</div>
+            <div style="display:flex;align-items:center;gap:9px;margin-top:9px;flex-wrap:wrap">
+              <div style="display:flex;align-items:center;gap:5px"><span style="font:400 15px 'Archivo';color:#C89A4A;letter-spacing:1px">{{ vdvReview.stars }}</span><span style="font:700 12px 'Archivo';color:#2C2118">{{ vdvReview.rating }}</span><span style="font:500 10px 'Archivo';color:#8A7458">({{ vdvReview.count }})</span></div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ vdvReview.freshFg }}">● {{ vdvReview.freshTxt }}</div>
+              <div onClick="{{ verifyVet }}" style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:#8A3A4A;border:1px solid #8A3A4A;border-radius:20px;padding:4px 9px;cursor:pointer;margin-left:auto">✓ Used them</div>
+            </div>
 
-            <div style="display:flex;gap:8px;margin-top:14px">
-              <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.phone }}</div></div></div>
+            <a href="tel:{{ vdv.phone }}" style="display:block;margin-top:14px;text-align:center;padding:14px 0;border-radius:13px;font:400 19px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:linear-gradient(180deg,#a84c60,#8A3A4A);box-shadow:0 6px 16px rgba(138,58,74,.3);text-decoration:none">☎ CALL {{ vdv.phone }} — 24/7 SOS</a>
+
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <a href="tel:{{ vdv.phone }}" style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px;text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><path d="M4 4h3l2 6-2 2a12 12 0 006 6l2-2 6 2v3a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2z"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Call or text</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.phone }}</div></div></a>
               <div style="flex:1;display:flex;align-items:center;gap:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:13px;padding:11px 13px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A3A4A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><div style="font:600 8px 'Oswald';letter-spacing:.5px;color:#8A7458;text-transform:uppercase">Hours</div><div style="font:600 11px 'Archivo';color:#2C2118">{{ vdv.hours }}</div></div></div>
             </div>
 
@@ -1050,6 +1103,18 @@
             <div style="font:400 10px 'Archivo';color:#8A7458;margin-top:7px">Tall trailers act like a sail — 40+ mph crosswinds can push a high rig off line.</div>
           </div>
 
+          <!-- rig road profile (fit engine) -->
+          <div style="margin:12px 16px 0;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:16px;padding:14px 16px;box-shadow:0 4px 12px rgba(120,80,30,.07)">
+            <div style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase;margin-bottom:10px">{{ rig.name }} on the road</div>
+            <sc-for list="{{ rigRiskBars }}" as="rb" hint-placeholder-count="3">
+              <div style="margin-bottom:9px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font:500 11px 'Archivo';color:#2C2118">{{ rb.label }}</span><span style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ rb.color }}">{{ rb.level }}</span></div>
+                <div style="height:7px;border-radius:5px;background:#EEE3CE;margin-top:4px;overflow:hidden"><div style="height:100%;width:{{ rb.pct }};border-radius:5px;background:{{ rb.color }}"></div></div>
+              </div>
+            </sc-for>
+            <div style="font:400 10px 'Archivo';color:#8A7458;margin-top:3px">Based on your {{ rig.lengthFt }}ft {{ rigTypeShort }}, {{ rig.heightFt }}ft tall, {{ rigWeightK }}k lb loaded.</div>
+          </div>
+
           <!-- active alerts -->
           <div style="font:600 10px 'Oswald';letter-spacing:2px;color:#8A7458;text-transform:uppercase;margin:22px 20px 8px">Active alerts</div>
           <div style="padding:0 16px;display:flex;flex-direction:column;gap:10px">
@@ -1156,7 +1221,21 @@
           </div>
         </sc-if>
 
-        <div style="padding:20px 16px 8px;display:flex;flex-direction:column;gap:0">
+        <!-- route hazards for this rig -->
+        <sc-if value="{{ planHasHazards }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:18px 16px 0;background:rgba(168,62,35,.08);border:1px solid rgba(168,62,35,.3);border-radius:14px;padding:12px 14px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A83E23" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 21h20L12 3z"/><path d="M12 10v5M12 18.2v.1"/></svg><span style="font:600 10px 'Oswald';letter-spacing:1px;color:#A83E23;text-transform:uppercase">Hazards for your rig on this run</span></div>
+          <sc-for list="{{ planHazards }}" as="hz" hint-placeholder-count="1">
+            <div style="margin-top:6px;padding-top:6px;border-top:1px solid rgba(168,62,35,.14)">
+              <div style="font:600 11px 'Archivo';color:#2C2118">{{ hz.name }}</div>
+              <div style="font:400 10.5px/1.4 'Archivo';color:#6b543a;margin-top:1px">{{ hz.why }}</div>
+              <div style="font:600 9px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:#3F6B32;margin-top:3px">↳ {{ hz.detour }}</div>
+            </div>
+          </sc-for>
+        </div>
+        </sc-if>
+
+        <div style="padding:18px 16px 8px;display:flex;flex-direction:column;gap:0">
           <sc-for list="{{ planStops }}" as="s" hint-placeholder-count="4">
             <div style="display:flex;gap:13px">
               <div style="display:flex;flex-direction:column;align-items:center;flex:none;width:26px"><div style="width:26px;height:26px;border-radius:50%;background:#B4472A;color:#FBF3E4;font:400 16px 'Bebas Neue';display:flex;align-items:center;justify-content:center">{{ s.num }}</div><div style="flex:1;width:2px;background:{{ s.line }};margin:2px 0"></div></div>
@@ -1172,6 +1251,18 @@
                     <div style="font:400 14px 'Bebas Neue';color:#6b543a;background:{{ themeSurf }};border-radius:7px;padding:2px 8px">{{ s.costTxt }} est.</div>
                   </div>
                   <div style="font:600 9.5px 'Oswald';letter-spacing:.5px;color:#986412;margin-top:6px">{{ s.moneyTxt }} · {{ s.nightsTxt }}</div>
+                  <!-- along-the-way service stops -->
+                  <div style="margin-top:10px;padding-top:9px;border-top:1px dashed rgba(74,48,22,.14)">
+                    <div style="font:600 8px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin-bottom:6px">Stops near this leg</div>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px">
+                      <sc-for list="{{ s.services }}" as="sv" hint-placeholder-count="4">
+                        <div onClick="{{ sv.open }}" style="display:flex;align-items:center;gap:6px;background:{{ themeSurf }};border:1px solid rgba(74,48,22,.12);border-radius:10px;padding:5px 9px;cursor:pointer">
+                          <span style="font:400 13px 'Archivo';color:{{ sv.color }};width:14px;text-align:center">{{ sv.glyph }}</span>
+                          <div><div style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sv.color }}">{{ sv.kind }}</div><div style="font:500 9.5px 'Archivo';color:#2C2118">{{ sv.name }}</div></div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1224,7 +1315,12 @@
 class Component extends DCLogic {
   state = {
     screen: 'onboard',
-    rig: { type: 'gooseneck', lengthFt: 32, heightFt: 13, slots: 3, lq: true },
+    rig: { type: 'gooseneck', lengthFt: 32, heightFt: 13, slots: 3, lq: true, weightLbs: 14000 },
+    rigs: [
+      { id: 'r1', name: 'Big Rig', type: 'gooseneck', lengthFt: 32, heightFt: 13, slots: 3, lq: true, weightLbs: 14000 },
+      { id: 'r2', name: 'Day Hauler', type: 'bumper', lengthFt: 24, heightFt: 11.5, slots: 2, lq: false, weightLbs: 8500 }
+    ],
+    activeRigId: 'r1',
     filters: { requirePull: false },
     filtersOpen: false,
     layer: 'venues',
@@ -1246,6 +1342,8 @@ class Component extends DCLogic {
     noGoOn: true,
     selRoadId: null,
     saved: {},
+    verified: {},
+    reserved: {},
     trip: [],
     eventFitOnly: false,
     eventKind: 'all',
@@ -1346,12 +1444,63 @@ class Component extends DCLogic {
   ];
 
   noGoRoads = [
-    { id:'rd_raton', name:'US-64 Cimarron Canyon', reason:'9% grade · hairpins', detail:'Runaway-truck territory. Combos over 30ft lose brakes here every season — stay on I-25 over Raton.', detour:'Detour: I-25 → US-87, adds 22 mi', pts:'420,320 432,340 424,362' },
-    { id:'rd_ftw', name:'FM-2871 River Bridge', reason:'12′6″ low bridge', detail:'Historic truss bridge west of the Stockyards. A 13ft LQ will not clear — two rigs peeled their ACs open last year.', detour:'Detour: Loop 820 → White Settlement Rd', pts:'498,458 512,470' },
-    { id:'rd_rno', name:'NV-341 Geiger Grade', reason:'Hairpins · no trailers over 24ft', detail:'Posted trailer restriction. Switchbacks with no shoulder and a 600ft drop — do not trust GPS shortcuts to Virginia City.', detour:'Detour: US-395 → USA Pkwy, adds 18 mi', pts:'172,306 184,318 178,332' },
-    { id:'rd_slc', name:'UT-92 Alpine Loop', reason:'20ft length limit', detail:'Seasonal scenic loop with a hard 20ft limit. Rangers turn rigs around at the fee station — no place to flip a gooseneck.', detour:'Detour: US-189 through Provo Canyon', pts:'300,278 312,290 322,286' },
-    { id:'rd_ok', name:'US-77 Turner Falls hill', reason:'8% grade · brake burnout', detail:'Long descent into the Arbuckles. Loaded 6-horse rigs cook their brakes — use I-35 exit 51 instead.', detour:'Detour: I-35 south, adds 6 mi', pts:'548,406 556,424' }
+    { id:'rd_raton', name:'US-64 Cimarron Canyon', reason:'9% grade · hairpins', grade:9, tight:true, detail:'Runaway-truck territory. Combos over 30ft lose brakes here every season — stay on I-25 over Raton.', detour:'Detour: I-25 → US-87, adds 22 mi', pts:'420,320 432,340 424,362' },
+    { id:'rd_ftw', name:'FM-2871 River Bridge', reason:'12′6″ low bridge', limitH:12.5, detail:'Historic truss bridge west of the Stockyards. A 13ft LQ will not clear — two rigs peeled their ACs open last year.', detour:'Detour: Loop 820 → White Settlement Rd', pts:'498,458 512,470' },
+    { id:'rd_rno', name:'NV-341 Geiger Grade', reason:'Hairpins · no trailers over 24ft', limitL:24, tight:true, detail:'Posted trailer restriction. Switchbacks with no shoulder and a 600ft drop — do not trust GPS shortcuts to Virginia City.', detour:'Detour: US-395 → USA Pkwy, adds 18 mi', pts:'172,306 184,318 178,332' },
+    { id:'rd_slc', name:'UT-92 Alpine Loop', reason:'20ft length limit', limitL:20, detail:'Seasonal scenic loop with a hard 20ft limit. Rangers turn rigs around at the fee station — no place to flip a gooseneck.', detour:'Detour: US-189 through Provo Canyon', pts:'300,278 312,290 322,286' },
+    { id:'rd_ok', name:'US-77 Turner Falls hill', reason:'8% grade · brake burnout', grade:8, detail:'Long descent into the Arbuckles. Loaded 6-horse rigs cook their brakes — use I-35 exit 51 instead.', detour:'Detour: I-35 south, adds 6 mi', pts:'548,406 556,424' }
   ];
+
+  // ---- real fit engine: does THIS rig actually get stopped by a hazard? ----
+  roadHitsRig(rd) { const r = this.state.rig;
+    if (rd.limitH != null && r.heightFt > rd.limitH) return { level:'block', why:'Your '+r.heightFt+'ft rig won’t clear the '+rd.limitH+'ft limit' };
+    if (rd.limitL != null && r.lengthFt > rd.limitL) return { level:'block', why:'Your '+r.lengthFt+'ft rig is over the '+rd.limitL+'ft limit' };
+    if (rd.grade != null && (r.weightLbs >= 12000 || r.lengthFt >= 30)) return { level:'caution', why:'Heavy/long rig on a '+rd.grade+'% grade — ride the gears, not the brakes' };
+    if (rd.tight && (r.lengthFt >= 30 || r.type === 'gooseneck')) return { level:'caution', why:'Tight switchbacks for a '+r.lengthFt+'ft '+(r.type==='gooseneck'?'gooseneck':'rig') };
+    return { level:'clear', why:'Your rig clears this one' };
+  }
+  // ---- route mode: nearest service of each type to a point on the corridor ----
+  _near(list, x, y, pred) { let best = null, bd = 1e9;
+    for (const it of list) { if (pred && !pred(it)) continue; const d = Math.hypot(it.x - x, it.y - y); if (d < bd) { bd = d; best = it; } }
+    return best; }
+  routeServices(x, y) { const out = [];
+    const fuel = this._near(this.parkingSpots, x, y, p => p.type === 'Travel stop' && this.parkFits(p));
+    const dump = this._near(this.dumpStations, x, y, d => this.dumpFits(d));
+    const feed = this._near(this.feedStores, x, y);
+    const vet  = this._near(this.vets, x, y, v => v.emergency);
+    if (fuel) out.push({ kind:'Fuel',  glyph:'⛽', id:fuel.id, layer:'parking', name:fuel.name, sub:fuel.city+', '+fuel.state, color:'#2F6F8F' });
+    if (dump) out.push({ kind:'Dump',  glyph:'≈',  id:dump.id, layer:'dumps',   name:dump.name, sub:dump.city+', '+dump.state, color:'#2E8577' });
+    if (feed) out.push({ kind:'Feed',  glyph:'❁', id:feed.id, layer:'feed',    name:feed.name, sub:feed.city+', '+feed.state, color:'#B8862F' });
+    if (vet)  out.push({ kind:'Vet',   glyph:'✚', id:vet.id,  layer:'vets',    name:vet.name,  sub:vet.city+', '+vet.state,  color:'#8A3A4A' });
+    return out; }
+  openService(layer, id) { if (layer==='parking') this.openPark(id); else if (layer==='dumps') this.openDump(id); else if (layer==='feed') this.openFeed(id); else if (layer==='vets') this.openVet(id); }
+
+  // ---- reviews + last-verified freshness ----
+  reviews = { ftw:{r:4.7,n:212,d:2}, laz:{r:4.9,n:341,d:1}, chy:{r:4.6,n:188,d:9}, rio:{r:4.8,n:156,d:4},
+    l_ftw:{r:4.8,n:64,d:3}, l_gut:{r:4.7,n:51,d:6}, p_ama:{r:4.5,n:97,d:2}, p_rap:{r:4.2,n:38,d:14},
+    vt_wea:{r:4.9,n:73,d:1}, vt_slc:{r:5.0,n:41,d:2} };
+  _hash(s) { let n = 0; for (const c of s) n = (n * 131 + c.charCodeAt(0)) % 100000; return n; }
+  reviewVals(id) { const b = this.reviews[id]; let r, n, d;
+    if (b) { r = b.r; n = b.n; d = b.d; } else { const h = this._hash(id); r = (38 + h % 12) / 10; n = 18 + h % 170; d = h % 20; }
+    if (this.state.verified[id]) d = 0;
+    const full = Math.round(r);
+    return { rating: r.toFixed(1), count: n,
+      stars: '★★★★★'.slice(0, full) + '☆☆☆☆☆'.slice(0, 5 - full),
+      mine: !!this.state.verified[id],
+      freshTxt: this.state.verified[id] ? 'You verified this today' : (d === 0 ? 'Verified today' : ('Verified ' + d + (d === 1 ? ' day' : ' days') + ' ago')),
+      freshFg: d <= 7 ? '#3F6B32' : (d <= 21 ? '#986412' : '#A83E23'),
+      staleWarn: d > 21 && !this.state.verified[id] }; }
+  verifyNow(id) { this.setState(st => ({ verified: { ...st.verified, [id]: true } })); }
+  toggleReserve(id) { this.setState(st => { const r = { ...st.reserved }; if (r[id]) delete r[id]; else r[id] = true; return { reserved: r }; }); }
+  // rig risk profile for the current rig (0-100 each)
+  rigProfile() { const r = this.state.rig;
+    const wind = Math.min(100, Math.max(10, (r.heightFt - 10) / 5 * 100));
+    const brake = Math.min(100, Math.max(10, (r.weightLbs / 30000) * 70 + (r.lengthFt / 60) * 30));
+    const turn = Math.min(100, Math.max(10, (r.lengthFt / 60) * 80 + (r.type === 'gooseneck' ? 20 : 5)));
+    const lvl = v => v >= 66 ? 'High' : v >= 40 ? 'Moderate' : 'Low';
+    const col = v => v >= 66 ? '#A83E23' : v >= 40 ? '#986412' : '#3F6B32';
+    return { wind, brake, turn, windL:lvl(wind), brakeL:lvl(brake), turnL:lvl(turn), windC:col(wind), brakeC:col(brake), turnC:col(turn) };
+  }
 
   jackpots = [
     { vid:'ftw', d:'2026-06-19', name:'Thursday Night Jackpot Roping', kind:'jackpot', fee:50, payout:2800 },
@@ -1398,7 +1547,17 @@ class Component extends DCLogic {
   fmtEvent(d) { const dt = new Date(d + 'T00:00'); return { day: String(dt.getDate()), mon: this.MONTHS[dt.getMonth()], ts: dt.getTime() }; }
 
   setScreen(s) { this.setState({ screen: s, filtersOpen: false }); }
-  setRig(k, v) { this.setState(st => ({ rig: { ...st.rig, [k]: v } }), () => this.updateRig()); }
+  setRig(k, v) { this.setState(st => { const rig = { ...st.rig, [k]: v };
+    const rigs = st.rigs.map(rg => rg.id === st.activeRigId ? { ...rg, [k]: v } : rg);
+    return { rig, rigs }; }, () => this.updateRig()); }
+  selectRig(id) { this.setState(st => { const rg = st.rigs.find(x => x.id === id) || st.rig; return { activeRigId: id, rig: { ...rg } }; }, () => this.updateRig()); }
+  addRig() { this.setState(st => { const n = st.rigs.length + 1; const id = 'r' + Date.now().toString(36);
+    const rig = { id, name: 'Rig ' + n, type: 'gooseneck', lengthFt: 28, heightFt: 12.5, slots: 2, lq: false, weightLbs: 10000 };
+    return { rigs: [...st.rigs, rig], activeRigId: id, rig: { ...rig } }; }, () => this.updateRig()); }
+  renameRig(name) { this.setState(st => ({ rig: { ...st.rig, name }, rigs: st.rigs.map(rg => rg.id === st.activeRigId ? { ...rg, name } : rg) })); }
+  deleteRig(id) { this.setState(st => { if (st.rigs.length <= 1) return {}; const rigs = st.rigs.filter(rg => rg.id !== id);
+    const active = id === st.activeRigId ? rigs[0] : st.rigs.find(rg => rg.id === st.activeRigId);
+    return { rigs, activeRigId: active.id, rig: { ...active } }; }, () => this.updateRig()); }
   selectVenue(id) { this.setState({ selectedId: id }); }
   openVenue(id) { this.setState({ detailId: id, screen: 'venue' }); }
   setLayer(l) { this.setState({ layer: l, selectedId: null, selLodgeId: null, selFeedId: null, selParkId: null, selFarId: null, selVetId: null, selDumpId: null, selRoadId: null }); }
@@ -1491,9 +1650,12 @@ class Component extends DCLogic {
         legTxt: leg === 0 ? 'Same grounds' : leg + ' mi haul', costTxt: '$' + stopCost, nightsTxt: nights ? '+1 layover night' : 'Day trip from last stop',
         kindTxt: cd.isJack ? 'Jackpot' : 'Rodeo', kindFg: cd.isJack ? '#7a5f28' : '#A83E23',
         kindBg: cd.isJack ? 'rgba(184,134,47,.15)' : 'rgba(168,62,35,.1)', kindBd: cd.isJack ? 'rgba(184,134,47,.42)' : 'rgba(168,62,35,.35)',
-        moneyTxt: cd.isJack ? ('$' + cd.e.fee + ' entry · $' + cd.e.payout.toLocaleString() + ' pot') : '$' + RODEO_ENTRY + ' entry est.' });
+        moneyTxt: cd.isJack ? ('$' + cd.e.fee + ' entry · $' + cd.e.payout.toLocaleString() + ' pot') : '$' + RODEO_ENTRY + ' entry est.',
+        services: this.routeServices(cd.v.x, cd.v.y) });
     }
-    this.setState({ plan: { stops, miles, cost, budget: q.budget }, screen: 'plan' });
+    const hazards = this.noGoRoads.map(rd => ({ rd, hit: this.roadHitsRig(rd) })).filter(o => o.hit.level !== 'clear')
+      .map(o => ({ name: o.rd.name, why: o.hit.why, detour: o.rd.detour, block: o.hit.level === 'block' }));
+    this.setState({ plan: { stops, miles, cost, budget: q.budget, hazards }, screen: 'plan' });
   }
   savePlanToTrip() { const p = this.state.plan; if (!p) return;
     this.setState(st => { const trip = st.trip.slice(); p.stops.forEach(s => { if (!trip.includes(s.id)) trip.push(s.id); }); return { trip, screen: 'planner' }; }); }
@@ -1803,7 +1965,11 @@ class Component extends DCLogic {
       const p = rd.pts.split(' ').map(s => s.split(',').map(Number)); const mid = p[Math.floor(p.length / 2)];
       return { id: rd.id, pts: rd.pts, w: sel ? 4.5 : 3, mx: mid[0], my: mid[1], myt: mid[1] + 4, r: sel ? 10 : 8, pick: () => this.selectRoad(rd.id) }; }) : [];
     const rSelRaw = this.noGoRoads.find(rd => rd.id === st.selRoadId);
-    const rSel = rSelRaw ? { name: rSelRaw.name, reason: rSelRaw.reason, detail: rSelRaw.detail, detour: rSelRaw.detour } : {};
+    const rHit = rSelRaw ? this.roadHitsRig(rSelRaw) : {};
+    const rSel = rSelRaw ? { name: rSelRaw.name, reason: rSelRaw.reason, detail: rSelRaw.detail, detour: rSelRaw.detour,
+      hitWhy: rHit.why, hitFg: rHit.level==='block'?'#A83E23':(rHit.level==='caution'?'#986412':'#3F6B32'),
+      hitBg: rHit.level==='block'?'rgba(168,62,35,.12)':(rHit.level==='caution'?'rgba(198,150,40,.16)':'rgba(94,122,78,.15)'),
+      hitLabel: rHit.level==='block'?'Blocks your rig':(rHit.level==='caution'?'Caution for your rig':'Clears your rig') } : {};
 
     // map / list view toggle
     const isListView = st.mapView === 'list';
@@ -1845,7 +2011,10 @@ class Component extends DCLogic {
     const qSubs = ['Fuel, entries and layover nights for the season', 'How much rodeo can your summer take', 'Pick as many as you like — we’ll weigh the schedule', 'Legs longer than this get cut from your run'];
     const plan = st.plan || { stops: [], miles: 0, cost: 0, budget: q.budget };
     const planSummary = plan.stops.length + (plan.stops.length === 1 ? ' event · ' : ' events · ') + plan.miles.toLocaleString() + ' mi · est. $' + plan.cost.toLocaleString() + ' of $' + plan.budget.toLocaleString();
-    const planStops = plan.stops.map((s, i) => ({ ...s, num: i + 1, line: i === plan.stops.length - 1 ? 'transparent' : 'rgba(168,62,35,.3)' }));
+    const planStops = plan.stops.map((s, i) => ({ ...s, num: i + 1, line: i === plan.stops.length - 1 ? 'transparent' : 'rgba(168,62,35,.3)',
+      services: (s.services || []).map(sv => ({ ...sv, open: () => this.openService(sv.layer, sv.id) })) }));
+    const planHazards = plan.hazards || [];
+    const planHasHazards = planHazards.length > 0;
     const planBudgetLeft = '$' + Math.max(0, plan.budget - plan.cost).toLocaleString() + ' left in the kitty';
     const parkFitCount = this.parkingSpots.filter(p => this.parkFits(p)).length;
     const dumpFitCount = this.dumpStations.filter(d => this.dumpFits(d)).length;
@@ -1890,7 +2059,9 @@ class Component extends DCLogic {
     if (!svc.ok) { fitHead = "Won't take your rig"; fitDetail = 'Your ' + r.lengthFt + 'ft / ' + r.heightFt + 'ft rig — ' + svc.fails.join(', ') + '.'; }
     else if (svc.tight) { fitHead = 'Fits — but snug'; fitDetail = 'You clear it, but with little room to spare. Arrive early for the good spots.'; }
     else { fitHead = 'Clears your rig easy'; fitDetail = 'Plenty of room for a ' + r.lengthFt + 'ft ' + (r.type==='gooseneck'?'gooseneck':'bumper-pull') + ', ' + r.heightFt + 'ft tall, ' + r.slots + '-horse.'; }
-    const eventList = this.allEvents(svRaw).map(e => { const fe = this.fmtEvent(e.d); return { ts: fe.ts, day: fe.day, mon: fe.mon, name: e.name, sub: e.kind === 'jackpot' ? ('Jackpot · $' + e.fee + ' entry · $' + e.payout.toLocaleString() + ' pot') : (svRaw.city + ', ' + svRaw.state) }; }).sort((a, b) => a.ts - b.ts);
+    const eventList = this.allEvents(svRaw).map(e => { const fe = this.fmtEvent(e.d); const dt = e.d.replace(/-/g, '');
+      const gcal = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.name + ' — ' + svRaw.name) + '&dates=' + dt + '/' + dt + '&location=' + encodeURIComponent(svRaw.city + ', ' + svRaw.state) + '&details=' + encodeURIComponent('Rodeo stop planned in Rodeo Trailer Finder');
+      return { ts: fe.ts, day: fe.day, mon: fe.mon, name: e.name, gcal: gcal, sub: e.kind === 'jackpot' ? ('Jackpot · $' + e.fee + ' entry · $' + e.payout.toLocaleString() + ' pot') : (svRaw.city + ', ' + svRaw.state) }; }).sort((a, b) => a.ts - b.ts);
     const adaShuttle = svRaw.parking >= 250;
     const ada = {
       seatsTxt: svRaw.covered ? 'Companion + chair seating' : 'Wheelchair viewing areas',
@@ -1911,7 +2082,15 @@ class Component extends DCLogic {
       waterFg:wS.fg, waterBd:wS.bd, powerFg:pS.fg, powerBd:pS.bd, manureFg:mS.fg, manureBd:mS.bd,
       eventList, ada };
 
+    // reviews + reserve for detail screens
+    const svReview = this.reviewVals(svRaw.id), ldvReview = this.reviewVals(ldvRaw.id), pdvReview = this.reviewVals(pdvRaw.id), vdvReview = this.reviewVals(vdvRaw.id);
+    const ldvReserved = !!st.reserved[ldvRaw.id], pdvReserved = !!st.reserved[pdvRaw.id];
+
     const slotOpts = [2,3,4,6].map(n => { const on = r.slots === n; return { n, pick: () => this.setRig('slots', n), bg: on?'linear-gradient(180deg,#C25232,#A83E23)':'#F0E6D2', fg: on?'#FBF3E4':'#8A7458', bd: on?'rgba(168,62,35,.5)':'rgba(74,48,22,.16)' }; });
+    const rigChips = st.rigs.map(rg => { const on = rg.id === st.activeRigId; return { id: rg.id, name: rg.name,
+      dims: rg.lengthFt + 'ft · ' + rg.slots + 'H', pick: () => this.selectRig(rg.id),
+      bg: on ? theme.c0 : 'transparent', bd: on ? theme.accent : 'rgba(74,48,22,.2)', sh: on ? '0 2px 6px rgba(120,60,20,.14)' : 'none',
+      fg: on ? theme.accent : '#8A7458', subFg: on ? '#8A7458' : '#a89478' }; });
 
     const savedIds = Object.keys(st.saved);
     const savedList = [
@@ -1979,6 +2158,12 @@ class Component extends DCLogic {
     const windRiskFg = rigTall ? '#A83E23' : '#986412';
     const windRiskPct = Math.round(Math.min(94, Math.max(30, (r.heightFt - 9) / 6 * 100))) + '%';
     const windRiskLabel = rigTall ? 'HIGH · ' + r.heightFt + 'ft profile' : 'MODERATE · ' + r.heightFt + 'ft';
+    const rp = this.rigProfile();
+    const rigRiskBars = [
+      { label:'Crosswind / rollover', pct: Math.round(rp.wind)+'%', level: rp.windL, color: rp.windC },
+      { label:'Brake fade on grades', pct: Math.round(rp.brake)+'%', level: rp.brakeL, color: rp.brakeC },
+      { label:'Tight-turn handling', pct: Math.round(rp.turn)+'%', level: rp.turnL, color: rp.turnC }
+    ];
     const ratMap = { go: { fg: '#3F6B32', bg: 'rgba(94,122,78,.15)', bd: 'rgba(94,122,78,.4)', txt: 'Go' }, caution: { fg: '#986412', bg: 'rgba(198,150,40,.16)', bd: 'rgba(198,150,40,.45)', txt: 'Caution' }, hold: { fg: '#A83E23', bg: 'rgba(168,62,35,.12)', bd: 'rgba(168,62,35,.4)', txt: 'Hold' } };
     const wxRoute = [
       { name: 'Amarillo, TX', temp: '88°', wind: 'W 30', gust: '45', cond: 'Windy', rating: 'hold' },
@@ -2019,12 +2204,12 @@ class Component extends DCLogic {
       qShowBack: q.step > 0, qNextTxt: q.step === 3 ? 'BUILD MY RUN →' : 'NEXT →',
       quizBack: () => this.quizStep(-1), quizNext: () => { if (q.step === 3) this.buildPlan(); else this.quizStep(1); },
       qRigNote: 'Planning around your ' + r.lengthFt + 'ft ' + (r.type === 'gooseneck' ? 'gooseneck' : 'bumper-pull') + ' · ' + r.heightFt + 'ft · ' + r.slots + '-horse',
-      planStops, planSummary, planBudgetLeft, planEmpty: plan.stops.length === 0,
+      planStops, planSummary, planBudgetLeft, planEmpty: plan.stops.length === 0, planHazards, planHasHazards,
       backFromPlan: () => this.setScreen('planner'), retakeQuiz: () => this.startQuiz(),
       savePlan: () => this.savePlanToTrip(),
       goWeather: () => this.setScreen('weather'), backFromWeather: () => this.setScreen('map'),
       wxBannerFg: wxTop.fg, wxBannerBg: wxTop.bg, wxBannerBd: wxTop.bd, wxAlertTitle: wxTop.title, wxAlertSub: 'Gusts to 45 mph on I-40 — mind your rig',
-      wxAlerts, wxRoute, windRiskFg, windRiskPct, windRiskLabel,
+      wxAlerts, wxRoute, windRiskFg, windRiskPct, windRiskLabel, rigRiskBars,
       buddyList, buddyOnRoad, youStatusTxt, youStatusFg: youOk ? '#3F6B32' : '#A83E23',
       youCardBg: youOk ? '#EFF3E9' : '#FBEEE8', youCardBd: youOk ? 'rgba(94,122,78,.4)' : 'rgba(168,62,35,.3)',
       checkIn: () => this.setState({ checkedAt: Date.now() }),
@@ -2034,6 +2219,9 @@ class Component extends DCLogic {
       tGooseBg:g.bg, tGooseFg:g.fg, tGooseBd:g.bd, tBumpBg:b.bg, tBumpFg:b.fg, tBumpBd:b.bd,
       setTypeGoose: () => this.setRig('type','gooseneck'), setTypeBumper: () => this.setRig('type','bumper'),
       onLen: e => this.setRig('lengthFt', +e.target.value), onHt: e => this.setRig('heightFt', +e.target.value),
+      onWeight: e => this.setRig('weightLbs', +e.target.value), rigWeightK: (r.weightLbs/1000).toFixed(1).replace('.0',''),
+      rigChips, addRig: () => this.addRig(), onRigName: e => this.renameRig(e.target.value),
+      canDeleteRig: st.rigs.length > 1, deleteRig: () => this.deleteRig(st.activeRigId),
       slotOpts, toggleLQ: () => this.setRig('lq', !r.lq), lqTrack: lqOn?TON:TOFF, lqDot: lqOn?'22px':'3px',
       togglePull: () => this.setState({ filters: { ...f, requirePull: !f.requirePull } }), pullTrack: pullOn?TON:TOFF, pullDot: pullOn?'22px':'3px',
       enterApp: () => this.setScreen('map'),
@@ -2051,6 +2239,10 @@ class Component extends DCLogic {
       hasSelected: !!st.selectedId, sv,
       openVenue: () => this.openVenue(st.selectedId), backToMap: () => this.setState({ screen:'map', detailId:null }),
       svSaveFill: st.saved[sv.id] ? '#B4472A' : 'none', toggleSaveSel: () => this.toggleSave(sv.id), addToTrip: () => { this.addTrip(sv.id); this.setScreen('planner'); },
+      svReview, ldvReview, pdvReview, vdvReview,
+      verifyVenue: () => this.verifyNow(sv.id), verifyLodge: () => this.verifyNow(ldvRaw.id), verifyPark: () => this.verifyNow(pdvRaw.id), verifyVet: () => this.verifyNow(vdvRaw.id),
+      ldvReserved, pdvReserved, reserveLodge: () => this.toggleReserve(ldvRaw.id), reservePark: () => this.toggleReserve(pdvRaw.id),
+      ldvReserveTxt: ldvReserved ? '✓ RESERVED — TAP TO CANCEL' : 'RESERVE THIS STAY', pdvReserveTxt: pdvReserved ? '✓ SPOT HELD — TAP TO CANCEL' : 'HOLD A SPOT',
       savedCount: savedIds.length, savedEmpty: savedIds.length === 0, savedList,
       tripStops: tripVenues.length, tripMiles, tripEmpty: tripVenues.length === 0, tripList, tripPath, tripPins,
       eventFeed: feed, toggleEventFit: () => this.setState({ eventFitOnly: !st.eventFitOnly }), efTrack: efOn?TON:TOFF, efDot: efOn?'21px':'3px',
