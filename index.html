@@ -1426,7 +1426,7 @@
               <div onClick="{{ closeFeedback }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;cursor:pointer;font:400 18px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:{{ themeGrad }}">DONE</div>
             </div>
           </sc-if>
-          <sc-if value="{{ feedbackSent }}" hint-placeholder-val="{{ true }}">
+          <sc-if value="{{ feedbackForm }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span style="font:400 26px 'Bebas Neue';color:#2C2118;letter-spacing:1px">HOW’S THE RIDE?</span><span onClick="{{ closeFeedback }}" style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};cursor:pointer;text-transform:uppercase">Close</span></div>
             <div style="font:400 11px 'Archivo';color:#8A7458;margin-bottom:12px">Rate the demo and tell us what to fix.</div>
             <div style="display:flex;gap:8px;margin-bottom:14px">
@@ -2427,7 +2427,7 @@ class Component extends DCLogic {
       toggleConsent: () => this.setLead('consent', !st.lead.consent),
       consentBd: st.lead.consent ? theme.accent : 'rgba(74,48,22,.3)', consentBg: st.lead.consent ? theme.accent : 'transparent', consentTick: st.lead.consent ? 1 : 0,
       submitLead: () => this.submitLead(), skipLead: () => this.skipLead(),
-      feedbackOpen: st.feedbackOpen, feedbackSent: st.feedbackSent, feedback: st.feedback,
+      feedbackOpen: st.feedbackOpen, feedbackSent: st.feedbackSent, feedbackForm: !st.feedbackSent, feedback: st.feedback,
       openFeedback: () => this.openFeedback(), closeFeedback: () => this.closeFeedback(),
       onFbMsg: e => this.setFeedback('msg', e.target.value), onFbEmail: e => this.setFeedback('email', e.target.value),
       submitFeedback: () => this.submitFeedback(),
