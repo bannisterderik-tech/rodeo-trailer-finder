@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Do Not Sell or Share My Personal Information — Haulin' Hooves</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="legal.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="index.html">HAULIN'&nbsp;<b>HOOVES</b></a>
+    <a class="back" href="index.html">← Back to app</a>
+  </div>
+  <div class="doc">
+    <h1>Your California Privacy Choices</h1>
+    <div class="eff">Do Not Sell or Share · Effective July 2026</div>
+
+    <div class="note"><strong>Template notice.</strong> This California notice is a good-faith template for the Haulin' Hooves demo and is not legal advice. Confirm your obligations under the CCPA/CPRA with qualified counsel before launch.</div>
+
+    <p>This notice supplements our <a href="privacy.html">Privacy Policy</a> and applies to California residents under the California Consumer Privacy Act, as amended by the California Privacy Rights Act ("CCPA/CPRA").</p>
+
+    <h2>We Do Not Sell or Share Your Personal Information</h2>
+    <p>Haulin' Hooves does <strong>not</strong> sell your personal information for money, and we do <strong>not</strong> "share" it for cross-context behavioral advertising, as those terms are defined under the CCPA/CPRA. We also do not knowingly sell or share the personal information of consumers under 16.</p>
+    <p>Even though we do not sell or share, you may still submit an opt-out request below, and we will honor it and treat it as a standing preference.</p>
+
+    <h2>Information We Collect</h2>
+    <table>
+      <tr><th>Category</th><th>Examples</th><th>Collected?</th></tr>
+      <tr><td>Identifiers</td><td>Name, email, phone number</td><td>Yes (beta signup)</td></tr>
+      <tr><td>Customer records</td><td>Contact details you provide</td><td>Yes</td></tr>
+      <tr><td>Internet/usage activity</td><td>Basic device/usage and server logs</td><td>Limited</td></tr>
+      <tr><td>Geolocation</td><td>Starting location/address you type into the planner</td><td>Yes, if you enter it</td></tr>
+      <tr><td>Inferences</td><td>Rig/trip preferences you set in the demo</td><td>Stored in your browser</td></tr>
+      <tr><td>Sensitive personal information</td><td>—</td><td>No</td></tr>
+    </table>
+    <p>We collect this information for the business purposes described in our Privacy Policy (running the beta, responding to feedback, security, and legal compliance). We do not use or disclose sensitive personal information for purposes that require a right to limit.</p>
+
+    <h2>Your California Rights</h2>
+    <ul>
+      <li><strong>Know / Access</strong> the personal information we collect and how we use it.</li>
+      <li><strong>Delete</strong> personal information we collected from you.</li>
+      <li><strong>Correct</strong> inaccurate personal information.</li>
+      <li><strong>Opt out</strong> of sale or sharing (we already do neither, but you may still record your preference).</li>
+      <li><strong>Non-discrimination</strong> for exercising your rights.</li>
+    </ul>
+
+    <h2>Global Privacy Control</h2>
+    <p>We honor recognized opt-out preference signals such as the Global Privacy Control (GPC) sent by your browser, treating them as a valid opt-out for that browser and device.</p>
+
+    <h2>Submit an Opt-Out / Privacy Request</h2>
+    <p>Use the form below, or email <a href="mailto:privacy@haulinhooves.com">privacy@haulinhooves.com</a>. You may also use an authorized agent; we may ask for proof of authorization and to verify your identity.</p>
+
+    <form id="optform" onsubmit="return hhOptOut(event)">
+      <label for="oname">Name</label>
+      <input id="oname" name="name" autocomplete="name" required>
+      <label for="oemail">Email</label>
+      <input id="oemail" name="email" type="email" autocomplete="email" required>
+      <label for="oreq">Request</label>
+      <select id="oreq" name="request" style="width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 13px;font:15px 'Archivo',sans-serif;color:var(--ink)">
+        <option>Opt out of sale/sharing</option>
+        <option>Delete my information</option>
+        <option>Access my information</option>
+        <option>Correct my information</option>
+      </select>
+      <div class="btnrow"><button class="optbtn" type="submit">Submit request</button></div>
+      <div class="ok" id="okmsg">Thanks — your request has been recorded. We’ll follow up at the email you provided within the timeframe required by law.</div>
+    </form>
+
+    <h2>Contact</h2>
+    <p>Email <a href="mailto:privacy@haulinhooves.com">privacy@haulinhooves.com</a>. <span style="color:#9c855f">[Replace with your verified request channel and legal entity details before launch.]</span></p>
+
+    <div class="footer">
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+    <div class="fine">Demo prototype for evaluation. Not affiliated with any rodeo, venue, or brand shown.</div>
+  </div>
+</div>
+<script>
+function hhOptOut(e){
+  e.preventDefault();
+  try{
+    var f=e.target, rec={name:f.name.value.trim(), email:f.email.value.trim(), request:f.request.value, at:new Date().toISOString(), gpc:(navigator.globalPrivacyControl===true)};
+    var arr=JSON.parse(localStorage.getItem('hh_ccpa')||'[]'); arr.push(rec); localStorage.setItem('hh_ccpa', JSON.stringify(arr));
+  }catch(err){}
+  document.getElementById('okmsg').style.display='block';
+  e.target.querySelector('button').textContent='Request submitted ✓';
+  return false;
+}
+</script>
+</body>
+</html>

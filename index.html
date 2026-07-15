@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Rodeo Trailer Finder</title>
-<meta name="build" content="2026-07-05-features-2">
+<title>Haulin' Hooves — rodeo rigs that fit</title>
+<meta name="build" content="2026-07-05-haulin-hooves">
 </script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Trailer Finder">
+<meta name="apple-mobile-web-app-title" content="Haulin' Hooves">
+<meta name="description" content="Haulin' Hooves — find rodeo arenas, horse lodging, feed, fuel, vets and dump stations that actually fit your rig.">
+<meta name="theme-color" content="#A83E23">
 <meta name="theme-color" content="{{ themeSurf }}">
 <script src="./support.js"></script>
 </head>
@@ -71,11 +73,59 @@
       <!-- SCREEN HOST -->
       <div style="position:absolute;inset:0;">
 
+        <!-- ============ LEAD CAPTURE ============ -->
+        <sc-if value="{{ isLead }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background:{{ themeScreenBg }};overflow-y:auto;animation:screenIn .5s ease both">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:64px 26px 30px">
+            <div style="display:inline-flex;align-items:center;gap:8px;font:600 10px 'Oswald';letter-spacing:3px;color:{{ themeAcc }};text-transform:uppercase"><span style="width:22px;height:2px;background:{{ themeAcc }};display:inline-block"></span>Private Beta · 2026</div>
+            <div style="display:flex;align-items:center;gap:12px;margin-top:14px">
+              <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="{{ themeAcc }}" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"><path d="M2 8h10v7H2zM12 10h5l3 3v2h-8z"/><circle cx="6" cy="17" r="1.9"/><circle cx="16.5" cy="17" r="1.9"/></svg>
+              <div style="font:400 46px/.82 'Bebas Neue';color:#2C2118;letter-spacing:1px">HAULIN’<br><span style="color:{{ themeAcc }}">HOOVES</span></div>
+            </div>
+            <div style="font:400 14px/1.55 'Archivo';color:#7A6247;margin-top:16px;max-width:320px">You’re invited to test the demo. Drop your info and we’ll get you in — then tell us what to fix so we can make it <span style="color:{{ themeAcc }};font-weight:600">perfect</span>.</div>
+
+            <div style="margin-top:22px;display:flex;flex-direction:column;gap:12px">
+              <div>
+                <div style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase;margin-bottom:5px">Name</div>
+                <input value="{{ lead.name }}" onInput="{{ onLeadName }}" placeholder="Your name" style="width:100%;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:13px 14px;font:500 14px 'Archivo';color:#2C2118;outline:none">
+              </div>
+              <div>
+                <div style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase;margin-bottom:5px">Email</div>
+                <input value="{{ lead.email }}" onInput="{{ onLeadEmail }}" type="email" inputmode="email" placeholder="you@email.com" style="width:100%;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:13px 14px;font:500 14px 'Archivo';color:#2C2118;outline:none">
+              </div>
+              <div>
+                <div style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase;margin-bottom:5px">Phone <span style="color:#b6a480;font-weight:500">· optional</span></div>
+                <input value="{{ lead.phone }}" onInput="{{ onLeadPhone }}" type="tel" inputmode="tel" placeholder="(555) 555-5555" style="width:100%;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:13px 14px;font:500 14px 'Archivo';color:#2C2118;outline:none">
+              </div>
+              <div onClick="{{ toggleConsent }}" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-top:2px">
+                <div style="width:22px;height:22px;flex:none;border-radius:6px;border:1.5px solid {{ consentBd }};background:{{ consentBg }};display:flex;align-items:center;justify-content:center;margin-top:1px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FBF3E4" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:{{ consentTick }}"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div style="font:400 11px/1.5 'Archivo';color:#6b543a">I agree to be contacted about the beta and accept the <a href="terms.html" target="_blank" style="color:{{ themeAcc }};text-decoration:underline">Terms</a> &amp; <a href="privacy.html" target="_blank" style="color:{{ themeAcc }};text-decoration:underline">Privacy Policy</a>.</div>
+              </div>
+            </div>
+
+            <sc-if value="{{ hasLeadErr }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:12px;font:600 11px 'Archivo';color:#A83E23;background:rgba(168,62,35,.1);border:1px solid rgba(168,62,35,.28);border-radius:10px;padding:9px 12px">{{ leadErr }}</div>
+            </sc-if>
+
+            <div onClick="{{ submitLead }}" style="margin-top:18px;text-align:center;padding:16px 0;border-radius:14px;cursor:pointer;font:400 22px 'Bebas Neue';letter-spacing:2px;color:#FBF3E4;background:{{ themeGrad }};box-shadow:0 8px 20px {{ themeGlow }}">ENTER THE DEMO →</div>
+            <div onClick="{{ skipLead }}" style="margin-top:10px;text-align:center;font:600 10px 'Oswald';letter-spacing:1.5px;color:#9c855f;text-transform:uppercase;cursor:pointer">Just browsing — skip for now</div>
+
+            <div style="flex:1"></div>
+            <div style="margin-top:22px;display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+              <a href="privacy.html" target="_blank" style="font:500 10px 'Archivo';color:#9c855f;text-decoration:none">Privacy</a>
+              <a href="terms.html" target="_blank" style="font:500 10px 'Archivo';color:#9c855f;text-decoration:none">Terms</a>
+              <a href="do-not-sell.html" target="_blank" style="font:500 10px 'Archivo';color:#9c855f;text-decoration:none">Do Not Sell/Share (CA)</a>
+            </div>
+            <div style="text-align:center;font:400 9px/1.5 'Archivo';color:#b6a480;margin-top:8px">Demo prototype for evaluation. Not affiliated with any rodeo, venue, or brand shown.</div>
+          </div>
+        </div>
+        </sc-if>
+
         <!-- ============ ONBOARD ============ -->
         <sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ true }}">
         <div style="position:absolute;inset:0;background:{{ themeScreenBg }};animation:screenIn .5s ease both;display:flex;flex-direction:column">
           <div style="padding:64px 26px 0;flex:none">
-            <div style="display:inline-flex;align-items:center;gap:7px;font:600 11px 'Oswald';letter-spacing:3px;color:{{ themeAcc }};text-transform:uppercase"><span style="width:22px;height:2px;background:{{ themeAcc }};display:inline-block"></span>Rodeo Season · 2026</div>
+            <div style="display:inline-flex;align-items:center;gap:7px;font:600 11px 'Oswald';letter-spacing:3px;color:{{ themeAcc }};text-transform:uppercase"><span style="width:22px;height:2px;background:{{ themeAcc }};display:inline-block"></span>Haulin’ Hooves · 2026</div>
             <div style="font:400 58px/.86 'Bebas Neue';color:#2C2118;margin-top:8px;letter-spacing:1px">DIAL IN<br><span style="color:{{ themeAcc }}">YOUR RIG</span></div>
             <div style="font:400 13px/1.5 'Archivo';color:#7A6247;margin-top:10px;max-width:284px">Set your trailer once. We'll only show you arenas &amp; venues that can actually take your size.</div>
           </div>
@@ -1000,18 +1050,25 @@
         <div style="position:absolute;inset:0;background:{{ themeSurf }};overflow-y:auto;animation:screenIn .4s ease both">
           <div style="padding:60px 20px 10px"><div style="font:400 34px 'Bebas Neue';color:#2C2118;letter-spacing:1px">TRAIL RUN</div><div style="font:600 10px 'Oswald';letter-spacing:2px;color:#B4472A;text-transform:uppercase">{{ tripStops }} stops · {{ tripMiles }} mi from {{ startName }}</div></div>
 
-          <!-- starting location picker -->
-          <div style="margin:2px 16px 0">
-            <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px">
+          <!-- starting address + first event -->
+          <div style="margin:2px 16px 0;background:{{ themeCard }};border:1px solid rgba(74,48,22,.12);border-radius:16px;padding:14px 15px;box-shadow:0 4px 12px rgba(120,80,30,.06)">
+            <div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ themeAcc }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.3-7-11a7 7 0 1114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
-              <span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Starting from</span>
-              <span style="font:600 11px 'Archivo';color:#2C2118">{{ startName }}</span>
+              <span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Starting address</span>
             </div>
-            <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:3px">
-              <sc-for list="{{ startChips }}" as="sl" hint-placeholder-count="4">
-                <div onClick="{{ sl.pick }}" style="flex:none;padding:6px 11px;border-radius:20px;cursor:pointer;font:600 10px 'Oswald';letter-spacing:.5px;text-transform:uppercase;white-space:nowrap;background:{{ sl.bg }};color:{{ sl.fg }};border:1px solid {{ sl.bd }}">{{ sl.name }}</div>
+            <input value="{{ startAddress }}" onInput="{{ onStartAddress }}" placeholder="City &amp; state, or full address" style="width:100%;background:{{ themeSurf }};border:1px solid rgba(74,48,22,.16);border-radius:11px;padding:11px 13px;font:500 13px 'Archivo';color:#2C2118;outline:none">
+            <div style="font:500 9.5px 'Archivo';color:{{ startResolveFg }};margin-top:5px">{{ startResolveNote }}</div>
+
+            <div style="display:flex;align-items:center;gap:7px;margin:13px 0 5px">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ themeAcc }}" stroke-width="2" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4L12 3z"/></svg>
+              <span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">First event to hit</span>
+            </div>
+            <select value="{{ firstEventId }}" onChange="{{ onFirstEvent }}" style="width:100%;background:{{ themeSurf }};border:1px solid rgba(74,48,22,.16);border-radius:11px;padding:11px 13px;font:500 13px 'Archivo';color:#2C2118;outline:none;-webkit-appearance:none;appearance:none">
+              <option value="">Let Haulin’ Hooves pick the opener</option>
+              <sc-for list="{{ eventOptions }}" as="eo" hint-placeholder-count="4">
+                <option value="{{ eo.id }}">{{ eo.label }}</option>
               </sc-for>
-            </div>
+            </select>
           </div>
 
           <div onClick="{{ startQuiz }}" style="margin:12px 16px 0;display:flex;align-items:center;gap:13px;background:linear-gradient(135deg,#C25232,#A83E23);border-radius:16px;padding:14px 16px;cursor:pointer;box-shadow:0 10px 24px rgba(168,62,35,.32)">
@@ -1333,6 +1390,41 @@
       </div>
       </sc-if>
 
+      <!-- FEEDBACK FAB -->
+      <sc-if value="{{ showNav }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ openFeedback }}" style="position:absolute;right:14px;bottom:100px;z-index:47;display:flex;align-items:center;gap:7px;background:{{ themeGrad }};border-radius:22px;padding:9px 14px;cursor:pointer;box-shadow:0 8px 20px {{ themeGlow }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FBF3E4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H8l-4 4V5a2 2 0 012-2h13a2 2 0 012 2z"/></svg>
+          <span style="font:600 10px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#FBF3E4">Feedback</span>
+        </div>
+      </sc-if>
+
+      <!-- FEEDBACK MODAL -->
+      <sc-if value="{{ feedbackOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeFeedback }}" style="position:absolute;inset:0;z-index:70;background:rgba(50,30,12,.4);backdrop-filter:blur(2px);animation:screenIn .2s ease both"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:71;background:{{ themePanel }};border-radius:26px 26px 0 0;padding:20px 22px 30px;animation:sheetUp .3s ease both;box-shadow:0 -18px 44px rgba(90,58,18,.28)">
+          <div style="width:38px;height:4px;border-radius:3px;background:rgba(74,48,22,.2);margin:0 auto 16px"></div>
+          <sc-if value="{{ feedbackSent }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:20px 10px 12px">
+              <div style="font:400 30px 'Bebas Neue';color:{{ themeAcc }};letter-spacing:1px">MUCH OBLIGED! 🤠</div>
+              <div style="font:400 12px/1.5 'Archivo';color:#6b543a;margin-top:6px">Your notes go straight into making Haulin’ Hooves better. Thank you for riding with us.</div>
+              <div onClick="{{ closeFeedback }}" style="margin-top:18px;text-align:center;padding:13px 0;border-radius:13px;cursor:pointer;font:400 18px 'Bebas Neue';letter-spacing:1px;color:#FBF3E4;background:{{ themeGrad }}">DONE</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ feedbackSent }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span style="font:400 26px 'Bebas Neue';color:#2C2118;letter-spacing:1px">HOW’S THE RIDE?</span><span onClick="{{ closeFeedback }}" style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};cursor:pointer;text-transform:uppercase">Close</span></div>
+            <div style="font:400 11px 'Archivo';color:#8A7458;margin-bottom:12px">Rate the demo and tell us what to fix.</div>
+            <div style="display:flex;gap:8px;margin-bottom:14px">
+              <sc-for list="{{ fbStars }}" as="fs" hint-placeholder-count="5">
+                <div onClick="{{ fs.pick }}" style="cursor:pointer;font:400 30px 'Archivo';color:{{ fs.color }};line-height:1">★</div>
+              </sc-for>
+            </div>
+            <textarea value="{{ feedback.msg }}" onInput="{{ onFbMsg }}" placeholder="What worked? What’s broken? What would make it perfect?" style="width:100%;height:96px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:12px 14px;font:500 13px/1.4 'Archivo';color:#2C2118;outline:none;resize:none"></textarea>
+            <input value="{{ feedback.email }}" onInput="{{ onFbEmail }}" type="email" inputmode="email" placeholder="Email (optional — if you want a reply)" style="width:100%;margin-top:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:12px 14px;font:500 13px 'Archivo';color:#2C2118;outline:none">
+            <div onClick="{{ submitFeedback }}" style="margin-top:14px;text-align:center;padding:14px 0;border-radius:13px;cursor:pointer;font:400 20px 'Bebas Neue';letter-spacing:1.5px;color:#FBF3E4;background:{{ themeGrad }}">SEND FEEDBACK</div>
+          </sc-if>
+        </div>
+      </sc-if>
+
     </div>
   </div>
 </div>
@@ -1340,7 +1432,12 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = {
-    screen: 'onboard',
+    screen: 'lead',
+    lead: { name: '', email: '', phone: '', consent: false },
+    leadErr: '',
+    feedbackOpen: false,
+    feedback: { rating: 0, msg: '', email: '' },
+    feedbackSent: false,
     rig: { type: 'gooseneck', lengthFt: 32, heightFt: 13, slots: 3, lq: true, weightLbs: 14000 },
     rigs: [
       { id: 'r1', name: 'Big Rig', type: 'gooseneck', lengthFt: 32, heightFt: 13, slots: 3, lq: true, weightLbs: 14000 },
@@ -1374,6 +1471,8 @@ class Component extends DCLogic {
     eventFitOnly: false,
     eventKind: 'all',
     startLocId: 'ftw',
+    startAddress: '',
+    firstEventId: '',
     quiz: { step: 0, budget: 1500, count: 4, priorities: { payouts: true, short: true }, maxLeg: 600 },
     plan: null,
     checkedAt: null,
@@ -1522,6 +1621,23 @@ class Component extends DCLogic {
   startPt() { return this.START_LOCS.find(s => s.id === this.state.startLocId) || this.START_LOCS[0]; }
   milesBetween(ax, ay, bx, by) { return Math.round(Math.hypot(ax - bx, ay - by) * 3.4); }
   setStart(id) { this.setState({ startLocId: id }); }
+  setStartAddress(v) { this.setState({ startAddress: v }); }
+  setFirstEvent(v) { this.setState({ firstEventId: v }); }
+  // resolve a typed address to a map point by matching a known city/state (demo geocoder)
+  resolveStart() { const t = (this.state.startAddress || '').toLowerCase().trim();
+    if (t) { const cands = this.START_LOCS.map(s => ({ x: s.x, y: s.y, city: s.name.split(',')[0], st: (s.name.split(',')[1] || '').trim(), label: s.name }))
+        .concat(this.venues.map(v => ({ x: v.x, y: v.y, city: v.city, st: v.state, label: v.city + ', ' + v.state })));
+      let best = null;
+      for (const c of cands) { if (c.city && t.includes(c.city.toLowerCase())) { best = c; break; } }
+      if (!best) for (const c of cands) { if (c.st && new RegExp('(,|\\s)' + c.st.toLowerCase() + '(\\b|$)').test(t)) { best = c; break; } }
+      if (best) return { x: best.x, y: best.y, label: this.state.startAddress, near: best.city + ', ' + best.st };
+      const d = this.START_LOCS[0]; return { x: d.x, y: d.y, label: this.state.startAddress, near: null }; }
+    const d = this.startPt(); return { x: d.x, y: d.y, label: d.name, near: null }; }
+  // upcoming events (fitting venues) for the "first event" picker
+  planEventOptions() { const r = this.state.rig; const out = [];
+    this.venues.forEach(v => { if (!this.compat(v).ok) return; this.allEvents(v).forEach(e => { const fe = this.fmtEvent(e.d);
+      out.push({ id: v.id + '|' + e.d, vid: v.id, d: e.d, ts: fe.ts, label: fe.day + ' ' + fe.mon + ' · ' + e.name + ' — ' + v.city + ', ' + v.state, name: e.name, kind: e.kind, fee: e.fee, payout: e.payout }); }); });
+    return out.sort((a, b) => a.ts - b.ts); }
   reviewVals(id) { const b = this.reviews[id]; let r, n, d;
     if (b) { r = b.r; n = b.n; d = b.d; } else { const h = this._hash(id); r = (38 + h % 12) / 10; n = 18 + h % 170; d = h % 20; }
     if (this.state.verified[id]) d = 0;
@@ -1589,6 +1705,32 @@ class Component extends DCLogic {
   fmtEvent(d) { const dt = new Date(d + 'T00:00'); return { day: String(dt.getDate()), mon: this.MONTHS[dt.getMonth()], ts: dt.getTime() }; }
 
   setScreen(s) { this.setState({ screen: s, filtersOpen: false }); }
+
+  // ---------- lead capture + feedback ----------
+  // To collect submissions server-side, set FORM_ENDPOINT to your form backend
+  // (e.g. a Formspree URL like 'https://formspree.io/f/xxxxxxx'). Left blank,
+  // entries are kept in the visitor's browser (localStorage) for the demo.
+  FORM_ENDPOINT = '';
+  _emailOk(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+  _phoneOk(p) { return !p || p.replace(/[^0-9]/g, '').length >= 10; }
+  _post(kind, data) { try { const key = 'hh_' + kind; const arr = JSON.parse(localStorage.getItem(key) || '[]'); arr.push(data); localStorage.setItem(key, JSON.stringify(arr)); } catch (e) {}
+    if (this.FORM_ENDPOINT) { try { fetch(this.FORM_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind, ...data }) }).catch(() => {}); } catch (e) {} } }
+  setLead(k, v) { this.setState(st => ({ lead: { ...st.lead, [k]: v }, leadErr: '' })); }
+  submitLead() { const l = this.state.lead;
+    if (!l.name.trim()) return this.setState({ leadErr: 'Please enter your name.' });
+    if (!this._emailOk(l.email)) return this.setState({ leadErr: 'Please enter a valid email.' });
+    if (!this._phoneOk(l.phone)) return this.setState({ leadErr: 'Please enter a valid phone number (or leave it blank).' });
+    if (!l.consent) return this.setState({ leadErr: 'Please agree to the Terms & Privacy Policy to continue.' });
+    this._post('leads', { name: l.name.trim(), email: l.email.trim(), phone: l.phone.trim(), consentAt: new Date().toISOString() });
+    try { localStorage.setItem('hh_lead_done', '1'); } catch (e) {}
+    this.setState({ screen: 'onboard' }); }
+  skipLead() { this.setState({ screen: 'onboard' }); }
+  openFeedback() { this.setState({ feedbackOpen: true, feedbackSent: false }); }
+  closeFeedback() { this.setState({ feedbackOpen: false }); }
+  setFeedback(k, v) { this.setState(st => ({ feedback: { ...st.feedback, [k]: v } })); }
+  submitFeedback() { const fb = this.state.feedback; if (!fb.rating && !fb.msg.trim()) return;
+    this._post('feedback', { rating: fb.rating, message: fb.msg.trim(), email: fb.email.trim(), at: new Date().toISOString() });
+    this.setState({ feedbackSent: true, feedback: { rating: 0, msg: '', email: '' } }); }
   setRig(k, v) { this.setState(st => { const rig = { ...st.rig, [k]: v };
     const rigs = st.rigs.map(rg => rg.id === st.activeRigId ? { ...rg, [k]: v } : rg);
     return { rig, rigs }; }, () => this.updateRig()); }
@@ -1661,7 +1803,7 @@ class Component extends DCLogic {
   quizStep(d) { this.setState(st => ({ quiz: { ...st.quiz, step: Math.max(0, st.quiz.step + d) } })); }
   buildPlan() {
     const q = this.state.quiz, r = this.state.rig, pri = q.priorities;
-    const home = this.startPt();
+    const start = this.resolveStart();
     const cands = [];
     this.venues.forEach(v => { const c = this.compat(v); if (!c.ok) return;
       this.allEvents(v).forEach(e => { const isJack = e.kind === 'jackpot';
@@ -1670,38 +1812,38 @@ class Component extends DCLogic {
         if (pri.jackpots && isJack) score += 25;
         if (pri.covered && v.covered) score += 15;
         if (pri.hookups && v.water && v.power) score += 15;
-        if (pri.short) score += Math.max(0, 20 - this.milesBetween(home.x, home.y, v.x, v.y) / 80);
+        if (pri.short) score += Math.max(0, 20 - this.milesBetween(start.x, start.y, v.x, v.y) / 80);
         if (c.tight) score -= 8;
         cands.push({ v, e, isJack, score, ts: this.fmtEvent(e.d).ts }); }); });
-    cands.sort((a, b) => b.score - a.score);
-    const pool = cands.slice(0, Math.max(q.count * 3, 10)).sort((a, b) => a.ts - b.ts);
     const FUEL = 0.85, RODEO_ENTRY = 45, LODGE = 52;
-    const start = this.startPt();
-    let miles = 0, cost = 0, prevX = start.x, prevY = start.y, lastTs = -1;
-    const stops = [];
-    for (const cd of pool) {
-      if (stops.length >= q.count) break;
+    let miles = 0, cost = 0, prevX = start.x, prevY = start.y, lastTs = -1, minTs = -1;
+    const stops = [], used = new Set();
+    const addStop = (cd, forced) => {
       const leg = this.milesBetween(prevX, prevY, cd.v.x, cd.v.y);
-      if (leg > q.maxLeg) continue;
-      if (cd.ts === lastTs) continue;
+      if (!forced) { if (leg > q.maxLeg) return; if (cd.ts === lastTs) return; if (cd.ts < minTs) return; }
       const fee = cd.isJack ? (cd.e.fee || 60) : RODEO_ENTRY;
       const nights = leg > 250 ? 1 : 0;
       const stopCost = Math.round(fee + leg * FUEL + nights * LODGE);
-      if (cost + stopCost > q.budget) continue;
-      cost += stopCost; miles += leg; prevX = cd.v.x; prevY = cd.v.y; lastTs = cd.ts;
+      if (!forced && cost + stopCost > q.budget) return;
+      cost += stopCost; miles += leg; prevX = cd.v.x; prevY = cd.v.y; lastTs = cd.ts; minTs = cd.ts;
       const fe = this.fmtEvent(cd.e.d);
-      const fromTxt = stops.length === 0 ? ('from ' + start.name) : 'from last stop';
+      const fromTxt = stops.length === 0 ? ('from ' + (start.near || start.label)) : 'from last stop';
       stops.push({ id: cd.v.id, day: fe.day, mon: fe.mon, name: cd.e.name, venue: cd.v.name, city: cd.v.city, state: cd.v.state,
         legTxt: leg === 0 ? 'Same grounds' : (leg + ' mi ' + fromTxt), costTxt: '$' + stopCost, nightsTxt: nights ? '+1 layover night' : 'Day trip from last stop',
         kindTxt: cd.isJack ? 'Jackpot' : 'Rodeo', kindFg: cd.isJack ? '#7a5f28' : '#A83E23',
         kindBg: cd.isJack ? 'rgba(184,134,47,.15)' : 'rgba(168,62,35,.1)', kindBd: cd.isJack ? 'rgba(184,134,47,.42)' : 'rgba(168,62,35,.35)',
         moneyTxt: cd.isJack ? ('$' + cd.e.fee + ' entry · $' + cd.e.payout.toLocaleString() + ' pot') : '$' + RODEO_ENTRY + ' entry est.',
         services: this.routeServices(cd.v.x, cd.v.y) });
-    }
+      used.add(cd.v.id + '|' + cd.e.d);
+    };
+    // anchor the first event the user chose
+    if (this.state.firstEventId) { const parts = this.state.firstEventId.split('|'); const fc = cands.find(c => c.v.id === parts[0] && c.e.d === parts[1]); if (fc) addStop(fc, true); }
+    const pool = cands.slice().sort((a, b) => b.score - a.score).slice(0, Math.max(q.count * 3, 12)).sort((a, b) => a.ts - b.ts);
+    for (const cd of pool) { if (stops.length >= q.count) break; if (used.has(cd.v.id + '|' + cd.e.d)) continue; addStop(cd, false); }
     const hazards = this.noGoRoads.map(rd => ({ rd, hit: this.roadHitsRig(rd) })).filter(o => o.hit.level !== 'clear')
       .map(o => ({ name: o.rd.name, why: o.hit.why, detour: o.rd.detour, block: o.hit.level === 'block' }));
     const endStop = stops.length ? stops[stops.length - 1] : null;
-    this.setState({ plan: { stops, miles, cost, budget: q.budget, hazards, startName: start.name, endName: endStop ? (endStop.venue + ' · ' + endStop.city + ', ' + endStop.state) : '' }, screen: 'plan' });
+    this.setState({ plan: { stops, miles, cost, budget: q.budget, hazards, startName: start.label, endName: endStop ? (endStop.venue + ' · ' + endStop.city + ', ' + endStop.state) : '' }, screen: 'plan' });
   }
   savePlanToTrip() { const p = this.state.plan; if (!p) return;
     this.setState(st => { const trip = st.trip.slice(); p.stops.forEach(s => { if (!trip.includes(s.id)) trip.push(s.id); }); return { trip, screen: 'planner' }; }); }
@@ -1718,12 +1860,34 @@ class Component extends DCLogic {
   toggleSave(id) { this.setState(st => { const s = { ...st.saved }; if (s[id]) delete s[id]; else s[id] = true; return { saved: s }; }); }
   addTrip(id) { this.setState(st => st.trip.includes(id) ? {} : { trip: [...st.trip, id] }); }
   removeTrip(id) { this.setState(st => ({ trip: st.trip.filter(x => x !== id) })); }
-  zoom(dir) { this.setState(st => { let s = Math.min(2.6, Math.max(1, st.map.s + dir * 0.35)); return { map: { ...st.map, s } }; }); }
+  // ---------- map pan + zoom ----------
+  setMap(nx, ny, ns) { const s = Math.min(2.8, Math.max(1, ns));
+    const rx = 240 * (s - 1) + 24, ry = 190 * (s - 1) + 24;
+    const x = Math.max(-rx, Math.min(rx, nx));
+    const y = Math.max(-70 - ry, Math.min(-70 + ry, ny));
+    this.setState({ map: { x, y, s } }); }
+  zoom(dir) { const m = this.state.map; this.setMap(m.x, m.y, m.s + dir * 0.4); }
+  bindMap() { const el = document.getElementById('mapWrap'); if (!el || el._mapBound) return; el._mapBound = true;
+    const ppu = () => { const r = el.getBoundingClientRect(); return Math.min(r.width / 812, r.height / 432) || (r.width / 812) || 1; };
+    const down = e => { if (e.touches && e.touches.length > 1) return; const p = e.touches ? e.touches[0] : e; this._mapDrag = { on: true, px: p.clientX, py: p.clientY }; el.style.cursor = 'grabbing'; };
+    el.addEventListener('mousedown', down);
+    el.addEventListener('touchstart', e => { if (e.touches.length === 2) { this._pinch = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); } else { down(e); } }, { passive: true });
+    el.addEventListener('touchmove', e => {
+      if (e.touches.length === 2) { const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); const m = this.state.map; this.setMap(m.x, m.y, m.s * (d / (this._pinch || d))); this._pinch = d; if (e.cancelable) e.preventDefault(); return; }
+      if (this._mapDrag && this._mapDrag.on) { const p = e.touches[0]; const k = ppu(); const m = this.state.map; this.setMap(m.x + (p.clientX - this._mapDrag.px) / k, m.y + (p.clientY - this._mapDrag.py) / k, m.s); this._mapDrag.px = p.clientX; this._mapDrag.py = p.clientY; if (e.cancelable) e.preventDefault(); }
+    }, { passive: false });
+    el.addEventListener('touchend', () => { if (this._mapDrag) this._mapDrag.on = false; this._pinch = 0; });
+    el.addEventListener('wheel', e => { e.preventDefault(); const m = this.state.map; this.setMap(m.x, m.y, m.s + (e.deltaY < 0 ? 0.3 : -0.3)); }, { passive: false }); }
 
   // ---------- 3D ----------
-  componentDidMount() { this._raf = null; this.rot = { x: -0.05, y: 0.65, tx: -0.05, ty: 0.65, drag: false, px: 0, py: 0, idle: 0 }; this.waitThree(); this._onResize = () => this.mount3D(); window.addEventListener('resize', this._onResize); }
-  componentDidUpdate() { this.mount3D(); }
-  componentWillUnmount() { if (this._raf) cancelAnimationFrame(this._raf); if (this._onResize) window.removeEventListener('resize', this._onResize); }
+  componentDidMount() { this._raf = null; this.rot = { x: -0.05, y: 0.65, tx: -0.05, ty: 0.65, drag: false, px: 0, py: 0, idle: 0 }; this._mapDrag = { on: false, px: 0, py: 0 };
+    try { if (this.state.screen === 'lead' && localStorage.getItem('hh_lead_done')) this.setState({ screen: 'onboard' }); } catch (e) {}
+    this._onMapMove = e => { if (!this._mapDrag || !this._mapDrag.on) return; const el = document.getElementById('mapWrap'); if (!el) return; const r = el.getBoundingClientRect(); const k = Math.min(r.width / 812, r.height / 432) || (r.width / 812) || 1; const m = this.state.map; this.setMap(m.x + (e.clientX - this._mapDrag.px) / k, m.y + (e.clientY - this._mapDrag.py) / k, m.s); this._mapDrag.px = e.clientX; this._mapDrag.py = e.clientY; };
+    this._onMapUp = () => { if (this._mapDrag) this._mapDrag.on = false; const el = document.getElementById('mapWrap'); if (el) el.style.cursor = 'grab'; };
+    window.addEventListener('mousemove', this._onMapMove); window.addEventListener('mouseup', this._onMapUp);
+    this.waitThree(); this._onResize = () => this.mount3D(); window.addEventListener('resize', this._onResize); }
+  componentDidUpdate() { this.mount3D(); this.bindMap(); }
+  componentWillUnmount() { if (this._raf) cancelAnimationFrame(this._raf); if (this._onResize) window.removeEventListener('resize', this._onResize); if (this._onMapMove) window.removeEventListener('mousemove', this._onMapMove); if (this._onMapUp) window.removeEventListener('mouseup', this._onMapUp); }
 
   waitThree() { if (window.THREE) { this.init3D(); this.mount3D(); } else setTimeout(() => this.waitThree(), 120); }
   init3D() {
@@ -2109,7 +2273,7 @@ class Component extends DCLogic {
     else if (svc.tight) { fitHead = 'Fits — but snug'; fitDetail = 'You clear it, but with little room to spare. Arrive early for the good spots.'; }
     else { fitHead = 'Clears your rig easy'; fitDetail = 'Plenty of room for a ' + r.lengthFt + 'ft ' + (r.type==='gooseneck'?'gooseneck':'bumper-pull') + ', ' + r.heightFt + 'ft tall, ' + r.slots + '-horse.'; }
     const eventList = this.allEvents(svRaw).map(e => { const fe = this.fmtEvent(e.d); const dt = e.d.replace(/-/g, '');
-      const gcal = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.name + ' — ' + svRaw.name) + '&dates=' + dt + '/' + dt + '&location=' + encodeURIComponent(svRaw.city + ', ' + svRaw.state) + '&details=' + encodeURIComponent('Rodeo stop planned in Rodeo Trailer Finder');
+      const gcal = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.name + ' — ' + svRaw.name) + '&dates=' + dt + '/' + dt + '&location=' + encodeURIComponent(svRaw.city + ', ' + svRaw.state) + '&details=' + encodeURIComponent("Planned in Haulin' Hooves");
       return { ts: fe.ts, day: fe.day, mon: fe.mon, name: e.name, gcal: gcal, sub: e.kind === 'jackpot' ? ('Jackpot · $' + e.fee + ' entry · $' + e.payout.toLocaleString() + ' pot') : (svRaw.city + ', ' + svRaw.state) }; }).sort((a, b) => a.ts - b.ts);
     const adaShuttle = svRaw.parking >= 250;
     const ada = {
@@ -2148,9 +2312,13 @@ class Component extends DCLogic {
       ...this.feedStores.filter(f => st.saved[f.id]).map(f => ({ id:f.id, name:f.name, city:f.city, state:f.state, metric:f.hours.replace('Daily ','').replace('Mon–Sat ',''), fitLabel:'Feed store', fitFg:'#7a5f28', fitBg:'rgba(184,134,47,.15)', fitBd:'rgba(184,134,47,.42)', open: () => this.openFeed(f.id) }))
     ];
 
-    const startLoc = this.startPt();
-    const startChips = this.START_LOCS.map(s => { const on = s.id === st.startLocId; return { name: s.name.split(',')[0], pick: () => this.setStart(s.id),
-      bg: on ? theme.accent : theme.c0, fg: on ? '#FBF3E4' : '#8A7458', bd: on ? theme.accent : 'rgba(74,48,22,.18)' }; });
+    const resolved = this.resolveStart();
+    const startLoc = { x: resolved.x, y: resolved.y, name: resolved.label };
+    const startResolveNote = st.startAddress.trim()
+      ? (resolved.near ? ('Routing from near ' + resolved.near) : 'City not recognized — routing from the map center. Try “City, ST”.')
+      : 'Type where you’re rolling out from.';
+    const startResolveFg = st.startAddress.trim() ? (resolved.near ? '#3F6B32' : '#986412') : '#8A7458';
+    const eventOptions = this.planEventOptions().map(eo => ({ id: eo.id, label: eo.label, sel: eo.id === st.firstEventId }));
     const tripVenues = st.trip.map(id => this.venues.find(v => v.id === id)).filter(Boolean);
     const mm = v => ({ x: 30 + (v.x/1000)*340, y: 25 + (v.y/680)*130 });
     const legMiles = (v, i) => this.milesBetween(i === 0 ? startLoc.x : tripVenues[i-1].x, i === 0 ? startLoc.y : tripVenues[i-1].y, v.x, v.y);
@@ -2234,6 +2402,17 @@ class Component extends DCLogic {
     ].map(w => { const rt = ratMap[w.rating]; return { name: w.name, temp: w.temp, wind: w.wind, gust: w.gust, cond: w.cond, ratFg: rt.fg, ratBg: rt.bg, ratBd: rt.bd, ratTxt: rt.txt }; });
 
     return {
+      isLead: screen === 'lead',
+      lead: st.lead, leadErr: st.leadErr, hasLeadErr: !!st.leadErr,
+      onLeadName: e => this.setLead('name', e.target.value), onLeadEmail: e => this.setLead('email', e.target.value), onLeadPhone: e => this.setLead('phone', e.target.value),
+      toggleConsent: () => this.setLead('consent', !st.lead.consent),
+      consentBd: st.lead.consent ? theme.accent : 'rgba(74,48,22,.3)', consentBg: st.lead.consent ? theme.accent : 'transparent', consentTick: st.lead.consent ? 1 : 0,
+      submitLead: () => this.submitLead(), skipLead: () => this.skipLead(),
+      feedbackOpen: st.feedbackOpen, feedbackSent: st.feedbackSent, feedback: st.feedback,
+      openFeedback: () => this.openFeedback(), closeFeedback: () => this.closeFeedback(),
+      onFbMsg: e => this.setFeedback('msg', e.target.value), onFbEmail: e => this.setFeedback('email', e.target.value),
+      submitFeedback: () => this.submitFeedback(),
+      fbStars: [1,2,3,4,5].map(n => ({ pick: () => this.setFeedback('rating', n), color: n <= st.feedback.rating ? '#C89A4A' : 'rgba(74,48,22,.22)' })),
       isOnboard: screen === 'onboard', isMap: screen === 'map', isVenue: screen === 'venue', isSaved: screen === 'saved', isPlanner: screen === 'planner', isEvents: screen === 'events', isBuddies: screen === 'buddies', isWeather: screen === 'weather',
       showNav: ['map','saved','planner','events','buddies'].includes(screen),
       isLodge: screen === 'lodge', isFeed: screen === 'feed', isParking: screen === 'parking', isFarrier: screen === 'farrier', isVet: screen === 'vet', isDump: screen === 'dump', isQuiz: screen === 'quiz', isPlan: screen === 'plan',
@@ -2298,7 +2477,7 @@ class Component extends DCLogic {
       resultCount,
       lqChipFg: lqOn?'#3F6B32':'#a1896a', lqChipBg: lqOn?'rgba(94,122,78,.14)':'#F7EEDC', lqChipBd: lqOn?'rgba(94,122,78,.35)':'rgba(74,48,22,.12)',
       openFilters: () => this.setState({ filtersOpen: true }), closeFilters: () => this.setState({ filtersOpen: false }), filtersOpen: st.filtersOpen,
-      pins, mapT: `translate(${st.map.x} ${st.map.y}) scale(${st.map.s})`,
+      pins, mapT: `translate(${st.map.x} ${st.map.y}) translate(460 300) scale(${st.map.s}) translate(-460 -300)`,
       zoomIn: () => this.zoom(1), zoomOut: () => this.zoom(-1),
       hasSelected: !!st.selectedId, sv,
       openVenue: () => this.openVenue(st.selectedId), backToMap: () => this.setState({ screen:'map', detailId:null }),
@@ -2309,7 +2488,9 @@ class Component extends DCLogic {
       ldvReserveTxt: ldvReserved ? '✓ RESERVED — TAP TO CANCEL' : 'RESERVE THIS STAY', pdvReserveTxt: pdvReserved ? '✓ SPOT HELD — TAP TO CANCEL' : 'HOLD A SPOT',
       savedCount: savedIds.length, savedEmpty: savedIds.length === 0, savedList,
       tripStops: tripVenues.length, tripMiles, tripEmpty: tripVenues.length === 0, tripList, tripPath, tripPins,
-      startChips, startName: startLoc.name, startPin,
+      startName: startLoc.name, startPin,
+      startAddress: st.startAddress, onStartAddress: e => this.setStartAddress(e.target.value), startResolveNote, startResolveFg,
+      eventOptions, firstEventId: st.firstEventId, onFirstEvent: e => this.setFirstEvent(e.target.value),
       eventFeed: feed, toggleEventFit: () => this.setState({ eventFitOnly: !st.eventFitOnly }), efTrack: efOn?TON:TOFF, efDot: efOn?'21px':'3px',
       nav: { map: navc('map'), events: navc('events'), planner: navc('planner'), buddies: navc('buddies'), saved: navc('saved'), rig: navc('onboard') },
       goMap: () => this.setScreen('map'), goEvents: () => this.setScreen('events'), goPlanner: () => this.setScreen('planner'), goBuddies: () => this.setScreen('buddies'), goSaved: () => this.setScreen('saved'), goRig: () => this.setScreen('onboard')

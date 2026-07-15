@@ -1,6 +1,6 @@
-# Rodeo Trailer Finder
+# Haulin' Hooves
 
-Mobile-first prototype for finding rodeo arenas, horse lodging, and feed stops that actually fit your rig.
+Mobile-first prototype for finding rodeo arenas, horse lodging, feed, fuel, vets, and dump stations that actually fit your rig.
 
 Imported from a [Claude Design](https://claude.ai/design) project and hosted on GitHub Pages.
 
