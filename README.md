@@ -1,8 +1,18 @@
 # Haulin' Hooves
 
-Mobile-first prototype for finding rodeo arenas, horse lodging, feed, fuel, vets, and dump stations that actually fit your rig.
+One app for the whole horse-event season — find rodeo arenas, horse lodging, feed, fuel, vets, and dump stations that actually fit your rig.
 
 Imported from a [Claude Design](https://claude.ai/design) project and hosted on GitHub Pages.
+
+## Pages
+
+- **`index.html`** — the desktop **landing page**: the vision, the features, founder Kimberly Karlovich, the sample-data disclaimer, and beta lead-capture + feedback forms.
+- **`app.html`** — the mobile-first **demo app** (the interactive prototype; "Launch the demo" from the landing opens it).
+- **`privacy.html` · `terms.html` · `do-not-sell.html`** — legal template pages.
+
+## Collecting leads &amp; feedback
+
+Beta signups (landing) and feedback (landing + in-app survey) POST to the webhook set in **`config.js`** (`window.HH_WEBHOOK`). Left blank, submissions stay in the visitor's browser. See **[SETUP.md](SETUP.md)** for a 5-minute Google Sheet webhook (Apps Script) you can paste in.
 
 ## Features
 
