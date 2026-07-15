@@ -1417,7 +1417,7 @@
       <!-- FEEDBACK MODAL -->
       <sc-if value="{{ feedbackOpen }}" hint-placeholder-val="{{ false }}">
         <div onClick="{{ closeFeedback }}" style="position:absolute;inset:0;z-index:70;background:rgba(50,30,12,.4);backdrop-filter:blur(2px);animation:screenIn .2s ease both"></div>
-        <div style="position:absolute;left:0;right:0;bottom:0;z-index:71;background:{{ themePanel }};border-radius:26px 26px 0 0;padding:20px 22px 30px;animation:sheetUp .3s ease both;box-shadow:0 -18px 44px rgba(90,58,18,.28)">
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:71;max-height:90vh;overflow-y:auto;background:{{ themePanel }};border-radius:26px 26px 0 0;padding:20px 22px 30px;animation:sheetUp .3s ease both;box-shadow:0 -18px 44px rgba(90,58,18,.28)">
           <div style="width:38px;height:4px;border-radius:3px;background:rgba(74,48,22,.2);margin:0 auto 16px"></div>
           <sc-if value="{{ feedbackSent }}" hint-placeholder-val="{{ false }}">
             <div style="text-align:center;padding:20px 10px 12px">
@@ -1427,16 +1427,54 @@
             </div>
           </sc-if>
           <sc-if value="{{ feedbackForm }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><span style="font:400 26px 'Bebas Neue';color:#2C2118;letter-spacing:1px">HOW’S THE RIDE?</span><span onClick="{{ closeFeedback }}" style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};cursor:pointer;text-transform:uppercase">Close</span></div>
-            <div style="font:400 11px 'Archivo';color:#8A7458;margin-bottom:12px">Rate the demo and tell us what to fix.</div>
-            <div style="display:flex;gap:8px;margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font:400 26px 'Bebas Neue';color:#2C2118;letter-spacing:1px">HOW’S THE RIDE?</span><span onClick="{{ closeFeedback }}" style="font:600 11px 'Oswald';letter-spacing:1px;color:{{ themeAcc }};cursor:pointer;text-transform:uppercase">Close</span></div>
+            <div style="font:400 11px 'Archivo';color:#8A7458;margin-bottom:14px">A quick tap-through — takes about 30 seconds.</div>
+
+            <div style="font:600 11px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin-bottom:6px">Overall rating</div>
+            <div style="display:flex;gap:8px;margin-bottom:4px">
               <sc-for list="{{ fbStars }}" as="fs" hint-placeholder-count="5">
-                <div onClick="{{ fs.pick }}" style="cursor:pointer;font:400 30px 'Archivo';color:{{ fs.color }};line-height:1">★</div>
+                <div onClick="{{ fs.pick }}" style="cursor:pointer;font:400 32px 'Archivo';color:{{ fs.color }};line-height:1">★</div>
               </sc-for>
             </div>
-            <textarea value="{{ feedback.msg }}" onInput="{{ onFbMsg }}" placeholder="What worked? What’s broken? What would make it perfect?" style="width:100%;height:96px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:12px 14px;font:500 13px/1.4 'Archivo';color:#2C2118;outline:none;resize:none"></textarea>
+
+            <div style="font:600 11px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin:16px 0 7px">1 · Would you use this for a real haul?</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ fbLikely }}" as="c" hint-placeholder-count="3">
+                <div onClick="{{ c.pick }}" style="cursor:pointer;padding:9px 14px;border-radius:20px;font:600 12px 'Archivo';color:{{ c.fg }};background:{{ c.bg }};border:1px solid {{ c.bd }}">{{ c.label }}</div>
+              </sc-for>
+            </div>
+
+            <div style="font:600 11px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin:16px 0 7px">2 · What’s the most useful part?</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ fbUseful }}" as="c" hint-placeholder-count="5">
+                <div onClick="{{ c.pick }}" style="cursor:pointer;padding:9px 14px;border-radius:20px;font:600 12px 'Archivo';color:{{ c.fg }};background:{{ c.bg }};border:1px solid {{ c.bd }}">{{ c.label }}</div>
+              </sc-for>
+            </div>
+
+            <div style="font:600 11px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin:16px 0 7px">3 · What needs the most work?</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ fbWork }}" as="c" hint-placeholder-count="5">
+                <div onClick="{{ c.pick }}" style="cursor:pointer;padding:9px 14px;border-radius:20px;font:600 12px 'Archivo';color:{{ c.fg }};background:{{ c.bg }};border:1px solid {{ c.bd }}">{{ c.label }}</div>
+              </sc-for>
+            </div>
+
+            <div style="font:600 11px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin:16px 0 7px">4 · Would you pay for the full version?</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ fbPay }}" as="c" hint-placeholder-count="3">
+                <div onClick="{{ c.pick }}" style="cursor:pointer;padding:9px 14px;border-radius:20px;font:600 12px 'Archivo';color:{{ c.fg }};background:{{ c.bg }};border:1px solid {{ c.bd }}">{{ c.label }}</div>
+              </sc-for>
+            </div>
+
+            <div style="font:600 11px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin:18px 0 4px">Top feature requests</div>
+            <div style="font:400 11px 'Archivo';color:#8A7458;margin-bottom:8px">Rank the things you want most.</div>
+            <input value="{{ feedback.f1 }}" onInput="{{ onF1 }}" placeholder="#1 — the one thing you want most" style="width:100%;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:11px 14px;font:500 13px 'Archivo';color:#2C2118;outline:none">
+            <input value="{{ feedback.f2 }}" onInput="{{ onF2 }}" placeholder="#2 — next most wanted" style="width:100%;margin-top:8px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:11px 14px;font:500 13px 'Archivo';color:#2C2118;outline:none">
+            <input value="{{ feedback.f3 }}" onInput="{{ onF3 }}" placeholder="#3 — nice to have" style="width:100%;margin-top:8px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:11px 14px;font:500 13px 'Archivo';color:#2C2118;outline:none">
+
+            <div style="font:600 11px 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#8A7458;margin:18px 0 6px">Anything else?</div>
+            <textarea value="{{ feedback.msg }}" onInput="{{ onFbMsg }}" placeholder="What worked, what’s broken, what would make it perfect…" style="width:100%;height:80px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:12px 14px;font:500 13px/1.4 'Archivo';color:#2C2118;outline:none;resize:none"></textarea>
             <input value="{{ feedback.email }}" onInput="{{ onFbEmail }}" type="email" inputmode="email" placeholder="Email (optional — if you want a reply)" style="width:100%;margin-top:10px;background:{{ themeCard }};border:1px solid rgba(74,48,22,.18);border-radius:12px;padding:12px 14px;font:500 13px 'Archivo';color:#2C2118;outline:none">
-            <div onClick="{{ submitFeedback }}" style="margin-top:14px;text-align:center;padding:14px 0;border-radius:13px;cursor:pointer;font:400 20px 'Bebas Neue';letter-spacing:1.5px;color:#FBF3E4;background:{{ themeGrad }}">SEND FEEDBACK</div>
+            <div onClick="{{ submitFeedback }}" style="margin-top:16px;text-align:center;padding:14px 0;border-radius:13px;cursor:pointer;font:400 20px 'Bebas Neue';letter-spacing:1.5px;color:#FBF3E4;background:{{ themeGrad }}">SEND FEEDBACK</div>
           </sc-if>
         </div>
       </sc-if>
@@ -1452,7 +1490,7 @@ class Component extends DCLogic {
     lead: { name: '', email: '', phone: '', consent: false },
     leadErr: '',
     feedbackOpen: false,
-    feedback: { rating: 0, msg: '', email: '' },
+    feedback: { rating: 0, likely: '', useful: '', work: '', pay: '', f1: '', f2: '', f3: '', msg: '', email: '' },
     feedbackSent: false,
     rig: { type: 'gooseneck', lengthFt: 32, heightFt: 13, slots: 3, lq: true, weightLbs: 14000 },
     rigs: [
@@ -1744,9 +1782,13 @@ class Component extends DCLogic {
   openFeedback() { this.setState({ feedbackOpen: true, feedbackSent: false }); }
   closeFeedback() { this.setState({ feedbackOpen: false }); }
   setFeedback(k, v) { this.setState(st => ({ feedback: { ...st.feedback, [k]: v } })); }
-  submitFeedback() { const fb = this.state.feedback; if (!fb.rating && !fb.msg.trim()) return;
-    this._post('feedback', { rating: fb.rating, message: fb.msg.trim(), email: fb.email.trim(), at: new Date().toISOString() });
-    this.setState({ feedbackSent: true, feedback: { rating: 0, msg: '', email: '' } }); }
+  toggleFeedback(k, v) { this.setState(st => ({ feedback: { ...st.feedback, [k]: st.feedback[k] === v ? '' : v } })); }
+  submitFeedback() { const fb = this.state.feedback;
+    const features = [fb.f1, fb.f2, fb.f3].map(s => s.trim()).filter(Boolean);
+    const any = fb.rating || fb.likely || fb.useful || fb.work || fb.pay || features.length || fb.msg.trim();
+    if (!any) return;
+    this._post('feedback', { rating: fb.rating, wouldUse: fb.likely, mostUseful: fb.useful, needsWork: fb.work, wouldPay: fb.pay, features, message: fb.msg.trim(), email: fb.email.trim(), at: new Date().toISOString() });
+    this.setState({ feedbackSent: true, feedback: { rating: 0, likely: '', useful: '', work: '', pay: '', f1: '', f2: '', f3: '', msg: '', email: '' } }); }
   setRig(k, v) { this.setState(st => { const rig = { ...st.rig, [k]: v };
     const rigs = st.rigs.map(rg => rg.id === st.activeRigId ? { ...rg, [k]: v } : rg);
     return { rig, rigs }; }, () => this.updateRig()); }
@@ -2420,6 +2462,8 @@ class Component extends DCLogic {
       { name: 'Wickenburg, AZ', temp: '103°', wind: 'Calm', gust: '8', cond: 'Heat advisory', rating: 'caution' }
     ].map(w => { const rt = ratMap[w.rating]; return { name: w.name, temp: w.temp, wind: w.wind, gust: w.gust, cond: w.cond, ratFg: rt.fg, ratBg: rt.bg, ratBd: rt.bd, ratTxt: rt.txt }; });
 
+    const fbChip = (key, label) => { const on = st.feedback[key] === label; return { label, bg: on ? theme.accent : theme.c0, fg: on ? '#FBF3E4' : '#6b543a', bd: on ? theme.accent : 'rgba(74,48,22,.18)', pick: () => this.toggleFeedback(key, label) }; };
+
     return {
       isLead: screen === 'lead',
       lead: st.lead, leadErr: st.leadErr, hasLeadErr: !!st.leadErr,
@@ -2430,8 +2474,13 @@ class Component extends DCLogic {
       feedbackOpen: st.feedbackOpen, feedbackSent: st.feedbackSent, feedbackForm: !st.feedbackSent, feedback: st.feedback,
       openFeedback: () => this.openFeedback(), closeFeedback: () => this.closeFeedback(),
       onFbMsg: e => this.setFeedback('msg', e.target.value), onFbEmail: e => this.setFeedback('email', e.target.value),
+      onF1: e => this.setFeedback('f1', e.target.value), onF2: e => this.setFeedback('f2', e.target.value), onF3: e => this.setFeedback('f3', e.target.value),
       submitFeedback: () => this.submitFeedback(),
       fbStars: [1,2,3,4,5].map(n => ({ pick: () => this.setFeedback('rating', n), color: n <= st.feedback.rating ? '#C89A4A' : 'rgba(74,48,22,.22)' })),
+      fbLikely: ['Definitely','Maybe','Not really'].map(o => fbChip('likely', o)),
+      fbUseful: ['Trail map','Rig-fit check','Route planner','Lodging & stops','Vets & dumps'].map(o => fbChip('useful', o)),
+      fbWork: ['Info accuracy','Look & feel','Speed','More features','Feels great'].map(o => fbChip('work', o)),
+      fbPay: ['Yes','Maybe','No'].map(o => fbChip('pay', o)),
       isOnboard: screen === 'onboard', isMap: screen === 'map', isVenue: screen === 'venue', isSaved: screen === 'saved', isPlanner: screen === 'planner', isEvents: screen === 'events', isBuddies: screen === 'buddies', isWeather: screen === 'weather',
       showNav: ['map','saved','planner','events','buddies'].includes(screen),
       isLodge: screen === 'lodge', isFeed: screen === 'feed', isParking: screen === 'parking', isFarrier: screen === 'farrier', isVet: screen === 'vet', isDump: screen === 'dump', isQuiz: screen === 'quiz', isPlan: screen === 'plan',
