@@ -5,10 +5,11 @@
 <title>Haulin' Hooves — one app for the whole horse-event season</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Haulin' Hooves helps horse-event haulers find arenas, lodging, feed, fuel, vets and dump stations that actually fit their rig — one stop for the whole season. Free beta prototype.">
-<meta name="theme-color" content="#A83E23">
+<meta name="theme-color" content="#47613A">
 <meta property="og:title" content="Haulin' Hooves — the one-stop app for horse-event season">
 <meta property="og:description" content="Arenas, lodging, feed, fuel, vets and dumps that fit your rig — planned in one place. Try the free beta.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="img/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
@@ -18,18 +19,13 @@
   --bg:#F4EBD9; --panel:#FCF5E6; --card:#FFFBF1; --ink:#2C2118; --muted:#6b543a;
   --soft:#8A7458; --accent:#A83E23; --accent2:#C25232; --gold:#C89A4A; --sage:#5E7A4E;
   --deep:#3A5530; --green:#5E7A4E; --green-deep:#47613A; --line:rgba(74,48,22,.14); --line2:rgba(74,48,22,.22);
-  --sky1:#F6C99B; --sky2:#E88C5A; --sky3:#B4472C;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 html,body{margin:0;padding:0}
-body{
-  background:var(--bg); color:var(--ink);
-  font-family:'Archivo',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;
-}
+body{background:var(--bg);color:var(--ink);font-family:'Archivo',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-img,svg{max-width:100%;display:block}
+img,svg{max-width:100%;display:block;height:auto}
 .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
 .eyebrow{font:600 12px/1 'Oswald',sans-serif;letter-spacing:2.5px;text-transform:uppercase;color:var(--green)}
 h1,h2,h3{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spacing:1px;margin:0}
@@ -42,95 +38,92 @@ h1,h2,h3{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;letter-spaci
 .btn-lg{font-size:22px;padding:17px 30px}
 
 /* ---- NAV ---- */
-.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(244,235,217,.82);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(244,235,217,.84);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
 .brand{display:flex;align-items:center;gap:11px;font:400 27px/1 'Bebas Neue',sans-serif;letter-spacing:1.5px}
 .brand b{color:var(--green);font-weight:400}
 .brand .mark{width:34px;height:34px;flex:none}
 .navlinks{display:flex;align-items:center;gap:30px}
 .navlinks a{font:600 12px/1 'Oswald',sans-serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
-.navlinks a:hover{color:var(--accent)}
+.navlinks a:hover{color:var(--green)}
 .nav .btn{padding:11px 18px;font-size:16px}
 .menu-toggle{display:none}
 
 /* ---- HERO ---- */
 .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#EEF3E4 0%,#E1E9C9 45%,#F4EBD9 100%)}
-.hero-sky{position:absolute;inset:0;z-index:0;pointer-events:none}
-.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding-top:64px;padding-bottom:96px}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,251,241,.7);border:1px solid var(--line2);border-radius:30px;padding:7px 14px;font:600 10px/1 'Oswald',sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--deep);margin-bottom:20px}
-.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--sage)}
-.hero h1{font-size:clamp(46px,6.2vw,82px);line-height:.92;color:var(--ink);margin-bottom:20px}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1.05fr;gap:44px;align-items:center;padding-top:60px;padding-bottom:84px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,251,241,.75);border:1px solid var(--line2);border-radius:30px;padding:7px 14px;font:600 10px/1 'Oswald',sans-serif;letter-spacing:1.5px;text-transform:uppercase;color:var(--green-deep);margin-bottom:20px}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent2)}
+.hero h1{font-size:clamp(46px,6vw,80px);line-height:.92;color:var(--ink);margin-bottom:20px}
 .hero h1 .u{color:var(--accent)}
 .hero-sub{font-size:19px;color:var(--muted);max-width:520px;margin-bottom:30px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .hero-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px}
-.tag{font:600 11px/1 'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--deep);background:rgba(255,251,241,.66);border:1px solid var(--line);border-radius:20px;padding:8px 13px}
-.hero-art{position:relative;display:flex;justify-content:center}
-/* phone */
-.phone{position:relative;width:290px;filter:drop-shadow(0 30px 60px rgba(90,45,15,.34))}
-.phone .bezel{background:#241a12;border-radius:42px;padding:12px}
-.phone .screen{border-radius:32px;overflow:hidden;background:#F4EBD9;display:block}
-.floaty{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:0 16px 34px rgba(90,58,18,.2);padding:12px 15px;display:flex;align-items:center;gap:11px}
+.tag{font:600 11px/1 'Oswald',sans-serif;letter-spacing:1px;text-transform:uppercase;color:var(--green-deep);background:rgba(255,251,241,.7);border:1px solid var(--line);border-radius:20px;padding:8px 13px}
+.hero-art{position:relative}
+.hero-img{width:100%;border-radius:28px;box-shadow:0 34px 70px rgba(58,85,48,.32), 0 8px 22px rgba(44,33,24,.18);aspect-ratio:3/2;object-fit:cover;background:#E1E9C9}
+.floaty{position:absolute;background:var(--card);border:1px solid var(--line);border-radius:15px;box-shadow:0 16px 34px rgba(90,58,18,.22);padding:12px 15px;display:flex;align-items:center;gap:11px;z-index:3}
 .floaty .fi{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
 .floaty .ft{font:400 20px/1 'Bebas Neue';letter-spacing:.5px;color:var(--ink)}
 .floaty .fs{font:600 9px/1.2 'Oswald';letter-spacing:1px;text-transform:uppercase;color:var(--soft);margin-top:3px}
-.f-fit{top:34px;left:-34px}
-.f-stop{bottom:60px;right:-30px}
+.f-fit{top:22px;left:-22px}
+.f-stop{bottom:26px;right:-18px}
 
 /* ---- STRIP ---- */
 .strip{background:var(--deep);color:#F6E4C8}
 .strip .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;padding:22px 24px;align-items:center}
 .strip .s{display:flex;align-items:center;gap:11px}
 .strip .s b{font:400 34px/1 'Bebas Neue';color:#fff;letter-spacing:1px}
-.strip .s span{font:600 11px/1.3 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#E7C39B;max-width:130px}
+.strip .s span{font:600 11px/1.3 'Oswald';letter-spacing:1px;text-transform:uppercase;color:#D9E2C6;max-width:130px}
 
 /* ---- SECTIONS ---- */
-section{position:relative}
 .sec{padding:90px 0}
 .sec-head{max-width:680px;margin:0 auto 54px;text-align:center}
-.sec-head.left{margin-left:0;text-align:left}
 .sec-head h2{font-size:clamp(34px,4.4vw,52px);color:var(--ink);margin:12px 0 14px;line-height:1}
 .sec-head p{font-size:17px;color:var(--muted);margin:0}
 
 /* vision */
 .vision{background:linear-gradient(180deg,#FCF5E6,#F4EBD9)}
-.vision-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
-.vision-lead{font:400 26px/1.4 'Archivo';font-weight:500;color:var(--ink);margin:0 0 18px}
+.vision-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.vision-lead{font:500 24px/1.4 'Archivo';color:var(--ink);margin:0 0 18px}
 .vision p{font-size:16px;color:var(--muted)}
 .checks{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
 .checks li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink)}
 .checks .ck{width:23px;height:23px;border-radius:50%;background:var(--sage);flex:none;display:flex;align-items:center;justify-content:center;margin-top:1px}
-.vision-card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 20px 50px rgba(90,58,18,.12)}
-.vision-card .q{font:400 26px/1.35 'Bebas Neue';letter-spacing:.5px;color:var(--deep)}
-.vision-card .qs{margin-top:16px;font-size:14px;color:var(--muted)}
+.vision-card{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 26px 60px rgba(58,85,48,.18)}
+.vision-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#E1E9C9}
+.vision-card .q{font:400 24px/1.35 'Bebas Neue';letter-spacing:.5px;color:var(--green-deep);padding:22px 26px 6px}
+.vision-card .qs{padding:0 26px 24px;font-size:14px;color:var(--muted)}
 
 /* features */
 .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease}
-.card:hover{transform:translateY(-4px);box-shadow:0 22px 46px rgba(90,58,18,.16);border-color:var(--line2)}
-.card .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;background:linear-gradient(160deg,#F7E7CC,#EFD4AC)}
-.card h3{font-size:26px;color:var(--ink);margin-bottom:7px}
-.card p{font-size:14.5px;color:var(--muted);margin:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 16px 24px;transition:transform .14s ease, box-shadow .14s ease, border-color .14s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 22px 46px rgba(58,85,48,.18);border-color:var(--line2)}
+.cimg{aspect-ratio:4/3;border-radius:16px;overflow:hidden;background:linear-gradient(160deg,#EEF3E4,#DCE6C8);margin-bottom:16px;display:flex;align-items:center;justify-content:center}
+.cimg img{width:100%;height:100%;object-fit:cover}
+.cimg.float img{object-fit:contain;padding:4% 6%}
+.card h3{font-size:26px;color:var(--ink);margin:0 6px 7px}
+.card p{font-size:14.5px;color:var(--muted);margin:0 6px}
 
 /* steps */
 .steps{background:var(--deep);color:#F6E4C8;overflow:hidden}
 .steps .sec-head h2{color:#fff}
-.steps .sec-head p{color:#E7C39B}
+.steps .sec-head p{color:#D9E2C6}
 .step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .step{background:rgba(255,251,241,.06);border:1px solid rgba(246,228,200,.16);border-radius:20px;padding:30px}
 .step .n{font:400 62px/1 'Bebas Neue';color:var(--gold);letter-spacing:1px}
 .step h3{font-size:26px;color:#fff;margin:6px 0 8px}
-.step p{font-size:14.5px;color:#E7C39B;margin:0}
+.step p{font-size:14.5px;color:#D9E2C6;margin:0}
 
 /* founder */
 .founder{background:linear-gradient(180deg,#E1E9C9,#F4EBD9)}
 .founder-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
-.medallion{position:relative;width:300px;margin:0 auto}
-.medallion .ring{filter:drop-shadow(0 22px 44px rgba(90,45,15,.3))}
+.medallion{width:340px;margin:0 auto;filter:drop-shadow(0 26px 46px rgba(58,85,48,.35))}
+.medallion img{width:100%}
 .founder h2{font-size:clamp(34px,4.4vw,52px);color:var(--ink);line-height:1;margin-bottom:6px}
 .founder .role{font:600 12px/1 'Oswald';letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
 .founder p{font-size:16px;color:var(--muted);margin:0 0 15px}
-.sig{font-family:'Caveat',cursive;font-weight:700;font-size:34px;color:var(--deep);margin-top:10px;line-height:1}
+.sig{font-family:'Caveat',cursive;font-weight:700;font-size:34px;color:var(--green-deep);margin-top:10px;line-height:1}
 .sig small{display:block;font:600 11px/1 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:var(--soft);margin-top:4px}
 
 /* beta / forms */
@@ -138,18 +131,18 @@ section{position:relative}
 .beta .wrap{position:relative;z-index:2}
 .beta-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
 .beta h2{font-size:clamp(34px,4.4vw,54px);color:#fff;line-height:1;margin-bottom:16px}
-.beta .lead-copy{font-size:16px;color:#EAD3B2;margin:0 0 18px}
-.disc{background:rgba(200,154,74,.14);border:1px solid rgba(200,154,74,.4);border-radius:14px;padding:15px 17px;font-size:13.5px;color:#F0Dcbb}
+.beta .lead-copy{font-size:16px;color:#E4EBD6;margin:0 0 18px}
+.disc{background:rgba(200,154,74,.14);border:1px solid rgba(200,154,74,.4);border-radius:14px;padding:15px 17px;font-size:13.5px;color:#F0E6CF}
 .disc b{color:#fff}
-.formcard{background:var(--card);border-radius:22px;padding:30px;box-shadow:0 26px 60px rgba(20,10,4,.4)}
+.formcard{background:var(--card);border-radius:22px;padding:30px;box-shadow:0 26px 60px rgba(20,10,4,.4);color:var(--ink)}
 .formcard h3{font-size:28px;color:var(--ink);margin-bottom:4px}
 .formcard .fsub{font-size:13.5px;color:var(--muted);margin-bottom:18px}
 label{display:block;font:600 11px/1 'Oswald';letter-spacing:1.2px;text-transform:uppercase;color:var(--soft);margin:14px 0 6px}
 input,textarea{width:100%;background:var(--panel);border:1px solid var(--line2);border-radius:11px;padding:13px 14px;font:500 15px 'Archivo';color:var(--ink);outline:none;transition:border-color .12s}
-input:focus,textarea:focus{border-color:var(--accent)}
+input:focus,textarea:focus{border-color:var(--green)}
 textarea{resize:vertical;min-height:84px}
 .consent{display:flex;gap:10px;align-items:flex-start;margin-top:16px;cursor:pointer}
-.consent input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--accent)}
+.consent input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--green)}
 .consent span{font-size:12.5px;color:var(--muted)}
 .consent a{color:var(--accent);text-decoration:underline}
 .formcard .btn{width:100%;justify-content:center;margin-top:20px}
@@ -159,7 +152,7 @@ textarea{resize:vertical;min-height:84px}
 .formmsg.err{background:rgba(168,62,35,.12);border:1px solid rgba(168,62,35,.4);color:var(--accent)}
 .seg-note{font-size:12px;color:var(--soft);margin-top:12px;text-align:center}
 
-/* feedback teaser */
+/* feedback */
 .fb{background:var(--bg)}
 .fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start}
 .fb-list{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:12px}
@@ -169,15 +162,15 @@ textarea{resize:vertical;min-height:84px}
 .fb-list .rd{font-size:13px;color:var(--muted)}
 
 /* footer */
-footer{background:#211812;color:#D9C4A6;padding:52px 0 30px}
+footer{background:#1F2A1B;color:#D9E2C6;padding:52px 0 30px}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:34px;padding-bottom:30px;border-bottom:1px solid rgba(246,228,200,.14)}
 .foot-brand{font:400 30px/1 'Bebas Neue';letter-spacing:1.5px;color:#fff;margin-bottom:12px}
-.foot-brand b{color:var(--accent2)}
-footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
+.foot-brand b{color:#8FB07A}
+footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
 .foot-col h4{font:600 11px/1 'Oswald';letter-spacing:1.5px;text-transform:uppercase;color:#E7C39B;margin:0 0 14px}
-.foot-col a{display:block;font-size:14px;color:#C9B492;margin-bottom:10px}
+.foot-col a{display:block;font-size:14px;color:#C9D6B7;margin-bottom:10px}
 .foot-col a:hover{color:#fff}
-.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:22px;font-size:12px;color:#93805f}
+.foot-bottom{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:22px;font-size:12px;color:#93A583}
 .foot-bottom .fine{max-width:640px}
 
 @media (max-width:900px){
@@ -186,21 +179,22 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
   .navlinks a{padding:15px 24px;width:100%;border-bottom:1px solid var(--line)}
   .navlinks .btn{margin:12px 24px;width:calc(100% - 48px);justify-content:center}
   .menu-toggle{display:flex;background:none;border:none;cursor:pointer;padding:8px}
-  .hero .wrap{grid-template-columns:1fr;text-align:center;padding-top:44px;padding-bottom:70px}
+  .hero .wrap{grid-template-columns:1fr;text-align:center;padding-top:44px;padding-bottom:64px}
   .hero-sub{margin-left:auto;margin-right:auto}
   .hero-cta,.hero-tags{justify-content:center}
-  .hero-art{margin-top:20px}
+  .hero-art{margin-top:26px}
+  .f-fit{left:-4px} .f-stop{right:-4px}
   .vision-grid,.founder-grid,.beta-grid,.fb-grid{grid-template-columns:1fr;gap:34px}
   .feat-grid,.step-grid{grid-template-columns:1fr 1fr}
   .foot-grid{grid-template-columns:1fr 1fr}
-  .medallion{width:240px}
+  .medallion{width:260px}
 }
 @media (max-width:560px){
   .wrap{padding:0 18px}
   .sec{padding:64px 0}
   .feat-grid,.step-grid,.foot-grid{grid-template-columns:1fr}
-  .f-fit{left:-6px} .f-stop{right:-6px}
   .strip .wrap{gap:14px}
+  .hero-img{border-radius:20px}
 }
 </style>
 </head>
@@ -230,16 +224,6 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
 
 <!-- ===================== HERO ===================== -->
 <header class="hero">
-  <svg class="hero-sky" viewBox="0 0 1440 620" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-    <circle cx="1090" cy="180" r="120" fill="#F3B76F" opacity=".55"/>
-    <circle cx="1090" cy="180" r="78" fill="#EF9E52" opacity=".55"/>
-    <path d="M0 470 L180 400 L340 452 L520 388 L700 448 L900 396 L1120 456 L1300 404 L1440 452 L1440 620 L0 620 Z" fill="#E8A063" opacity=".5"/>
-    <path d="M0 528 L240 470 L470 524 L720 462 L980 522 L1230 470 L1440 520 L1440 620 L0 620 Z" fill="#C87A45" opacity=".5"/>
-    <g opacity=".62" fill="#8a4a28">
-      <path d="M1015 560c-3-14 2-30 12-34 3-9 14-12 20-6 8-2 15 5 14 13 6 3 7 13 1 17 2 8-6 15-13 12-5 6-15 5-19-2-6 2-13-3-15-13z"/>
-      <rect x="1049" y="556" width="4" height="34"/>
-    </g>
-  </svg>
   <div class="wrap">
     <div class="hero-copy">
       <div class="hero-badge"><span class="dot"></span> Prototype · Sample data · Free beta</div>
@@ -255,47 +239,16 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
       </div>
     </div>
     <div class="hero-art">
-      <div class="phone">
-        <div class="bezel">
-          <svg class="screen" viewBox="0 0 300 600" xmlns="http://www.w3.org/2000/svg">
-            <rect width="300" height="600" fill="#EFE0C4"/>
-            <!-- map bg -->
-            <rect width="300" height="470" fill="#E7D3A9"/>
-            <path d="M0 90 H300 M0 190 H300 M0 300 H300 M0 400 H300" stroke="#d8bd8c" stroke-width="1.5"/>
-            <path d="M70 0 V470 M170 0 V470 M240 0 V470" stroke="#d8bd8c" stroke-width="1.5"/>
-            <!-- route -->
-            <path d="M40 430 C110 380 90 250 170 210 S250 120 250 70" fill="none" stroke="#5E7A4E" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 12"/>
-            <!-- pins -->
-            <g fill="#5E7A4E"><circle cx="40" cy="430" r="9"/></g>
-            <g fill="#C89A4A"><circle cx="150" cy="255" r="8"/><circle cx="205" cy="150" r="8"/></g>
-            <g fill="#A83E23"><path d="M250 55c-11 0-19 8-19 18 0 13 19 27 19 27s19-14 19-27c0-10-8-18-19-18z"/><circle cx="250" cy="73" r="7" fill="#FBF3E4"/></g>
-            <!-- header -->
-            <rect width="300" height="60" fill="#7A2E1A"/>
-            <text x="20" y="38" font-family="Bebas Neue" font-size="26" fill="#FBF3E4" letter-spacing="1">TRAIL MAP</text>
-            <rect x="196" y="18" width="86" height="26" rx="13" fill="#FBF3E4" opacity=".9"/>
-            <text x="239" y="35" font-family="Oswald" font-size="11" fill="#7A2E1A" text-anchor="middle" letter-spacing="1">FILTER ▾</text>
-            <!-- bottom card -->
-            <rect x="0" y="470" width="300" height="130" fill="#FCF5E6"/>
-            <rect x="18" y="486" width="70" height="70" rx="12" fill="#E7D3A9"/>
-            <path d="M30 540 l14-20 12 14 10-12 12 18z" fill="#b9975c"/>
-            <circle cx="40" cy="506" r="6" fill="#e8c98a"/>
-            <text x="100" y="504" font-family="Bebas Neue" font-size="20" fill="#2C2118" letter-spacing="1">CANYON RIM ARENA</text>
-            <rect x="100" y="514" width="88" height="20" rx="10" fill="rgba(94,122,78,.18)"/>
-            <text x="144" y="528" font-family="Oswald" font-size="10" fill="#3F6B32" text-anchor="middle" letter-spacing="1">FITS YOUR RIG</text>
-            <text x="100" y="552" font-family="Archivo" font-size="11" fill="#6b543a">14&#8242; clear · 60&#8242; pull-through · hookups</text>
-            <text x="100" y="572" font-family="Archivo" font-size="11" fill="#8A7458">★ 4.8 · verified 3 days ago</text>
-          </svg>
-        </div>
-      </div>
+      <img class="hero-img" src="img/hero.jpg" width="2400" height="1600" alt="A green pickup hauling a cream gooseneck horse trailer down a desert highway at golden hour, mesas behind" fetchpriority="high">
       <div class="floaty f-fit">
         <div class="fi" style="background:rgba(94,122,78,.18)">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3F6B32" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         </div>
-        <div><div class="ft">FITS</div><div class="fs">14′ gooseneck</div></div>
+        <div><div class="ft">FITS</div><div class="fs">32′ gooseneck · 13′ tall</div></div>
       </div>
       <div class="floaty f-stop">
-        <div class="fi" style="background:rgba(200,154,74,.2)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#986412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <div class="fi" style="background:rgba(194,82,50,.18)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A83E23" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 0114 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
         </div>
         <div><div class="ft">6 stops</div><div class="fs">on your route</div></div>
       </div>
@@ -328,6 +281,7 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
         </ul>
       </div>
       <div class="vision-card">
+        <img src="img/arena.jpg" width="2400" height="1350" alt="The rig pulling up beside a rodeo arena with barrels set for a cloverleaf, a red barn behind" loading="lazy">
         <div class="q">"Where can I actually park this thing, sleep my horses, and get back on the road — without ten browser tabs and a bad hunch?"</div>
         <div class="qs">That's the question Haulin' Hooves is built to answer. This prototype is our first swing at it — real vision, sample data, and a wide-open ear for what you'd need to make it a daily driver.</div>
       </div>
@@ -338,17 +292,17 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
 <!-- ===================== FEATURES ===================== -->
 <section class="sec" id="features">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">What's inside</div><h2>Everything the season throws at you — handled.</h2><p>A working prototype you can tap through today. Every screen below is live in the demo.</p></div>
+    <div class="sec-head"><div class="eyebrow">What's inside</div><h2>Everything the season throws at you — handled.</h2><p>A working prototype you can tap through today. Every feature below is live in the demo.</p></div>
     <div class="feat-grid">
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6-3-6 3z"/><path d="M9 7v13M15 4v13"/></svg></div><h3>Trail map</h3><p>Arenas, lodging, feed, parking, farriers, vets and dumps on one continental map — every layer filtered to stops that fit your rig.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="15" height="10" rx="1.5"/><path d="M16 10h4l3 3v4h-7z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/></svg></div><h3>Real fit engine</h3><p>Bridge clearance, length, grade and turning checks per rig — surfaced as a plain-English road verdict and a crosswind / brake-fade / tight-turn risk profile.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M9 6h7a4 4 0 010 8H8a4 4 0 000 8h7"/></svg></div><h3>Route mode</h3><p>Enter your address and first event; the planner builds the corridor and auto-drops the nearest fuel, dump, feed and 24/7 vet on every leg — flagging roads that block your rig.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 012-2h14a2 2 0 012 2v6"/><path d="M3 14h18M7 10V7a2 2 0 012-2h6a2 2 0 012 2v3"/><path d="M3 18v2M21 18v2"/></svg></div><h3>Lodging &amp; stops</h3><p>Horse-friendly stays, feed stores, fuel and parking with the details that matter: pull-through access, hookups, clearances and hours.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18" opacity=".0"/><path d="M11 3h2v6h6v2h-6v6h-2v-6H5V9h6z"/></svg></div><h3>Vets &amp; dumps</h3><p>24/7 emergency vets and dump stations mapped alongside everything else — plus an SOS that calls the nearest vet when it counts.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.7L12 17.3 5.8 20.8l1.6-6.7L2.2 8.9l6.9-.6z"/></svg></div><h3>Reviews &amp; freshness</h3><p>Star ratings from other haulers and a "last verified" stamp on every listing, so you trust what you're driving toward.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 100 18 3 3 0 003-3 2 2 0 012-2 4 4 0 004-4 9 9 0 00-13-9z"/><circle cx="7.5" cy="10.5" r="1.2" fill="#A83E23"/><circle cx="12" cy="7.5" r="1.2" fill="#A83E23"/><circle cx="16.5" cy="10.5" r="1.2" fill="#A83E23"/></svg></div><h3>Trail styles</h3><p>Six western color skins — Sunset, Rosé, Turquoise, Sage, Denim, Buckskin — that retint the whole app, right down to the 3D rig.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" opacity="0"/><rect x="2" y="4" width="14" height="9" rx="1.5"/><path d="M16 7h3l3 3v3h-6z"/><circle cx="6" cy="16" r="2"/><circle cx="18" cy="16" r="2"/><path d="M3 18l0 2M21 18l0 2"/></svg></div><h3>Multiple rigs &amp; 3D setup</h3><p>Build your trailer in an interactive 3D configurator, save several rigs, and switch between them — fit recomputes everywhere instantly.</p></div>
-      <div class="card"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5E7A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M21 3l-9 9M10 5H5a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2v-5"/></svg></div><h3>Deep actions</h3><p>Tap to call or text farriers, feed stores and emergency vets, reserve stays, hold parking, and add events straight to your calendar.</p></div>
+      <div class="card"><div class="cimg float"><img src="img/f-map.png" alt="A 3D map tile with a winding road, mesas, and green and orange location pins" loading="lazy"></div><h3>Trail map</h3><p>Arenas, lodging, feed, parking, farriers, vets and dumps on one continental map — every layer filtered to stops that fit your rig.</p></div>
+      <div class="card"><div class="cimg"><img src="img/f-fit.jpg" alt="The rig approaching a highway overpass with a yellow clearance sign reading 13 feet 6 inches" loading="lazy"></div><h3>Real fit engine</h3><p>Bridge clearance, length, grade and turning checks per rig — surfaced as a plain-English road verdict and a crosswind / brake-fade / tight-turn risk profile.</p></div>
+      <div class="card"><div class="cimg"><img src="img/f-route.jpg" alt="An overhead view of a winding road with a fuel station, vet clinic and feed store marked along it" loading="lazy"></div><h3>Route mode</h3><p>Enter your address and first event; the planner builds the corridor and auto-drops the nearest fuel, dump, feed and 24/7 vet on every leg — flagging roads that block your rig.</p></div>
+      <div class="card"><div class="cimg"><img src="img/f-lodging.jpg" alt="The rig parked beside a red horse barn with hay bales and a paddock" loading="lazy"></div><h3>Lodging &amp; stops</h3><p>Horse-friendly stays, feed stores, fuel and parking with the details that matter: pull-through access, hookups, clearances and hours.</p></div>
+      <div class="card"><div class="cimg"><img src="img/f-vets.jpg" alt="A 24/7 vet clinic with a cross sign next to a dump station" loading="lazy"></div><h3>Vets &amp; dumps</h3><p>24/7 emergency vets and dump stations mapped alongside everything else — plus an SOS that calls the nearest vet when it counts.</p></div>
+      <div class="card"><div class="cimg"><img src="img/f-fuelfeed.jpg" alt="A fuel canopy with pumps beside a feed and tack store with a porch" loading="lazy"></div><h3>Fuel &amp; feed</h3><p>Rig-friendly fuel stops and feed &amp; tack stores with hours and clearances, so you never pull a 32-foot rig into a lot you can't get out of.</p></div>
+      <div class="card"><div class="cimg float"><img src="img/f-reviews.png" alt="A plaque with brass stars showing a 4.8 rating and a green verified badge" loading="lazy"></div><h3>Reviews &amp; freshness</h3><p>Star ratings from other haulers and a "last verified" stamp on every listing, so you trust what you're driving toward.</p></div>
+      <div class="card"><div class="cimg float"><img src="img/f-rigs.png" alt="A gooseneck rig and a bumper-pull rig side by side on a turntable" loading="lazy"></div><h3>Multiple rigs &amp; 3D setup</h3><p>Build your trailer in an interactive 3D configurator, save several rigs, and switch between them — fit recomputes everywhere instantly.</p></div>
+      <div class="card"><div class="cimg float"><img src="img/f-actions.png" alt="A phone showing Call Vet, Text Farrier and Reserve Stay buttons" loading="lazy"></div><h3>Deep actions</h3><p>Tap to call or text farriers, feed stores and emergency vets, reserve stays, hold parking, and add events straight to your calendar.</p></div>
     </div>
   </div>
 </section>
@@ -369,24 +323,7 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
 <section class="sec founder" id="founder">
   <div class="wrap">
     <div class="founder-grid">
-      <div class="medallion">
-        <svg class="ring" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="150" cy="150" r="146" fill="#7A2E1A"/>
-          <circle cx="150" cy="150" r="146" fill="none" stroke="#C89A4A" stroke-width="3"/>
-          <circle cx="150" cy="150" r="120" fill="none" stroke="#C89A4A" stroke-width="1.5" stroke-dasharray="2 7"/>
-          <circle cx="150" cy="150" r="108" fill="#F7D9B4"/>
-          <!-- rider silhouette -->
-          <g fill="#7A2E1A">
-            <path d="M96 210c6-30 20-40 20-40l-6-16c-2-6 1-12 7-13l10-2 6-14c2-5 8-7 12-4 3-8 12-3 10 3 8 1 9 10 3 14l-8 24c14 6 26 20 30 44l6 38H92z"/>
-            <path d="M132 96c0-8 7-14 15-14s15 6 15 14c3 0 5 2 5 4 0 3-3 5-7 5h-26c-4 0-7-2-7-5 0-2 2-4 5-4z"/>
-          </g>
-          <!-- horseshoe -->
-          <g transform="translate(150 250)" fill="none" stroke="#7A2E1A" stroke-width="6" stroke-linecap="round">
-            <path d="M-16 12c-6-8-9-18-4-27 4-8 16-8 20 0 5 9 2 19-4 27"/>
-          </g>
-          <text x="150" y="150" font-family="Bebas Neue" font-size="40" fill="#7A2E1A" text-anchor="middle" opacity="0"></text>
-        </svg>
-      </div>
+      <div class="medallion"><img src="img/emblem.png" width="1600" height="1600" alt="Haulin' Hooves brass and green enamel emblem with a horseshoe" loading="lazy"></div>
       <div>
         <div class="eyebrow">Meet the founder</div>
         <h2>Kimberly Karlovich</h2>
@@ -410,9 +347,9 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
         <p class="lead-copy">Drop your details to test the demo, get early access as it grows, and tell us exactly what would make Haulin' Hooves a daily driver for your season. We read every note.</p>
         <div class="disc"><b>Heads up — it's a prototype.</b> Every arena, stay, price, phone number, rating and hazard you see is <b>sample data for demonstration only</b>. Nothing here is bookable or verified yet. This build exists to show the vision and gather your feedback — not to plan a real haul.</div>
         <ul class="checks" style="margin-top:22px">
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="color:#EAD3B2">Free to try — no card, no commitment</span></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="color:#EAD3B2">Early access as new features land</span></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="color:#EAD3B2">A direct line to shape the roadmap</span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="color:#E4EBD6">Free to try — no card, no commitment</span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="color:#E4EBD6">Early access as new features land</span></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="color:#E4EBD6">A direct line to shape the roadmap</span></li>
         </ul>
       </div>
       <div class="formcard">
@@ -514,14 +451,9 @@ footer p{font-size:13.5px;color:#B8A480;margin:0 0 8px;max-width:340px}
 </footer>
 
 <script>
-/* nav */
 function toggleMenu(){ document.getElementById('navlinks').classList.toggle('open'); }
 function closeMenu(){ document.getElementById('navlinks').classList.remove('open'); }
-
-/* demo hand-off — skip the in-app lead gate for folks coming from the site */
 function launchDemo(e){ try{ localStorage.setItem('hh_lead_done','1'); }catch(err){} return true; }
-
-/* submission plumbing */
 function hhEmailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function hhPhoneOk(v){ return !v || v.replace(/[^0-9]/g,'').length >= 10; }
 function hhSave(kind, data){
@@ -530,7 +462,6 @@ function hhSave(kind, data){
   if(url){ try{ fetch(url,{method:'POST',mode:'no-cors',body:JSON.stringify(Object.assign({type:kind,source:'landing'},data))}).catch(function(){}); }catch(e){} }
 }
 function hhMsg(el, ok, text){ el.textContent=text; el.className='formmsg show '+(ok?'ok':'err'); }
-
 function submitLead(e){
   e.preventDefault();
   var f=e.target, name=f.name.value.trim(), email=f.email.value.trim(), phone=f.phone.value.trim();
@@ -544,8 +475,6 @@ function submitLead(e){
   f.reset();
   return false;
 }
-
-/* feedback stars */
 var fbRating=0;
 document.querySelectorAll('#fbStars .star').forEach(function(s){
   s.addEventListener('click',function(){

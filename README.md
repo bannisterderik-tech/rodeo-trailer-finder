@@ -10,6 +10,12 @@ Imported from a [Claude Design](https://claude.ai/design) project and hosted on 
 - **`app.html`** — the mobile-first **demo app** (the interactive prototype; "Launch the demo" from the landing opens it).
 - **`privacy.html` · `terms.html` · `do-not-sell.html`** — legal template pages.
 
+## Artwork
+
+All illustrations are 3D renders (Blender / Cycles) in the brand palette — green primary, orange accent, warm cream neutrals — with one scene per thing the app does (rig hero, arena, trail map, fit engine, route mode, lodging, vets &amp; dumps, fuel &amp; feed, multiple rigs, reviews, deep actions, founder emblem). Web-optimized copies live in `img/`.
+
+**`Haulin-Hooves-Beachhead-Beta-Playbook.pdf`** — the branded beachhead-circuit + beta-list playbook for the founder.
+
 ## Collecting leads &amp; feedback
 
 Beta signups (landing) and feedback (landing + in-app survey) POST to the webhook set in **`config.js`** (`window.HH_WEBHOOK`). Left blank, submissions stay in the visitor's browser. See **[SETUP.md](SETUP.md)** for a 5-minute Google Sheet webhook (Apps Script) you can paste in.
