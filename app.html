@@ -107,19 +107,6 @@
               </div>
             </div>
 
-            <!-- pick a trail style -->
-            <div style="margin-top:18px">
-              <div style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase;margin-bottom:10px">Pick your trail style</div>
-              <div style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
-                <sc-for list="{{ skinOpts }}" as="sk" hint-placeholder-count="6">
-                  <div onClick="{{ sk.pick }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer">
-                    <div style="width:34px;height:34px;border-radius:50%;background:{{ sk.dot }};border:{{ sk.ringW }} solid {{ sk.ring }};box-shadow:0 2px 6px rgba(90,58,18,.22)"></div>
-                    <span style="font:600 8px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sk.nameFg }}">{{ sk.name }}</span>
-                  </div>
-                </sc-for>
-              </div>
-            </div>
-
             <sc-if value="{{ hasLeadErr }}" hint-placeholder-val="{{ false }}">
               <div style="margin-top:12px;font:600 11px 'Archivo';color:#A83E23;background:rgba(168,62,35,.1);border:1px solid rgba(168,62,35,.28);border-radius:10px;padding:9px 12px">{{ leadErr }}</div>
             </sc-if>
@@ -214,18 +201,6 @@
             <div onClick="{{ toggleLQ }}" style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;cursor:pointer">
               <div><div style="font:600 12px 'Archivo';color:#2C2118">Living Quarters</div><div style="font:400 10px 'Archivo';color:#9c855f">Needs hookups at venue</div></div>
               <div style="width:46px;height:27px;border-radius:14px;background:{{ lqTrack }};position:relative;transition:.25s;flex:none"><div style="position:absolute;top:3px;left:{{ lqDot }};width:21px;height:21px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 1px 4px rgba(60,35,12,.35)"></div></div>
-            </div>
-
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
-              <span style="font:600 10px 'Oswald';letter-spacing:1.5px;color:#8A7458;text-transform:uppercase">Trail Style</span>
-              <div style="display:flex;gap:11px;align-items:center">
-                <sc-for list="{{ skinOpts }}" as="sk" hint-placeholder-count="6">
-                  <div onClick="{{ sk.pick }}" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer">
-                    <div style="width:26px;height:26px;border-radius:50%;background:{{ sk.dot }};border:{{ sk.ringW }} solid {{ sk.ring }};box-shadow:0 2px 5px rgba(90,58,18,.2)"></div>
-                    <span style="font:600 7.5px 'Oswald';letter-spacing:.5px;text-transform:uppercase;color:{{ sk.nameFg }}">{{ sk.name }}</span>
-                  </div>
-                </sc-for>
-              </div>
             </div>
 
             <div onClick="{{ enterApp }}" style="margin-top:16px;text-align:center;padding:15px 0;border-radius:14px;cursor:pointer;font:400 22px 'Bebas Neue';letter-spacing:2px;color:#FBF3E4;background:{{ themeGrad }};box-shadow:0 8px 20px {{ themeGlow }}">SADDLE UP → FIND VENUES</div>
@@ -1533,18 +1508,16 @@ class Component extends DCLogic {
     checkedAt: null,
     nudged: {},
     sosOn: false,
-    skin: 'sunset',
+    skin: 'brand',
     map: { x: 0, y: -70, s: 1 }
   };
 
   // c1..c4 = light→deep parchment ramp that retints the whole app per skin
+  // Locked brand palette — "Sage & Sunset": green is the primary (accents, nav,
+  // rig, map, toggles); orange is reserved for CTA buttons (see themeGrad);
+  // neutrals stay warm cream so both colors pop.
   SKINS = {
-    sunset:    { name:'Sunset',    accent:'#B4472A', deep:'#A83E23', light:'#C25232', glow:'rgba(168,62,35,.32)',  soft:'rgba(180,71,42,.10)',  dot:'linear-gradient(140deg,#C25232,#8f2f18)', c0:'#FFFBF1', c1:'#FCF5E6', c2:'#F4EBD9', c3:'#EEDFC2', c4:'#DCC59C' },
-    rose:      { name:'Rosé',      accent:'#C24A78', deep:'#A8365F', light:'#D65E8C', glow:'rgba(168,54,95,.34)',   soft:'rgba(198,74,120,.12)', dot:'linear-gradient(140deg,#E27AA0,#A8365F)', c0:'#FFF5FA', c1:'#FBEAF0', c2:'#F5DEE7', c3:'#EBC8D6', c4:'#D49CB4' },
-    turquoise: { name:'Turquoise', accent:'#1F8A8A', deep:'#166B6B', light:'#2AA1A1', glow:'rgba(22,107,107,.32)',  soft:'rgba(31,138,138,.12)', dot:'linear-gradient(140deg,#3FB6B6,#166B6B)', c0:'#F1FCF8', c1:'#E3F3ED', c2:'#D2E9DF', c3:'#B7DACD', c4:'#8FC4B4' },
-    sage:      { name:'Sage',      accent:'#5E7A4E', deep:'#47613A', light:'#6E8C5A', glow:'rgba(71,97,58,.32)',    soft:'rgba(94,122,78,.12)',  dot:'linear-gradient(140deg,#7C9A63,#47613A)', c0:'#F9FCEE', c1:'#EFF3E2', c2:'#E1E9C9', c3:'#CDDAAF', c4:'#A8BC82' },
-    denim:     { name:'Denim',     accent:'#4C5C86', deep:'#384769', light:'#5D6E9C', glow:'rgba(56,71,105,.34)',   soft:'rgba(76,92,134,.12)',  dot:'linear-gradient(140deg,#6E7FAE,#384769)', c0:'#F4F7FD', c1:'#EAEEF7', c2:'#D9E1F1', c3:'#C3CCE1', c4:'#9BA8CC' },
-    buckskin:  { name:'Buckskin',  accent:'#B07A2E', deep:'#8A5D1E', light:'#C69138', glow:'rgba(138,93,30,.32)',   soft:'rgba(176,122,46,.12)', dot:'linear-gradient(140deg,#D2A44E,#8A5D1E)', c0:'#FFFCEF', c1:'#F9F0D6', c2:'#F0E1B6', c3:'#E4CE98', c4:'#C9A44E' }
+    brand: { name:'Sage & Sunset', accent:'#5E7A4E', deep:'#47613A', light:'#6E8C5A', glow:'rgba(168,62,35,.32)', soft:'rgba(94,122,78,.12)', dot:'linear-gradient(140deg,#7C9A63,#47613A)', c0:'#FFFBF1', c1:'#FCF5E6', c2:'#F4EBD9', c3:'#EEDFC2', c4:'#DCC59C' }
   };
   setSkin(k) { this.setState({ skin: k }); }
 
@@ -2168,7 +2141,7 @@ class Component extends DCLogic {
   }
   mount3D() {
     if (!this.renderer) return;
-    if (this.paintMat) { const acc = (this.SKINS[this.state.skin] || this.SKINS.sunset).deep; if (this._paintHex !== acc) { this.paintMat.color.set(acc); this._paintHex = acc; } }
+    if (this.paintMat) { const acc = (this.SKINS[this.state.skin] || this.SKINS.brand).deep; if (this._paintHex !== acc) { this.paintMat.color.set(acc); this._paintHex = acc; } }
     const c = document.getElementById('rig3d');
     if (!c) return;
     if (this.renderer.domElement.parentNode !== c) { c.innerHTML = ''; c.appendChild(this.renderer.domElement); }
@@ -2182,17 +2155,12 @@ class Component extends DCLogic {
   renderVals() {
     const st = this.state, r = st.rig, f = st.filters;
     const screen = st.screen;
-    const theme = this.SKINS[st.skin] || this.SKINS.sunset;
+    const theme = this.SKINS[st.skin] || this.SKINS.brand;
     const GRAD = 'linear-gradient(180deg,' + theme.light + ',' + theme.deep + ')';
     const ACC = theme.accent, DEEP = theme.deep;
-    const seg = (on) => on ? { bg:GRAD, fg:'#FBF3E4', bd:'rgba(168,62,35,.5)' } : { bg:'#F0E6D2', fg:'#8A7458', bd:'rgba(74,48,22,.16)' };
+    const seg = (on) => on ? { bg:GRAD, fg:'#FBF3E4', bd:'rgba(71,97,58,.5)' } : { bg:'#F0E6D2', fg:'#8A7458', bd:'rgba(74,48,22,.16)' };
     const g = seg(r.type === 'gooseneck'), b = seg(r.type === 'bumper');
     const navc = k => screen === k ? theme.accent : '#A8906E';
-    const skinOpts = Object.keys(this.SKINS).map(k => { const sk = this.SKINS[k]; const on = st.skin === k;
-      return { key:k, name:sk.name, dot:sk.dot, pick:() => this.setSkin(k),
-        ring: on ? sk.accent : 'rgba(74,48,22,.18)', ringW: on ? '2.5px' : '1.5px',
-        nameFg: on ? sk.accent : '#9c855f' }; });
-
     const withC = this.venues.map(v => { const c = this.compat(v); const fs = this.fitStyle(c); return { v, c, fs }; });
     const resultCount = withC.filter(o => o.c.ok).length;
 
@@ -2538,7 +2506,7 @@ class Component extends DCLogic {
       slotOpts, toggleLQ: () => this.setRig('lq', !r.lq), lqTrack: lqOn?TON:TOFF, lqDot: lqOn?'22px':'3px',
       togglePull: () => this.setState({ filters: { ...f, requirePull: !f.requirePull } }), pullTrack: pullOn?TON:TOFF, pullDot: pullOn?'22px':'3px',
       enterApp: () => this.setScreen('map'),
-      skinOpts, themeAcc: theme.accent, themeDeep: theme.deep, themeGrad: 'linear-gradient(180deg,'+theme.light+','+theme.deep+')', themeGlow: theme.glow, themeSoft: theme.soft,
+      themeAcc: theme.accent, themeDeep: theme.deep, themeGrad: 'linear-gradient(180deg,#C25232,#A83E23)', themeGlow: 'rgba(168,62,35,.32)', themeSoft: theme.soft,
       themeSurf: theme.c2, themePanel: theme.c1, themeSeg: theme.c3, themeCard: theme.c0, themeLand1: theme.c3, themeLand2: theme.c4,
       themeDeskBg: 'linear-gradient(155deg,'+theme.c2+','+theme.c3+','+theme.c4+')',
       themeScreenBg: 'linear-gradient(180deg,'+theme.c1+','+theme.c2+')',
