@@ -1738,12 +1738,12 @@ class Component extends DCLogic {
   // Submissions POST to the webhook in config.js (window.HH_WEBHOOK) — set it to
   // your Google Apps Script Web App URL to collect leads + feedback in a Google
   // Sheet (see SETUP.md). Left blank, entries stay in the visitor's browser.
-  get FORM_ENDPOINT() { return (typeof window !== 'undefined' && window.HH_WEBHOOK) || ''; }
   _emailOk(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
   _phoneOk(p) { return !p || p.replace(/[^0-9]/g, '').length >= 10; }
-  _post(kind, data) { try { const key = 'hh_' + kind; const arr = JSON.parse(localStorage.getItem(key) || '[]'); arr.push(data); localStorage.setItem(key, JSON.stringify(arr)); } catch (e) {}
-    const url = this.FORM_ENDPOINT;
-    if (url) { try { fetch(url, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: kind, source: 'app', ...data }) }).catch(() => {}); } catch (e) {} } }
+  // Delivery (email + optional webhook + local copy) lives in config.js -> window.hhDeliver.
+  _post(kind, data) { const rec = { source: 'app', ...data };
+    if (typeof window !== 'undefined' && window.hhDeliver) return window.hhDeliver(kind, rec);
+    try { const key = 'hh_' + kind; const arr = JSON.parse(localStorage.getItem(key) || '[]'); arr.push(rec); localStorage.setItem(key, JSON.stringify(arr)); } catch (e) {} }
   setLead(k, v) { this.setState(st => ({ lead: { ...st.lead, [k]: v }, leadErr: '' })); }
   submitLead() { const l = this.state.lead;
     if (!l.name.trim()) return this.setState({ leadErr: 'Please enter your name.' });

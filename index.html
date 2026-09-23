@@ -457,9 +457,9 @@ function launchDemo(e){ try{ localStorage.setItem('hh_lead_done','1'); }catch(er
 function hhEmailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function hhPhoneOk(v){ return !v || v.replace(/[^0-9]/g,'').length >= 10; }
 function hhSave(kind, data){
-  try{ var k='hh_'+kind, a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(data); localStorage.setItem(k, JSON.stringify(a)); }catch(e){}
-  var url = window.HH_WEBHOOK || '';
-  if(url){ try{ fetch(url,{method:'POST',mode:'no-cors',body:JSON.stringify(Object.assign({type:kind,source:'landing'},data))}).catch(function(){}); }catch(e){} }
+  var rec = Object.assign({source:'landing'}, data);
+  if (window.hhDeliver) return window.hhDeliver(kind, rec);          // config.js: email + optional webhook + local copy
+  try{ var k='hh_'+kind, a=JSON.parse(localStorage.getItem(k)||'[]'); a.push(rec); localStorage.setItem(k, JSON.stringify(a)); }catch(e){}
 }
 function hhMsg(el, ok, text){ el.textContent=text; el.className='formmsg show '+(ok?'ok':'err'); }
 function submitLead(e){
