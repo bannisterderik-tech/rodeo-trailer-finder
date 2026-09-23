@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <title>Haulin' Hooves — one app for the whole horse-event season</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Haulin' Hooves helps horse-event haulers find arenas, lodging, feed, fuel, vets and dump stations that actually fit their rig — one stop for the whole season. Free beta prototype.">
+<meta name="description" content="Haulin' Hooves helps horse-event haulers find arenas, lodging, feed, fuel, vets and dump stations that actually fit their rig — one stop for the whole season. Now in private beta — request early access.">
 <meta name="theme-color" content="#47613A">
 <meta property="og:title" content="Haulin' Hooves — the one-stop app for horse-event season">
-<meta property="og:description" content="Arenas, lodging, feed, fuel, vets and dumps that fit your rig — planned in one place. Try the free beta.">
+<meta property="og:description" content="Arenas, lodging, feed, fuel, vets and dumps that fit your rig — planned in one place. Request early access to the private beta.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="img/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -151,6 +151,10 @@ textarea{resize:vertical;min-height:84px}
 .formmsg.ok{background:rgba(94,122,78,.16);border:1px solid rgba(94,122,78,.44);color:#3F6B32}
 .formmsg.err{background:rgba(168,62,35,.12);border:1px solid rgba(168,62,35,.4);color:var(--accent)}
 .seg-note{font-size:12px;color:var(--soft);margin-top:12px;text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.chip{cursor:pointer;padding:8px 13px;border-radius:20px;font:600 12px 'Archivo';color:var(--muted);background:var(--panel);border:1px solid var(--line2);user-select:none;transition:background .12s,color .12s}
+.chip:hover{border-color:var(--green)}
+.chip.on{color:#FBF3E4;background:var(--green);border-color:var(--green)}
 
 /* feedback */
 .fb{background:var(--bg)}
@@ -226,12 +230,12 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
 <header class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <div class="hero-badge"><span class="dot"></span> Prototype · Sample data · Free beta</div>
+      <div class="hero-badge"><span class="dot"></span> Prototype · Sample data · Private beta</div>
       <h1>The whole horse-event season,<br><span class="u">in one app.</span></h1>
       <p class="hero-sub">Arenas, lodging, feed, fuel, farriers, vets and dump stations — filtered to the stops that actually <em>fit your rig</em>, then planned into one clean haul. No more twelve tabs and a paper map.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary btn-lg" href="app.html" onclick="return launchDemo(event)">Launch the demo →</a>
-        <a class="btn btn-ghost btn-lg" href="#beta">Join the beta</a>
+        <a class="btn btn-primary btn-lg" href="#beta">Request early access →</a>
+        <a class="btn btn-ghost btn-lg" href="#feedback">Give feedback</a>
       </div>
       <div class="hero-tags">
         <span class="tag">🏟 Arenas</span><span class="tag">🛏 Lodging</span><span class="tag">🌾 Feed</span>
@@ -292,7 +296,7 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
 <!-- ===================== FEATURES ===================== -->
 <section class="sec" id="features">
   <div class="wrap">
-    <div class="sec-head"><div class="eyebrow">What's inside</div><h2>Everything the season throws at you — handled.</h2><p>A working prototype you can tap through today. Every feature below is live in the demo.</p></div>
+    <div class="sec-head"><div class="eyebrow">What's inside</div><h2>Everything the season throws at you — handled.</h2><p>A working prototype, now in private beta. Request access below to be among the first haulers to try it — and tell us what to build next.</p></div>
     <div class="feat-grid">
       <div class="card"><div class="cimg float"><img src="img/f-map.png" alt="A 3D map tile with a winding road, mesas, and green and orange location pins" loading="lazy"></div><h3>Trail map</h3><p>Arenas, lodging, feed, parking, farriers, vets and dumps on one continental map — every layer filtered to stops that fit your rig.</p></div>
       <div class="card"><div class="cimg"><img src="img/f-fit.jpg" alt="The rig approaching a highway overpass with a yellow clearance sign reading 13 feet 6 inches" loading="lazy"></div><h3>Real fit engine</h3><p>Bridge clearance, length, grade and turning checks per rig — surfaced as a plain-English road verdict and a crosswind / brake-fade / tight-turn risk profile.</p></div>
@@ -344,7 +348,7 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
       <div>
         <div class="eyebrow" style="color:var(--gold)">Join the beta</div>
         <h2>Ride with us — and help make it perfect.</h2>
-        <p class="lead-copy">Drop your details to test the demo, get early access as it grows, and tell us exactly what would make Haulin' Hooves a daily driver for your season. We read every note.</p>
+        <p class="lead-copy">The demo is in private beta and we're inviting haulers in waves. Drop your details to request access, and tell us exactly what would make Haulin' Hooves a daily driver for your season. We read every note.</p>
         <div class="disc"><b>Heads up — it's a prototype.</b> Every arena, stay, price, phone number, rating and hazard you see is <b>sample data for demonstration only</b>. Nothing here is bookable or verified yet. This build exists to show the vision and gather your feedback — not to plan a real haul.</div>
         <ul class="checks" style="margin-top:22px">
           <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span style="color:#E4EBD6">Free to try — no card, no commitment</span></li>
@@ -353,8 +357,8 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
         </ul>
       </div>
       <div class="formcard">
-        <h3>Get early access</h3>
-        <div class="fsub">Test the demo &amp; help steer what we build next.</div>
+        <h3>Request early access</h3>
+        <div class="fsub">Join the private-beta waitlist &amp; help steer what we build next.</div>
         <form id="leadForm" onsubmit="return submitLead(event)">
           <label for="ln">Name</label>
           <input id="ln" name="name" autocomplete="name" placeholder="Jane Rider" required>
@@ -363,9 +367,9 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
           <label for="lp">Phone <span style="text-transform:none;color:var(--soft);font-weight:500">(optional)</span></label>
           <input id="lp" name="phone" type="tel" autocomplete="tel" placeholder="(555) 123-4567">
           <label class="consent"><input type="checkbox" id="lc" required><span>I agree to be contacted about the beta and accept the <a href="terms.html">Terms</a> &amp; <a href="privacy.html">Privacy Policy</a>.</span></label>
-          <button class="btn btn-primary" type="submit">Count me in →</button>
+          <button class="btn btn-primary" type="submit">Request access →</button>
           <div class="formmsg" id="leadMsg"></div>
-          <div class="seg-note">Prefer to look first? <a href="app.html" onclick="return launchDemo(event)" style="color:var(--accent);text-decoration:underline">Launch the demo</a> — no signup needed.</div>
+          <div class="seg-note">Access invites go out in waves — we'll email you when your spot opens.</div>
         </form>
       </div>
     </div>
@@ -385,12 +389,11 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
           <li><span class="rank">#2</span><div><div class="rt">The next most-wanted</div><div class="rd">What would move it from "neat demo" to "can't haul without it."</div></div></li>
           <li><span class="rank">#3</span><div><div class="rt">A nice-to-have</div><div class="rd">The little touch that would make you smile.</div></div></li>
         </ul>
-        <p style="font-size:13.5px;color:var(--soft);margin-top:16px">The full quiz-style survey (ratings + ranked feature requests) lives inside the demo — tap the <b>Feedback</b> button any time.</p>
-        <a class="btn btn-ghost" href="app.html" onclick="return launchDemo(event)" style="margin-top:8px">Open the demo &amp; survey →</a>
+        <p style="font-size:13.5px;color:var(--soft);margin-top:16px">No login needed — the survey on the right takes about a minute, and every answer lands with the founder.</p>
       </div>
       <div class="formcard">
         <h3>Quick feedback</h3>
-        <div class="fsub">30 seconds — no login. Leave anything on your mind.</div>
+        <div class="fsub">About a minute — no login. Tap your answers, rank your requests, leave a note.</div>
         <form id="fbForm" onsubmit="return submitFb(event)">
           <label>Overall, how does the vision land?</label>
           <div id="fbStars" style="display:flex;gap:8px;margin-bottom:2px">
@@ -400,6 +403,14 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
             <span data-v="4" class="star" style="cursor:pointer;font-size:34px;color:rgba(74,48,22,.22);line-height:1">★</span>
             <span data-v="5" class="star" style="cursor:pointer;font-size:34px;color:rgba(74,48,22,.22);line-height:1">★</span>
           </div>
+          <label>Would you use this for a real haul?</label>
+          <div class="chips"><span class="chip" data-q="wouldUse" data-v="Definitely">Definitely</span><span class="chip" data-q="wouldUse" data-v="Maybe">Maybe</span><span class="chip" data-q="wouldUse" data-v="Not really">Not really</span></div>
+          <label>What's the most useful part?</label>
+          <div class="chips"><span class="chip" data-q="mostUseful" data-v="Trail map">Trail map</span><span class="chip" data-q="mostUseful" data-v="Rig-fit check">Rig-fit check</span><span class="chip" data-q="mostUseful" data-v="Route planner">Route planner</span><span class="chip" data-q="mostUseful" data-v="Lodging &amp; stops">Lodging &amp; stops</span><span class="chip" data-q="mostUseful" data-v="Vets &amp; dumps">Vets &amp; dumps</span></div>
+          <label>What needs the most work?</label>
+          <div class="chips"><span class="chip" data-q="needsWork" data-v="Info accuracy">Info accuracy</span><span class="chip" data-q="needsWork" data-v="Look &amp; feel">Look &amp; feel</span><span class="chip" data-q="needsWork" data-v="Speed">Speed</span><span class="chip" data-q="needsWork" data-v="More features">More features</span><span class="chip" data-q="needsWork" data-v="Feels great">Feels great</span></div>
+          <label>Would you pay for the full version?</label>
+          <div class="chips"><span class="chip" data-q="wouldPay" data-v="Yes">Yes</span><span class="chip" data-q="wouldPay" data-v="Maybe">Maybe</span><span class="chip" data-q="wouldPay" data-v="No">No</span></div>
           <label for="f1">Top feature request #1</label>
           <input id="f1" name="f1" placeholder="The one thing you want most">
           <label for="f2">#2</label>
@@ -425,7 +436,7 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
       <div>
         <div class="foot-brand">HAULIN'&nbsp;<b>HOOVES</b></div>
         <p>One trusted app for the whole horse-event season — arenas, lodging, feed, fuel, vets and dumps that fit your rig. A founder-led prototype, built with the haulers it serves.</p>
-        <a class="btn btn-primary" href="app.html" onclick="return launchDemo(event)" style="margin-top:10px">Launch the demo →</a>
+        <a class="btn btn-primary" href="#beta" style="margin-top:10px">Request early access →</a>
       </div>
       <div class="foot-col">
         <h4>Explore</h4>
@@ -453,7 +464,15 @@ footer p{font-size:13.5px;color:#B8C6A6;margin:0 0 8px;max-width:340px}
 <script>
 function toggleMenu(){ document.getElementById('navlinks').classList.toggle('open'); }
 function closeMenu(){ document.getElementById('navlinks').classList.remove('open'); }
-function launchDemo(e){ try{ localStorage.setItem('hh_lead_done','1'); }catch(err){} return true; }
+/* quiz chips (single-select per question, tap again to clear) */
+var fbQuiz={};
+document.querySelectorAll('.chip').forEach(function(c){
+  c.addEventListener('click',function(){
+    var q=c.getAttribute('data-q'), v=c.getAttribute('data-v');
+    fbQuiz[q] = (fbQuiz[q]===v) ? '' : v;
+    document.querySelectorAll('.chip[data-q="'+q+'"]').forEach(function(x){ x.classList.toggle('on', fbQuiz[q]===x.getAttribute('data-v')); });
+  });
+});
 function hhEmailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function hhPhoneOk(v){ return !v || v.replace(/[^0-9]/g,'').length >= 10; }
 function hhSave(kind, data){
@@ -471,7 +490,7 @@ function submitLead(e){
   if(!hhPhoneOk(phone)) return hhMsg(msg,false,'Please enter a valid phone (or leave it blank).'), false;
   if(!document.getElementById('lc').checked) return hhMsg(msg,false,'Please agree to the Terms & Privacy Policy.'), false;
   hhSave('leads',{name:name,email:email,phone:phone,consentAt:new Date().toISOString()});
-  hhMsg(msg,true,"You're on the list, "+name.split(' ')[0]+"! 🤠 We'll be in touch — go ahead and launch the demo.");
+  hhMsg(msg,true,"You're on the list, "+name.split(' ')[0]+"! 🤠 We'll email you when your access invite is ready.");
   f.reset();
   return false;
 }
@@ -487,12 +506,14 @@ function submitFb(e){
   var f=e.target, msgEl=document.getElementById('fbMsg');
   var features=[f.f1.value,f.f2.value,f.f3.value].map(function(s){return s.trim();}).filter(Boolean);
   var message=f.message.value.trim(), email=f.email.value.trim();
-  if(!fbRating && !features.length && !message){ return hhMsg(msgEl,false,'Add a rating, a request, or a note first.'), false; }
+  var q=fbQuiz, anyQuiz=!!(q.wouldUse||q.mostUseful||q.needsWork||q.wouldPay);
+  if(!fbRating && !anyQuiz && !features.length && !message){ return hhMsg(msgEl,false,'Tap an answer, add a request, or leave a note first.'), false; }
   if(email && !hhEmailOk(email)){ return hhMsg(msgEl,false,'That email looks off — fix it or leave it blank.'), false; }
-  hhSave('feedback',{rating:fbRating,features:features,message:message,email:email,at:new Date().toISOString()});
+  hhSave('feedback',{rating:fbRating,wouldUse:q.wouldUse||'',mostUseful:q.mostUseful||'',needsWork:q.needsWork||'',wouldPay:q.wouldPay||'',features:features,message:message,email:email,at:new Date().toISOString()});
   hhMsg(msgEl,true,'Much obliged! 🤠 Your notes go straight into the roadmap.');
-  f.reset(); fbRating=0;
+  f.reset(); fbRating=0; fbQuiz={};
   document.querySelectorAll('#fbStars .star').forEach(function(x){ x.style.color='rgba(74,48,22,.22)'; });
+  document.querySelectorAll('.chip.on').forEach(function(x){ x.classList.remove('on'); });
   return false;
 }
 </script>

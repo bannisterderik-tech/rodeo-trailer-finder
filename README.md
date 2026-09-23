@@ -7,7 +7,7 @@ Imported from a [Claude Design](https://claude.ai/design) project and hosted on 
 ## Pages
 
 - **`index.html`** — the desktop **landing page**: the vision, the features, founder Kimberly Karlovich, the sample-data disclaimer, and beta lead-capture + feedback forms.
-- **`app.html`** — the mobile-first **demo app** (the interactive prototype; "Launch the demo" from the landing opens it).
+- **`app.html`** — a "private beta" notice that points back to the access-request form. The interactive demo is **not public**: it lives on the `demo` branch (not served by GitHub Pages) so it can be shown privately or restored later.
 - **`privacy.html` · `terms.html` · `do-not-sell.html`** — legal template pages.
 
 ## Artwork
@@ -40,4 +40,4 @@ Any static server works:
 python3 -m http.server 8000
 ```
 
-Then open http://localhost:8000. The `.image-slots.state.json` sidecar supplies the venue photos, so serve the whole directory (opening `index.html` via `file://` won't load them).
+Then open http://localhost:8000.
